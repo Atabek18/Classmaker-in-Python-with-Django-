@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'testingsystem/css/style.css' %}">
+    <title>Testing System - Home1</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            box-shadow: 0px 9px 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .description {
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 10px 10px 10px rgba(0, 1, 1, 0.1);
+            margin-top: 1rem;
+        }
+
+        .form-label {
+            display: flex;
+            margin-top: 40px;
+            margin-left: 100px;
+        }
+
+        .form-test {
+            width: 40%;
+            padding: 8px;
+            border: 0.5px solid #ccc;
+            border-radius: 5px;
+            margin-top: 0px;
+            margin-left: 100px;
+            box-shadow: 0px 5px 10px rgba(0, 1, 1, 0.1);
+        }
+
+
+        button {
+            position: relative;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .test-type {
+            display: none;
+        }
+
+        .test-type.active {
+            display: block;
+        }
+
+        .form-test:focus {
+            border: 1px solid #979797;
+            /* Change this to your desired border color */
+            outline: none;
+            /* Remove the default focus outline */
+            background-color: #ffffff;
+        }
+
+        .submit-form #create-test {
+            position: relative;
+            padding: 7px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            left: 23%;
+
+        }
+
+        .submit-form #create-test:hover {
+            background-color: #0509ff;
+            color: #fff;
+        }
+
+        .submit-form {
+            margin: 10px;
+        }
+
+        #test-form {
+            position: relative;
+            left: 23%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Testing System</h1>
+    </header>
+
+    <div class="container">
+        <div class="description">
+            <h2>Welcome to Our Testing System</h2>
+            <p>This is a platform designed to help you assess and evaluate your knowledge and skills. Whether you're a
+                student preparing for exams or a professional looking to enhance your expertise, our testing system
+                provides a range of assessments to meet your needs.</p>
+            <p>Explore our various testing categories and take advantage of our user-friendly interface to track your
+                progress and achieve your goals.</p>
+        </div>
+
+        <div class="build-test">
+            <form method="POST" action="{% url 'TestingSystem:home' %}" id="test-form">
+                {% csrf_token %}
+                <div class="form-error">{{ form.non_field_errors }}</div>
+                {% for f in form %}
+                <div class="form-field">
+                    <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>
+                    {{ f }}
+                    <div class="form-error">{{ f.errors }}</div>
+                </div>
+                {% endfor %}
+                <div class="submit-form">
+                    <button type="submit" id="create-test">Create Test</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("create-test").addEventListener("click", function () {
+            setTimeout(function () {
+                window.close();
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
+

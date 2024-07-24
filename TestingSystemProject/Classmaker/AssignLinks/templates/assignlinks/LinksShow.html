@@ -1,0 +1,621 @@
+{% extends "testingsystem/Main_Page.html" %}
+
+{% load bootstrap4 %}
+{% load static %}
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
+{% block content %}
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'assignlinks/css/style.css' %}">
+
+<style>
+  .assign-name p {
+    padding-bottom: 50px;
+    width: 650px;
+
+  }
+
+  .assign-name-input {
+    background-color: #d9dcdf;
+    width: 650px;
+  }
+
+  .assign-name input:focus {
+    border: 1px solid #65696e;
+    /* Change this to your desired border color */
+    outline: none;
+    /* Remove the default focus outline */
+    background-color: #f0f0f0;
+  }
+
+  .field-group .limit-class {
+    margin-left: 100px;
+    margin-bottom: 0px;
+  }
+
+  .field-group .limit-class:focus {
+    border: 1px solid #65696e;
+    outline: none;
+    background-color: #f0f0f0;
+  }
+
+  .field-group .restrict-class {
+    margin-left: 100px;
+    margin-bottom: 0px;
+  }
+
+  .field-group .restrict-class:focus {
+    border: 1px solid #65696e;
+    outline: none;
+    background-color: #f0f0f0;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .available {
+    padding-right: 120px;
+    padding-left: 300px;
+  }
+
+  .display select:focus {
+    border: 1px solid #65696e;
+    outline: none;
+    background-color: #f0f0f0;
+  }
+
+  .display option:checked {
+    background-color: #ff0000;
+    /* Change this to your desired background color */
+    color: #fff;
+    /* Change this to your desired text color */
+  }
+
+  .display {
+    padding-left: 100px;
+  }
+
+  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    input[type="checkbox"] {
+      --active: #1851ec;
+      --active-inner: #fff;
+      --focus: 1px rgba(39, 94, 254, 0.3);
+      --border: #bbc1e1;
+      --border-hover: #275efe;
+      --background: #fff;
+      --disabled: #f6f8ff;
+      --disabled-inner: #e1e6f9;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      height: 21px;
+      outline: none;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      margin: 0;
+      cursor: pointer;
+      border: 1px solid var(--bc, var(--border));
+      background: var(--b, var(--background));
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+
+      &:after {
+        content: "";
+        display: block;
+        left: 0;
+        top: 0;
+        position: relative;
+        transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+          opacity var(--d-o, 0.2s);
+      }
+
+      &:checked {
+        --b: var(--active);
+        --bc: var(--active);
+        --d-o: 0.3s;
+        --d-t: 0.6s;
+        --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+      }
+
+      &:disabled {
+        --b: var(--disabled);
+        cursor: not-allowed;
+        opacity: 0.9;
+
+        &:checked {
+          --b: var(--disabled-inner);
+          --bc: var(--border);
+        }
+
+        &+label {
+          cursor: not-allowed;
+        }
+      }
+
+      &:hover {
+        &:not(:checked) {
+          &:not(:disabled) {
+            --bc: var(--border-hover);
+          }
+        }
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 var(--focus);
+      }
+
+      &:not(.switch) {
+        width: 21px;
+
+        &:after {
+          opacity: var(--o, 0);
+        }
+
+        &:checked {
+          --o: 1;
+        }
+      }
+
+      &+label {
+        font-size: 14px;
+        line-height: 21px;
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        margin-left: 4px;
+      }
+    }
+
+    input[type="checkbox"] {
+      &:not(.switch) {
+        border-radius: 30px;
+
+        &:after {
+          width: 6px;
+          height: 9px;
+          border: 1px solid var(--active-inner);
+          border-top: 0;
+          border-left: 0;
+          left: 6px;
+          top: 4px;
+          transform: rotate(var(--r, 20deg));
+        }
+
+        &:checked {
+          --r: 43deg;
+        }
+      }
+
+      &.switch {
+        width: 38px;
+        border-radius: 11px;
+
+        &:after {
+          left: 2px;
+          top: 2px;
+          border-radius: 50%;
+          width: 15px;
+          height: 15px;
+          background: var(--ab, var(--border));
+          transform: translateX(var(--x, 0));
+        }
+
+        &:checked {
+          --ab: var(--active-inner);
+          --x: 17px;
+        }
+
+        &:disabled {
+          &:not(:checked) {
+            &:after {
+              opacity: 0.6;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .django-ckeditor-widget {
+    left: 23px;
+  }
+
+  .pass-mark-stp {
+    position: relative;
+    left: 100px;
+  }
+
+  .pass-mark-stp:focus {
+    border: 1px solid #65696e;
+    outline: none;
+    background-color: #f0f0f0;
+  }
+
+  .email_send {
+    padding-left: 100px;
+  }
+
+  .email_send .creator-email:focus {
+    border: 1px solid #65696e;
+    outline: none;
+    background-color: #f0f0f0;
+  }
+
+  .settings-box label {
+    padding-right: 20px;
+  }
+
+  .settings-box p {
+    margin-bottom: 8px;
+  }
+
+  .container {
+    margin-top: 300px;
+  }
+</style>
+<style>
+  .stepbars {
+    display: block;
+    font-size: 14px;
+    position: relative;
+    text-decoration: none !important;
+    width: auto;
+    height: 24px;
+    margin-bottom: 32px
+  }
+
+  .stepbars li {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    height: inherit;
+    padding-left: 21px;
+    position: relative;
+    width: 40%
+  }
+
+  .stepbars li:first-of-type {
+    padding-left: 0
+  }
+
+  .stepbars li:last-of-type {
+    width: 15%
+  }
+
+  .stepbars li a {
+    color: #6a7680
+  }
+
+  .stepbars li a:hover {
+    text-decoration: none
+  }
+
+  .stepbars .step-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background: #6a7680;
+    color: #fff;
+    margin-right: 12px
+  }
+
+  .stepbars .step-circle .step-number {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit
+  }
+
+  .stepbars .step-divider {
+    position: relative;
+    margin-left: 20px;
+    border-top: 2px solid #6a7680;
+    width: auto;
+    display: inline-flex;
+    flex-grow: 1
+  }
+
+  .stepbars .current .step-circle {
+    background: #fb3311
+  }
+
+  .stepbars .current a,
+  .stepbars .current .step-text {
+    color: #fb3311
+  }
+
+  .nav-bar {
+    margin-top: 5%;
+    margin-bottom: 10%;
+  }
+
+  #time-icon {
+    position: relative;
+    top: 9px;
+  }
+
+  #time-limit {
+    position: relative;
+    left: 4.5%;
+    bottom: 8px;
+  }
+
+  #look-icon {
+    position: relative;
+    top: 9px;
+  }
+
+  #look {
+    position: relative;
+    left: 4.5%;
+    bottom: 8px;
+  }
+
+  #Availa-icon {
+    position: relative;
+    top: 9px;
+  }
+
+  #Availa {
+    position: relative;
+    left: 4.5%;
+    bottom: 9px;
+  }
+
+  #test-questin-icon {
+    position: relative;
+    top: 9px;
+  }
+
+  #test-questin {
+    position: relative;
+    left: 4.5%;
+    bottom: 11px;
+  }
+
+  #test-comp-icon {
+    position: relative;
+    top: 9px;
+  }
+
+  #test-comp {
+    position: relative;
+    left: 4.5%;
+    bottom: 9px;
+  }
+
+  #emil-icon {
+    position: relative;
+
+    top: 9px;
+
+  }
+
+  #emil-results {
+    position: relative;
+    left: 4.5%;
+    bottom: 10.3px;
+
+  }
+</style>
+
+<form action="" method="post" style="width: 50%;
+  position: relative;
+  left: 30%; margin-top: 5%;width: 650px;"> {% csrf_token %}
+  <nav class="nav-bar">
+    <ul class="steps stepbars stepsbars2">
+      <li class="step-1 ">
+        <icon class="icon step-circle"><span class="step-number">1</span></icon>
+        <a class="step-text" href="/a/assign/tests/">Select Test</a>
+        <span class="step-divider"></span>
+      </li>
+      <li class="step-2  current">
+        <icon class="icon step-circle"><span class="step-number">2</span></icon>
+        <span class="step-text">Settings</span>
+        <span class="step-divider"></span>
+      </li>
+      <li class="step-3 last">
+        <icon class="icon step-circle"><span class="step-number">3</span></icon>
+        <span class="step-text">Review</span>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="assign-name">
+    {{ assign_link_form.as_p }}
+  </div>
+
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-availability closed"> <img id="Availa-icon" width="25"
+        height="25"
+        src="https://img.icons8.com/external-ios-line-2px-amoghdesign/30/external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign.png"
+        alt="external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign" />
+      <div>
+        <h3 id="Availa" class="form-field-title">Availability</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group available">
+        {% bootstrap_form form %}
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-attempts closed">
+      <img id="Availa-icon" width="25" height="25"
+        src="https://img.icons8.com/external-ios-line-2px-amoghdesign/30/external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign.png"
+        alt="external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign" />
+      <div>
+        <h3 id="Availa" class="form-field-title">Attempts</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group attempts">
+        {{ attempts_form.as_p }}
+      </div>
+    </div>
+  </div>
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_TL setting-restrict closed"><img id="look-icon" width="25" height="25"
+        src="https://img.icons8.com/ios/50/lock--v1.png" alt="lock--v1" />
+      <div>
+        <h3 id="look" class="form-field-title">Restriction</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group restrict">
+        {{ restrictions_form.as_p }}
+      </div>
+    </div>
+  </div>
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-print_copy_paste_translate closed">
+      <img id="Availa-icon" width="25" height="25"
+        src="https://img.icons8.com/external-ios-line-2px-amoghdesign/30/external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign.png"
+        alt="external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign" />
+      <div>
+        <h3 id="Availa" class="form-field-title">Print / copy / paste / translate</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group print_copy_paste_translate">
+        {{ print_copy_paste_translatef_form.as_p }}
+      </div>
+    </div>
+  </div>
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-availability closed"> <img id="test-questin-icon"
+        width="25" height="25" src="https://img.icons8.com/pastel-glyph/64/shuffle--v1.png" alt="shuffle--v1" />
+      <div>
+        <h3 id="test-questin" class="form-field-title">Test Questions</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group display">
+        {{ display_each_question_form.as_p }} 
+      </div>
+    </div>
+  </div>
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-instructions closed">
+      <img id="Availa-icon" width="25" height="25"
+        src="https://img.icons8.com/external-ios-line-2px-amoghdesign/30/external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign.png"
+        alt="external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign" />
+      <div>
+        <h3 id="Availa" class="form-field-title">Instructions</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group instructions">
+        {{ instruction_form.as_p }}
+      </div>  
+    </div>
+  </div>
+  <div class="settings-box">
+
+    <div class="accordion-toggle scroll_TL setting-time-limit closed"><img id="time-icon" width="25" height="25"
+        src="https://img.icons8.com/ios/50/time--v1.png" alt="time--v1" />
+      <div>
+        <h3 id="time-limit" class="form-field-title">Time Limit</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group limit">
+        {{ limit_time_form.as_p }}
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-results-page closed"><img id="test-comp-icon" width="25"
+        height="25" src="https://img.icons8.com/ios/50/pass.png" alt="pass" />
+      <div>
+        <h3 id="test-comp" class="form-field-title">Results Page</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group results_page">
+        {{ results_page_form.as_p }}
+      </div>
+    </div>
+  </div>
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_TL setting-pass_mark_and_feedback closed"><img id="time-icon" width="25" height="25"
+        src="https://img.icons8.com/ios/50/time--v1.png" alt="time--v1" />
+      <div>
+        <h3 id="time-limit" class="form-field-title">Pass Mark & Feedback</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group pass_mark_and_feedback">
+        {{ pass_mark_and_feedback_form.as_p }}
+        {{ pass_mark_and_feedback_form.media }}
+      </div>
+    </div>
+  </div>
+  <div class="settings-box">
+    <div class="accordion-toggle scroll_Availability setting-availability closed"><img id="emil-icon" width="23"
+        height="23" src="https://img.icons8.com/ios/50/new-post--v1.png" alt="new-post--v1" />
+      <div>
+        <h3 id="emil-results" class="form-field-title">Email Results</h3>
+        <div class="caret">&nbsp;</div>
+      </div>
+    </div>
+    <div class="accordion-fold" style="display: none;">
+      <div class="field-group email_send">
+        {{ email_results_intructor_form.as_p }}
+        {{ taker_email_send_form.as_p }}
+      </div>
+    </div>
+  </div>
+  <div class="btn-submit">
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {% endbuttons %}
+  </div>
+</form>
+<script>
+  // Get references to all accordion elements
+  const accordionElements = document.querySelectorAll('.settings-box');
+
+  // Loop through each accordion element
+  accordionElements.forEach((accordionElement) => {
+    const accordionToggle = accordionElement.querySelector('.accordion-toggle');
+    const accordionFold = accordionElement.querySelector('.accordion-fold');
+
+    // Add a click event listener to the accordion toggle
+    accordionToggle.addEventListener('click', () => {
+      // Toggle the display style of the accordion fold
+      if (accordionFold.style.display === 'none' || accordionFold.style.display === '') {
+        accordionFold.style.display = 'block';
+      } else {
+        accordionFold.style.display = 'none';
+      }
+    });
+  });
+
+</script>
+{% endblock %}

@@ -1,0 +1,426 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    #content {
+        background: none repeat scroll 0 0 #f6f6f8;
+        padding: 30px 0;
+        min-width: 940px;
+    }
+    .clearfix:before, .clearfix:after, .row:before, .row:after {
+        content: "";
+        display: table;
+    }
+    #content .innerWrapper, .branding, .menu.main, #footer {
+        margin: 0 auto;
+        max-width: 1000px;
+        min-width: 900px;
+        padding: 0 20px;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .result-overlay .result-overlay-content, .innerWrapper, #print-content, #single-result-content, .group-result {
+        width: 100%;
+        padding-top: 22px;
+        box-sizing: border-box;
+    }
+    .result-overlay .result-overlay-content, .innerWrapper, #print-content, #single-result-content, .group-result {
+        width: 100%;
+        padding-top: 22px;
+        box-sizing: border-box;
+    }
+    .col-span-10 {
+        width: 100%!important;
+    }
+    .col-span-05, .col-span-1, .col-span-15, .col-span-2, .col-span-25, .col-span-3, .col-span-35, .col-span-4, .col-span-45, .col-span-5, .col-span-55, .col-span-6, .col-span-65, .col-span-7, .col-span-75, .col-span-8, .col-span-85, .col-span-9, .col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .breadcrumb3 {
+        font-size: 13px;
+        color: #6a7680;
+        font-weight: 400;
+        margin-bottom: 0;
+    }
+
+    p {
+        margin-bottom: 1em;
+    }
+    .clearheight20 {
+        clear: both;
+        height: 20px;
+        width: auto;
+    }
+    .name-big {
+        display: block;
+        line-height: 1;
+        min-height: 2px;
+        margin-bottom: 3px;
+        padding: 0 36px;
+        color: #000;
+    }
+
+    .stat-name-big {
+        background-position: 3px -4996px;
+        margin-bottom: 43px!important;
+    }
+    .table {
+        border-radius: 8px;
+        clear: both;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,40,77,.2);
+        background: #fff;
+    }
+    .tooltip {
+        background-position: 0 -3550px;
+        color: #000;
+        cursor: help;
+        display: inline-block;
+        outline: medium;
+        position: relative;
+        text-decoration: none;
+        text-indent: -999em;
+        width: 20px;
+        height: 20px;
+        margin-left: 8px;
+    }
+    .table.narrow-row .row {
+        height: 28px;
+        align-items: center;
+    }
+
+    .table .table-utility {
+        background: none repeat scroll 0 0 transparent;
+        padding: 16px 24px;
+        height: auto!important;
+        min-height: 30px;
+        clear: both;
+    }
+    .table .row {
+        border-bottom: 1px solid #dce1e5;
+        position: relative;
+        clear: both;
+        min-height: 65px;
+        margin: 0;
+        padding: 18px 24px;
+        display: flex;
+        align-items: baseline;
+        flex-direction: row;
+    }
+    .row {
+        display: flex;
+        align-items: baseline;
+    }
+    .table select {
+        background-color: #fff;
+    }
+    select.year-selector {
+        width: 88px;
+    }
+    select {
+        border: 1px solid #dce1e5;
+        border-radius: 4px;
+        color: #000;
+        height: 32px;
+        line-height: initial!important;
+        padding-left: 12px;
+        padding-right: 32px;
+        min-width: 70px;
+        background-color: #fff;
+        display: inline-block;
+        font-family: inherit;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url(../../img4/icons/caret.svg);
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 50%;
+    }
+    #period-select-area {
+        vertical-align: top;
+    }
+    .col-span-05, .col-span-1, .col-span-15, .col-span-2, .col-span-25, .col-span-3, .col-span-35, .col-span-4, .col-span-45, .col-span-5, .col-span-55, .col-span-6, .col-span-65, .col-span-7, .col-span-75, .col-span-8, .col-span-85, .col-span-9, .col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .col-span-35 {
+        width: 35%!important;
+    }
+    .col-span-2 {
+        width: 20%;
+    }
+    
+    .col-span-1 {
+        width: 10%;
+    }
+    .col-span-15 {
+        width: 15%;
+    }
+    .table .hover-row {
+        background-color: #fff;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    .table .table-body {
+        margin-bottom: 36px;
+    }
+    ul {
+        line-height: 20px;
+    }
+    ol, ul {
+        list-style: none outside none;
+    }
+    .table .graph {
+        display: flex;
+        align-items: center;
+    }
+    .table .table-body li.row:last-of-type, .table .table-body li:last-of-type>.row {
+        border-bottom: none;
+    }
+    .table .table-body .hover-row-each:hover {
+        box-shadow: 0px 1px 15px 0px rgba(75, 72, 72, 0.3);
+        transition: 0.5s;
+        border-radius: 15px;
+        background: #f6f6f8;
+    }
+    .table .table-body .hover-row-each{
+        transition: 1s;
+    }
+
+    .table.narrow-row .row {
+        height: 28px;
+        align-items: center;
+    }
+    .table .table-utility .column-title {
+        font-weight: 600;
+        color: #6a7680;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+    }
+    .sort-trigger {
+        color: #6a7680;
+        font-size: 12px;
+        text-decoration: none;
+        float: left;
+    }
+    a {
+        color: #fb3311;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .sort-trigger+.ui-icon-triangle-2-n-s {
+        background-position: -129px -17px!important;
+        float: left;
+        top: 3px;
+    }
+
+    .ui-icon-triangle-2-n-s {
+        background-position: -128px -16px;
+    }
+    .ui-icon, .ui-widget-content .ui-icon {
+        background-image: url(https://www.classmarker.com/js3/css/smoothness/images/ui-icons_222222_256x240.png);
+    }
+    .ui-icon {
+        width: 16px;
+        height: 16px;
+    }
+    .ui-icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -0.25em;
+        position: relative;
+        text-indent: -99999px;
+        overflow: hidden;
+        background-repeat: no-repeat;
+    }
+    .name-wrapper.link-name-wrapper {
+        position: relative;
+    }
+    .name-wrapper {
+        display: flex!important;
+        align-items: center!important;
+        width: 100%;
+    }
+    .table .row .name {
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+
+    .name-wrapper .name {
+        position: relative;
+        width: 32px;
+        height: 30px;
+        margin-right: 6px;
+        padding: 0;
+        display: inline-flex;
+    }
+    .name {
+        display: block;
+        font-size: 14px;
+        line-height: 32px;
+        min-height: 2px;
+        margin-bottom: 30px;
+        padding: 0 40px;
+    }
+    .test-name {
+        background-position: -1px 1px;
+    }
+    .name-wrapper .name+.text {
+        cursor: initial;
+    }
+
+    .name-wrapper .name+.text {
+        cursor: default;
+    }
+    .name-wrapper .name+a, .name-wrapper .name+.text {
+        text-decoration: none;
+        color: inherit;
+        line-height: 16px;
+        max-width: calc(100% - 70px);
+        cursor: pointer;
+        max-height: 50px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .font-strong {
+        font-weight: 600;
+    }
+    .graylink {
+        color: #444;
+    }
+    .table .graph .value {
+        display: block;
+        float: left;
+        padding-right: 4px;
+        text-align: right;
+        width: 50px;
+    }
+    body h2 {
+        font-size: 23px;
+    }
+
+    h1, h2, h3, h4, h5 {
+        clear: both;
+        font-weight: 600;
+        line-height: 1.4em;
+        margin-bottom: 0.3em;
+    }
+    </style>
+<div id="content" class="clearfix">
+    <div class="innerWrapper">
+        <div class="col-span-10">
+            <p class="breadcrumb3"><a href="{% url 'TestingSystem:statshome' %}"
+                    class="first"><span>Statistics</span></a><span>By {{responce}}</span></p>
+        </div>
+        <div class="clearheight20"></div>
+        <div class="clearheight20"></div>
+        <h2 class="stat-name-big name-big no-hor-pad">Test averages from all saved results <span
+                class="showTooltipHTML tooltip"
+                title="Average Percentage and Score values are calculated from completed Tests: Total Points Scored divided by Total Points Available, rounded to one decimal point.<br/><br/>Statistics are cached and recalculated within 3 hours.">Tip</span>
+        </h2>
+        <div class="table narrow-row">
+            <div class="table-utility row">
+                <div id="stats-filter-menu-area">
+                    <span id="period-select-area">
+                    Period&nbsp;&nbsp;<select id="results_year" class="year-selector">
+                            <option value="2023" selected="selected">2023</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="table-utility row above">
+                <div class="col-span-35">
+                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{sort_orders.order}}"
+                            data-sort-by="{{responce}}_name">{{ responce }} Name</a> <span
+                            class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                </div>
+                <div class="col-span-2">
+                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{sort_orders.order}}"
+                            data-sort-by="avarege_percentage">Avg Percentage</a> <span
+                            class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                </div>  
+                <div class="col-span-1">
+                    <span class="column-title">Avg Score</span>
+                </div>
+                <div class="col-span-15">
+                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{sort_orders.order}}"
+                            data-sort-by="mean_duration">Avg Duration</a> <span
+                            class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                </div>
+                <div class="col-span-1">
+                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{sort_orders.order}}"
+                            data-sort-by="users">Users</a> <span
+                            class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                </div>
+                <div class="col-span-1">
+                    &nbsp;
+                </div>
+            </div>
+            <ul id="stats-results" class="table-body sort-data-set hover-row">
+                <ul class="table-body sort-data-set hover-row">
+                    {% for key, statistic in statistics.items %}
+                        <li  class="hover-row-each" data-percentage="0" data-name="AFASFSFSD" data-duration="0" data-attempts="0">
+                            <div class="sbcid0 row">
+                                <div class="col-span-35">
+                                    <div class="name-wrapper link-name-wrapper">
+                                        <p class="test-name name"></p>
+                                        <span class="graylink text font-strong">{{ key.title }}{{ key.assign_name }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-span-2 graph">
+                                    <span class="value">{{ statistic.avarege_percentage }}</span>
+                                </div>
+                                <div class="col-span-1">
+                                    <span class="value">{{ statistic.avarege_score }}</span>
+                                </div>
+                                <div class="col-span-15">
+                                    <span class="value">{{ statistic.mean_duration }}</span>
+                                </div>
+                                <div class="col-span-1">
+                                    <span class="value">{{ statistic.users }}</span>
+                                </div>
+                                <div class="col-span-1">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </ul>
+        </div>
+    </div><!-- innerWrapper -->
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sortTriggers = document.querySelectorAll(".sort-trigger");
+        sortTriggers.forEach(trigger => {
+            trigger.addEventListener("click", function(event) {
+                const currentSort = trigger.getAttribute("data-sort");
+                const newSort = currentSort === "asc" ? "desc" : "asc";
+                trigger.setAttribute("data-sort", newSort);
+                const column = trigger.getAttribute("data-sort-by");
+                const params = new URLSearchParams();
+                params.set(column, newSort);
+                window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+            });
+        });
+    });
+</script>
+{% endblock %}

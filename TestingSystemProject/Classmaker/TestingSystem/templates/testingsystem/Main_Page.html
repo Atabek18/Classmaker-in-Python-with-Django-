@@ -1,0 +1,166 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'testingsystem/css/Main_Page.css' %}">
+</head>
+<style>
+       @media (max-width: 768px) {
+            .nav-list li {
+                display: block;
+                padding: 10px 0;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .more-icon {
+                display: none;
+            }
+        
+
+       .header{
+        width: 111%;
+       }
+        .navigation {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            display: none;
+            flex-direction: column;
+            
+        }
+    }
+    .c{
+        position: relative;
+    }
+    body {
+        font-size: 14px;
+    }
+    body {
+        background: none repeat scroll 0 0 #f6f6f8;
+        color: #000;
+        font-family: Inter, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+        line-height: 1;
+    }
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline;
+    }
+</style>
+<body>
+    <div class="header">
+        <div class="nav-header">
+            <div>
+                <input type="checkbox" id="toggleActive" name="menu"/>
+                <div class="navigation">
+                    <div class="userBox">
+                        <div class="imgBox">
+                            <img width="24" height="24" src="{% if user_profile.uploaded_image %}{{ user_profile.uploaded_image.url }}{% else %}{% static 'testingsystem/img/icons8-user-100.png' %}{% endif %}" alt="external-account-essential-ui-v4-creatype-outline-colourcreatype"/>
+                        </div>
+                        <p class="username">{{ user_profile.username }}</p>
+                    </div>
+                    <label class="menuToggle" for="toggleActive"></label>
+                    <ul class="menu">
+                        <li>
+                            <a href="#">
+                                <ion-icon name="person-outline"></ion-icon> My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="chatbubble-outline"></ion-icon> Messages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="notifications-outline"></ion-icon> Notification
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'TestingSystem:profile-edit' %}">
+                                <ion-icon name="settings-outline"></ion-icon> Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="help-outline"></ion-icon> Help & Support
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'Login:logout' %}">
+                                <ion-icon name="log-out-outline"></ion-icon> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <img
+                    src=""
+                    alt=""
+                    height="4px"
+                    class="logo"
+                />
+            </div>
+
+            <div class="nav-list">
+                <li>
+                    <a href="{% url 'TestingSystem:dashboard' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'TestingSystem:tests' %}">Test</a>
+                </li>
+                <li>
+                    <a href="{% url 'TestingSystem:links-views' %}">Links</a>
+                </li>
+                <li>
+                    <a href="{% url 'TestingSystem:statshome' %}">Statistics</a>
+                </li>
+
+                <span class="more-icon">
+                    <img
+                        src=""
+                        alt=""/>
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="test-extends">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    {% bootstrap_javascript jquery='full' %}
+    {% block extra_js %}{% endblock %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const toggleActive = document.getElementById("toggleActive");
+        const navigation = document.querySelector(".navigation");
+        const menuToggle = document.querySelector(".menuToggle");
+
+        toggleActive.addEventListener("change", function () {
+            if (this.checked) {
+                navigation.classList.add("active");
+            } else {
+                navigation.classList.remove("active");
+            }
+        });
+    })
+    </script>
+</body>
+</html>

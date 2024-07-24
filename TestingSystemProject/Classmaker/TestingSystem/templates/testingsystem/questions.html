@@ -1,0 +1,440 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'testingsystem/css/question.css' %}">
+    
+    <style>
+        .link-button {
+            background: none;
+            border: none;
+            color: red;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0;
+            font: inherit;
+        }
+
+        .link-button:hover {
+            text-decoration: underline;
+        }
+        .webpage2 {
+            background-color: rgb(204, 204, 204);
+            padding: 20px;
+            border: 1px solid #727272;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            display: none;
+            width: 500px;
+            height: 116px;
+            left: 650px;
+        }
+        .webpage2:hover{
+            background-color: rgb(255, 255, 255);
+            border: none;
+            box-shadow: inset 0px 0px 2px 2px black
+        }
+        #cancel-delete{
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin: 20px;
+            background: #16b516;
+            cursor: pointer;
+        }
+        #cancel-delete:hover{
+            background: #15d115;
+        }
+        #delete-test{
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin: 20px;
+            background: #fb3311;
+            cursor: pointer;
+        }
+        #delete-test:hover{
+            background: #ff4828;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="content" class="clearfix">
+        <form method="POST" action="{% url 'TestingSystem:questions' test_id=test_id test_description=slug %}"
+            class="delete-form">
+            {% csrf_token %}
+            <div class="webpage2" id="secondWebpage">
+                <h1 id="deleted-test-name" style="font-size: revert;">
+                    {{test_name}}
+                </h1>
+                <button type="submit" id="cancel-delete" class="secondbutton">Cancel</button>
+                <button type="submit" value="{{ test_id }}" id="delete-test" name="test_id" class="delete-button">Delete</button>
+            </div>
+        </form>
+        <div class="innerWrapper" id="innerWrapper_id">
+
+            <div class="clearfix">
+                <div id="wrapEdit_tn">
+                    <form class="genericForm" id="dosubmit_testname" method="post">
+                        <div class="misc_cat hide">
+                            <div class="field-group">
+                                <label class="form-field-title" for="editText_tn">Test Name:</label> <input size="40"
+                                    type="text" id="editText_tn" class="hide" name="test_name" maxlength="255"
+                                    value="{{ test_name }}">
+                            </div>
+                        </div>
+
+                        <div id="editLink_tn">
+                            <h2 id="showText_tn"
+                                class="bbcodeInWrapper test-name-big name-big edit-name show-edit-symbol">
+                                {{ test_name }}<span class="edit-symbol"></span></h2>
+                        </div>
+
+                        <div class="misc_testname tab hide"><br>
+                            <a href="#" class="ie_btn ajaxSubmitBtn hide btn btn-create notextchange"
+                                id="submit_testname">Update</a>
+                            <a class="ie_btn ajaxCancelBtn hide btn btn-cancel notextchange">Cancel</a>
+                            <div class="clearheight60"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="clearheight5"></div>
+
+
+
+            <div class="menu-options">
+
+                <a id="toggroup_01_duplicate" class="toggle-active" href="#"><i class="fa fa-files-o"
+                        aria-hidden="true"></i> Duplicate</a>
+                <a id="toggroup_01_deletetest" class="toggle-active" href="#"><i class="fa fa-trash"
+                        aria-hidden="true"></i>
+                    Delete</a>
+
+                <a href="{% url 'Assign:showed-assign' test_id=test_id test_description=slug  %}"
+                    class="right assign-test-big"><i class="fa fa-share fa-flip-vertical" aria-hidden="true"></i> Assign
+                    Test</a><a href="{% url 'UserResponse:preview' test_id=test_id %}"
+                    class="right preview-test-big"><i class="fa fa-play" aria-hidden="true"></i> Preview Test</a>
+            </div>
+
+            <div class="clearheight30"></div>
+
+            <div class="editor table noborder" id="scrollToShowCount">
+                <div class="col-span-3">
+                    <p class="explain right">
+                        <strong>Question Bank:</strong> <span id="question_bank_count">8</span> Questions <span
+                            class="showTooltipUnder tooltip"
+                            title="All Questions you add to your account are stored in your Questions Bank. Your Tests simply reference those Questions. You can also reuse Questions across multiple Tests.">&nbsp;</span>
+                    </p>
+                </div>
+            </div>
+            <div class="clearheight5"></div>
+
+            <ul class="cmtableTabs">
+                <li class="tabon"><a href="#" id="togtab_01_testquestions">Test Questions</a></li>
+                <li class="taboff"><a href="#" id="togtab_01_testassignments"><strong>{{assign_items|length}}</strong> Test Assignments</a>
+                </li>
+            </ul>
+
+            <div class="table">
+                <form method="get" action="{% url 'TestingSystem:questions' test_id=test_id test_description=slug %}">
+                    {% csrf_token %}
+                    <div id="dotogtab_01_testquestions" style="display: block;">
+                        <div class="table-utility row above">
+                            <div class="col-span-5">
+                                <div class="dropdown dropdown-x">
+                                    <a class="dropdown-toggle no_anchor" href="#">Select All </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="expandAnswers">Expand all answers</a></li>
+                                        <li><a href="#" class="collapseAnswers">Collapse all answers</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-span-4 col-btns">
+                                <div class="dropdown">
+                                    <a class="btn btn-analytics dropdown-toggle no_anchor"
+                                        href="{% url 'TestingSystem:create-multiple' test_id=test_id test_description=slug %}"><i
+                                            class="fa fa-plus" aria-hidden="true"></i> Add Question</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% for question in questions %}
+                        <div class="table-body question-footer-hover-trigger">
+                            <div>
+                                <div class="row test-question">
+                                    <a id="q34249576"></a>
+                                    <div class="col-span-25">
+                                        <h4 class="question-name name">Question {{ question.Q_N }}</h4>
+                                    </div>
+                                    <div class="col-span-1"><span class="caret">&nbsp;</span></div>
+
+                                    <div class="col-span-1">
+                                        <span class="right">{{ question.ranking }} pt</span>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="editor question">
+
+                                        <p>{{ question.text|safe }}</p>
+
+                                        <div class="hide" id="dotog_ans34249576" style="display: none;">
+
+                                            <div class="clearheight"></div>
+
+                                            <p><strong>Correct phrase:</strong>
+                                                <span class="tooltip showTooltip"
+                                                    title="User must correct the phrase above to exactly match the correct phrase below.">&nbsp;</span>
+                                            </p>
+                                            {% if question.qtype == 'truefalse' or question.qtype == 'multiple' or question.qtype == 'freetext' %}
+                                                {% for answer in question.answers %}
+                                                <table class="answholder">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><span class="satick"></span></td>
+                                                            {% if answer.answer %}
+                                                            {% if answer.is_correct %}
+                                                            <td>
+                                                                <img src="{% static 'testingsystem/img/correctv3.png'%}"
+                                                                    srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x"
+                                                                    width="15" height="16" alt="Correct">
+                                                            </td>
+                                                            {% else %}
+                                                            <td></td>
+                                                            {% endif %}
+                                                            <!-- <td class="answer"></td> -->
+                                                            {% elif answer.true or answer.false %}
+                                                            {% if answer.true %}
+                                                        <tr>
+                                                            <td>
+                                                                <img src="{% static 'testingsystem/img/correctv3.png'%}"
+                                                                    srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x"
+                                                                    width="15" height="16" alt="Correct">
+                                                            </td>
+                                                            <td class="answer">
+                                                                {{ answer.true }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="answer">
+                                                                {{ answer.false }}
+                                                            </td>
+                                                        </tr>
+                                                        {% elif answer.false %}
+                                                        <tr>
+                                                            <td></td>
+                                                            <td class="answer">
+                                                                {{ answer.true }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <img src="{% static 'testingsystem/img/correctv3.png'%}"
+                                                                    srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x"
+                                                                    width="15" height="16" alt="Correct">
+                                                            </td>
+                                                            <td class="answer">
+                                                                {{ answer.false }}
+                                                            </td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% else %}
+                                                            <td>
+                                                                <img src="{% static 'testingsystem/img/correctv3.png'%}"
+                                                                    srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x"
+                                                                    width="15" height="16" alt="Correct">
+                                                            </td>
+                                                            <td class="answer">{{ answer.freetext|safe }}</td>
+                                                        {% endif %}
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                {% endfor %}
+                                            {% elif question.qtype == 'matching' %}
+                                                <table class="matching_answholder">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th class="m_left"><strong>Clue</strong></th>
+                                                            <th class="m_middle"></th>
+                                                            <th class="m_right"><strong>Match</strong></th>
+                                                        </tr>
+                                                        {% for answer in question.answers %}
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <div class="dotted m_divider m_first_divider"></div>
+                                                                </td>       
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="m_left matching-imgw" data-question-type="matching">{{ answer.left_item|safe }}
+                                                                </td>
+                                                                <td class="m_middle"></td>
+                                                                <td class="m_right matching-imgw" data-question-type="matching">
+                                                                    {{ answer.right_item|safe }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="question-footer-hover">
+                                        <div class="divider-solid"></div>
+                                        <div class="col-span-7">
+                                            <div class="question-footer">
+                                                <a href="#" id="tog_ans34249576" class="open-close-toggle"><i
+                                                        class="fa fa-expand" aria-hidden="true"></i> Answers</a>
+                                                <span class="eq-links-divider"> | </span>
+                                                {% if question.qtype == 'multiple' %}
+                                                <a
+                                                    href="{% url 'TestingSystem:question_edit_multiple' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                        class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                </a>
+                                                {% elif question.qtype == 'freetext' %}
+                                                <a
+                                                    href="{% url 'TestingSystem:question_edit_freetext' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                        class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                </a>
+                                                {% elif question.qtype == 'matching' %}
+                                                    <a
+                                                    href="{% url 'TestingSystem:question_edit_matching' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                        class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                    </a>
+                                                {% else %}
+                                                <a
+                                                    href="{% url 'TestingSystem:question_edit_truefalse' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                        class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                </a>
+                                                {% endif %}
+                                                <span class="eq-links-divider"> | </span><a href="?questionIdDuplicate={{ question.qtype }}-{{ question.Q_ID }}-{{question.question_description}}"
+                                                    class="upgradeRpc"><i class="fa fa-files-o" aria-hidden="true"></i>
+                                                    Duplicate</a><span class="eq-links-divider"></span>
+                                            </div>
+                                            <div id="dsqit-34249576" class="hidden"></div>
+                                        </div>
+
+                                        <div class="col-span-3 col-btns">
+                                            <span class="right">
+                                                <span id="d34249576">
+                                                    <a href="?questionIdDelete={{ question.Q_ID }}-{{question.question_description}}"
+                                                    class="link-button"><i class="fa fa-files-o" aria-hidden="true"></i>
+                                                    Remove From Test</a>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+
+            <a id="bottom"></a>
+            <div class="clearheight60"></div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const answerLinks = document.querySelectorAll('.open-close-toggle');
+                    answerLinks.forEach(link => {
+                        link.addEventListener('click', function (event) {
+                            event.preventDefault(); 
+                            const questionRow = link.closest('.row');
+                            const answersElement = questionRow.querySelector('.hide');
+                            if (answersElement) {
+                                if (answersElement.style.display === 'none') {
+                                    answersElement.style.display = 'block';
+                                } else {
+                                    answersElement.style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                });
+
+
+                asset_image_toggle_max_width = 600; asset_image_allow_toggle = false;
+                $(document).ready(function () {
+                    $("#sortable").sortable();
+
+
+                    $('#duplicate2').click(function () {
+                        $('#duplicate3').show();
+                    });
+                    $('#duplicate1').click(function () {
+                        $('#duplicate3').hide();
+                    });
+                    $('.dselected').click(function () {
+                        $('#dselected_id').attr('checked', 'checked');
+                    });
+                });
+            </script>
+            <div class="generic-overlay">
+                <div class="generic-overlay-content"></div>
+                <div class="clearheight30"></div>
+            </div>
+            <div class="jqmWindowWide jqmID3 jqDrag jqmID1" id="qbankExportDiv"></div>
+            <script>
+                $(document).ready(function () {
+                    $('#qbankExportDiv').jqm({ ajax: '/a/tests/rpc/qbankExport.rpc.php?test_id=2117377', trigger: 'a.qbankExport' });
+                    var hash = window.location.hash.substr(2);
+                    if (hash.length > 0) {
+                        $('#dotog_ans' + hash).show();
+                    }
+                });
+            </script>
+        </div>
+        <script>
+            document.getElementById("toggroup_01_deletetest").addEventListener("click", function () {
+                var firstWebpage = document.getElementById("innerWrapper_id");
+                var secondWebpage = document.getElementById("secondWebpage");
+
+                firstWebpage.style.opacity = 0.1; // Set low opacity
+                secondWebpage.style.display = "block";
+            });
+
+            document.getElementById("secondpage").addEventListener("click", function () {
+                var firstWebpage = document.getElementById("innerWrapper_id");
+                var secondWebpage = document.getElementById("secondWebpage");
+
+                firstWebpage.style.opacity = 1; // Set low opacity
+                secondWebpage.style.display = "none";
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.querySelector('.delete-form');
+                var deleteButton = form.querySelector('.delete-button');
+
+                form.addEventListener('submit', function (event) {
+                    // Prevent the form from submitting immediately
+                    if (event.submitter === deleteButton) {
+                        event.preventDefault();
+
+                        // Create a hidden input element to hold the test_id value
+                        var hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'test_id';
+                        hiddenInput.value = deleteButton.value;
+
+                        // Append the hidden input to the form
+                        form.appendChild(hiddenInput);
+
+                        // Now submit the form
+                        form.submit();
+                    }
+                });
+            });
+        </script>
+    </div>
+</body>
+
+</html>

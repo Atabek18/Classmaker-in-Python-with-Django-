@@ -1,0 +1,23 @@
+{% extends "testingsystem/main.html" %}
+{% load static %}
+{% block content %}
+<div class="create-question">
+    <h2>{{ slug }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ question_form.media }}
+        <div class="form-error">{{ question_form.non_field_errors }}</div>
+        {% for f in question_form %}
+            <p><label for="{{ f.id_for_label }}">Question Text: </label>{{ f }}</p>
+            <div class="form-error"> {{ f.errors }} </div>
+        {% endfor %}
+        {{ option_formset.management_form }}
+        {% for option_form in option_formset %}
+            <div class="form-error">{{ option_form.non_field_errors }}</div>
+            {{ option_form.as_p }}
+            {{ option_form.media }}
+        {% endfor %}
+        <button type="submit" id="add-question">Add Question</button>
+     </form>
+</div>
+{% endblock %}

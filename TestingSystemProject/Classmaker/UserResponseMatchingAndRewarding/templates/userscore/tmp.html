@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #timer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button id="startButton">Start</button>
+    <div id="timer">Timer: <span id="timeDisplay">0</span> seconds</div>
+
+    <script>
+        let startTime;
+        let timerInterval;
+        let savedTime = localStorage.getItem('savedTime');
+        let timeLimit = 10; // Set the time limit in seconds
+
+        const startButton = document.getElementById('startButton');
+        const timer = document.getElementById('timer');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        if (savedTime) {
+            const currentTime = Math.floor((Date.now() - parseInt(savedTime)) / 1000);
+            if (currentTime >= timeLimit) {
+                redirectPage();
+            } else {
+                startButton.style.display = 'none';
+                timer.style.display = 'block';
+                startTime = parseInt(savedTime);
+                startTimer();
+            }
+        }
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            timer.style.display = 'block';
+            startTime = Date.now();
+            updateTimerDisplay();
+            startTimer();
+        });
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const currentTime = Math.floor((Date.now() - startTime) / 1000);
+                updateTimerDisplay();
+                if (currentTime >= timeLimit) {
+                    resetTimer();
+                    redirectPage();
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            startButton.style.display = 'block';
+            timer.style.display = 'none';
+            startTime = null;
+            localStorage.removeItem('savedTime');
+        }
+
+        function updateTimerDisplay() {
+            const currentTime = Math.floor((Date.now() - startTime) / 1000);
+            timeDisplay.textContent = currentTime + ' seconds';
+        }
+
+        function redirectPage() {
+            window.location.href = 'https://example.com'; // Change the URL to your desired destination
+        }
+    </script>
+</body>
+</html>

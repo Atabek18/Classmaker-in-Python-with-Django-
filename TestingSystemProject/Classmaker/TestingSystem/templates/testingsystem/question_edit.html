@@ -1,0 +1,227 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+    <style>
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+
+}
+
+.container {
+  margin: 0 auto;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    height: auto;
+    overflow: hidden;
+    display: block;
+    background-color: #ffffff;
+ }
+.container:hover{
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2), 0 6px 10px #7f95a8;
+    transition: 0.5s;
+
+}
+
+.description {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px rgba(0, 1, 1, 0.1);
+    margin-top: 1rem;
+  }
+
+.form-label {
+  display: flex;
+  margin-top: 40px;
+  margin-left: 100px;
+}
+
+.form-test {
+  width: 40%;
+  padding: 8px;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0px;
+  margin-left: 100px;
+  box-shadow: 0px 5px 10px rgba(0, 1, 1, 0.1);
+}
+
+button {
+  position: relative;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 8px;
+}
+
+
+button:hover {
+  background-color: #0056b3;
+}
+
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.test-type {
+    display: none;
+}
+
+.test-type.active {
+    display: block;
+}
+.form-test:focus{
+  border: 1px solid #979797;
+  outline: none; 
+  background-color: #ffffff;
+}
+
+#create-test {
+  position: relative;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+}
+.submit-form{
+  margin: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.left {
+    float: left; /* Align left items to the left */
+    width: 50%; /* Make each side take up half of the container */
+}
+
+.right {
+    float: right; /* Align right items to the right */
+    width: 50%;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;}
+
+#left-css{
+    top: 20px;
+    position: relative;
+    left: 15%;
+}
+#top-css{
+    position: relative;
+    left: 35%;
+}
+#right-css{
+    top: 20px;
+    position: relative;
+    left: 5%;
+}
+#add-question{
+    position: relative;
+    left: 79%;
+}
+#onecss{
+    position: relative;
+    left: 35%;
+}
+#true-false{
+    position: relative;
+    left: 35%;
+    top: 10px;
+} 
+    </style>
+    <div class="container">
+        <h1 style="text-align:center;">Test Creator</h1>
+        <div class="create-question">
+            <h2 style="text-align:center ;"></h2>
+            <form method="POST">
+              {% csrf_token %}
+              <div id="top-css" class="form-group question">
+                  {{ form.media }}
+                  <div class="form-error">{{ form.non_field_errors }}</div>
+                  {% for f in form %}
+                      <p><label for="{{ f.id_for_label }}">Question Text: </label>{{ f }}</p>
+                      <div class="form-error"> {{ f.errors }} </div>
+                  {% endfor %}
+              </div>
+                {% if question_type == 'matching' %}
+                  <div id="right-css" class="form-group right">
+                      {% for option_form in option_forms %}
+                          <div class="form-error">{{ option_form.non_field_errors }}</div>
+                          {{ option_form.left_item }}
+                          {{ option_form.media }}
+                      {% endfor %}
+                  </div>
+                  <div id="left-css" class="form-group left">
+                      {% for option_form in option_forms %}
+                          <div class="form-error">{{ option_form.non_field_errors }}</div>
+                          {{ option_form.right_item }}
+                          {{ option_form.media }}
+                      {% endfor %}
+                  </div>
+                {% else %}
+                  {% for option_form in option_forms %}
+                    <div  class="form-error">{{ option_form.non_field_errors }}</div>
+                    <div id="true-false" > {{ option_form.as_p }}</div> 
+                      {{ option_form.media }}
+                  {% endfor %}
+                {% endif %}
+                <button type="submit" id="add-question">Add Question</button>
+             </form>
+        </div>
+    </div>
+{% endblock %}

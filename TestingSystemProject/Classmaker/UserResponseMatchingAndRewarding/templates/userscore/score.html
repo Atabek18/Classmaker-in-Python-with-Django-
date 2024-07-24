@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="{% static 'userscore/css/style.css' %}"> <!-- Include your CSS file -->
+</head>
+<body>
+    <div class="container">
+        {{ score }}
+        {% for question in data %}
+        <div class="heading1">
+            <div class="table1">
+                <div class="fix-div1">
+                    <div>{{ question.question|safe }}</div>
+                </div>
+                <div class="tbody1">
+                    <div class="first1">
+                        {% if question.type == 'matching' %}
+                            {% for answer in question.answers %}
+                                {% if answer.is_selected %}
+                                    <div> <img width="32" id='img-edit' height="32" src="https://img.icons8.com/fluency/48/right.png" alt="right"/><h4 class="edit-text">{{ answer.left_item }} -> {{ answer.right_item }}</h4></div>
+                                {% else %}
+                                    <div><img width="32" id='img-edit' height="32" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/external-rejected-approved-and-rejected-tanah-basah-glyph-tanah-basah-16.png" alt="external-rejected-approved-and-rejected-tanah-basah-glyph-tanah-basah-16"/><h4 class="edit-text">{{ answer.left_item }} -> {{ answer.right_item }}</h4></div>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% for answer in question.answers %}
+                                {% for ans, type in answer.items %}
+                                    {% if type %}
+                                        <div> <img width="32" id='img-edit' height="32" src="https://img.icons8.com/fluency/48/right.png" alt="right"/><h4 class="edit-text">A)  {{ ans }}</h4></div>
+                                    {% elif type == None %}
+                                        <div><h4 class="edit-text">B) {{ ans }}</h4></div>
+                                    {% else %}
+                                        <div><img width="32" id='img-edit' height="32" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/external-rejected-approved-and-rejected-tanah-basah-glyph-tanah-basah-16.png" alt="external-rejected-approved-and-rejected-tanah-basah-glyph-tanah-basah-16"/><h4 class="edit-text">B) {{ ans }}</h4></div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="second1">
+                        <div>The correct answer is (A)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

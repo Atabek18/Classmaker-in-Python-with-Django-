@@ -1,0 +1,177 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+<style>
+.container {
+  max-width: 50%;
+  height: auto;
+  margin: 0px 0px 0px 25%;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.result-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.result-card:hover{
+    background: linear-gradient(-45deg, #ffffff, #e0f6ff, #dedcdc, #cee7f8);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    box-shadow:  -7px 6px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+  }
+.test-title {
+  font-size: 24px;
+  color: #333;
+}
+
+.user-name {
+  font-size: 16px;
+  color: #777;
+}
+
+.score {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+}
+.wrapper{           
+  display: block;
+}
+.c{
+  margin-top: 10%;
+    margin-bottom: 10%;
+  display: block;
+    width: 60%;
+    left: 30%;
+}
+.view1, .view2, .view3{
+  margin-left: 20px;
+    padding-left: 10%;
+}
+</style>
+<div class="wrapper">
+  <div class="c">
+    <div class="box2 view1">
+      <div class="column1">
+        <p>Finished</p>
+
+        <div class="graphic1">
+          <div class="info1">
+            <span class="number1">0</span><br>
+            <span class="arrow1"></span>
+          </div> <!-- class="info1" -->
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="112" height="40"
+            viewBox="0 0 112 40" class="svg1">
+            <defs>
+              <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="#55d8fe" />
+                <stop offset="1" stop-color="#55d8fe" stop-opacity="0.502" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+        </div> <!-- class="graphic1" -->
+
+      </div> <!-- class="column1" -->
+    </div> <!-- class="box2 view1" -->
+
+    <div class="box2 view3">
+      <div class="column3">
+
+        <p>In process</p>
+        <div class="graphic3">
+          <div class="info3">
+            <span class="number3">0</span><br>
+            <span class="arrow3"></span>
+          </div> <!-- class="info3" -->
+
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="112" height="40"
+            viewBox="0 0 112 40" class="svg3">
+            <defs>
+              <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="#a3a0fb" />
+                <stop offset="1" stop-color="#a3a0fb" stop-opacity="0.498" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div> <!-- class="graphic3" -->
+
+      </div> <!-- class="column3" -->
+    </div> <!-- class="box2 view3" -->
+
+  </div> <!-- class="c" -->
+  </div>
+  <div class="container">
+    <div class="result-card">
+        <h2 class="test-title">Math Quiz</h2>
+        <p class="user-name">User: John Doe</p>
+        <p class="score">Score: 90%</p>
+        <p class="timestamp">Completed: 1 days ago</p>
+    </div>
+
+    <div class="result-card">
+        <h2 class="test-title">Science Quiz</h2>
+        <p class="user-name">User: Jane Smith</p>
+        <p class="score">Score: 75%</p>
+        <p class="timestamp">Completed: 2 week ago</p>
+    </div>
+
+    <div class="result-card">
+        <h2 class="test-title">History Quiz</h2>
+        <p class="user-name">User: Alice Johnson</p>
+        <p class="score">Score: 88%</p>
+        <p class="timestamp">Completed: 3 months ago</p>
+    </div>
+
+</div>
+
+<script>
+    const resultCards = document.querySelectorAll('.result-card');
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7); // Calculate date one week ago
+    
+    resultCards.forEach(card => {
+        const timestampElement = card.querySelector('.timestamp');
+        const timestampText = timestampElement.textContent;
+        const completedDate = new Date(timestampText.replace('Completed: ', ''));
+
+        // Compare the completed date with the one-week threshold
+        if (completedDate >= oneWeekAgo) {
+            card.style.display = 'block'; // Show the card
+        } else {
+            card.style.display = 'block'; // Hide the card
+        }
+    });
+</script>
+  <script>
+      const box = document.querySelector('.box2.view1');
+
+      box.addEventListener('click', function () {
+          window.location.href = '/main'; // Replace 'next_page.html' with your desired URL.
+      });
+      const box1 = document.querySelector('.box2.view3');
+
+      box1.addEventListener('click', function () {
+          window.location.href = '/test'; // Replace 'next_page.html' with your desired URL.
+      });
+  </script>
+{% endblock %}  

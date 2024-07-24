@@ -1,0 +1,357 @@
+<style>
+    body {
+        font-size: 14px;
+    }
+
+    body {
+        background: none repeat scroll 0 0 #f6f6f8;
+        color: #000;
+        font-family: Inter,sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+        line-height: 1;
+    }
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        border: 0;
+        font: inherit;
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline;
+    }
+    #content {
+        background: none repeat scroll 0 0 #f6f6f8;
+        padding: 30px 0;
+        min-width: 940px;
+    }
+    .clearfix:before, .clearfix:after, .row:before, .row:after {
+        content: "";
+        display: table;
+    }
+    #content .innerWrapper, .branding, .menu.main, #footer {
+        margin: 0 auto;
+        max-width: 1000px;
+        min-width: 900px;
+        padding: 0 20px;
+        position: relative;
+        box-sizing: border-box;
+    }
+    .result-overlay .result-overlay-content, .innerWrapper, #print-content, #single-result-content, .group-result {
+        width: 100%;
+        padding-top: 22px;
+        box-sizing: border-box;
+    }
+    .result-overlay .result-overlay-content, .innerWrapper, #print-content, #single-result-content, .group-result {
+        width: 100%;
+        padding-top: 22px;
+        box-sizing: border-box;
+    }
+    .stepbars {
+        display: block;
+        font-size: 14px;
+        position: relative;
+        text-decoration: none!important;
+        width: auto;
+        height: 24px;
+        margin-bottom: 32px;
+    }
+
+    ul {
+        line-height: 20px;
+    }
+    ol, ul {
+        list-style: none outside none;
+    }
+    .stepbars li:first-of-type {
+        padding-left: 0;
+    }
+    .stepbars li {
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+        height: inherit;
+        padding-left: 21px;
+        position: relative;
+        width: 25%;
+    }
+    .stepbars .current .step-circle {
+        background: #fb3311;
+    }
+    .stepbars .step-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50px;
+        background: #6a7680;
+        color: #fff;
+        margin-right: 12px;
+    }
+    .icon {
+        height: 16px;
+        width: 16px;
+        display: inline-flex;
+    }
+    .stepbars .step-circle .step-number {
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: inherit;
+    }
+    .stepbars .current a, .stepbars .current .step-text {
+        color: #fb3311;
+    }
+    .stepbars li a {
+        color: #6a7680;
+    }
+    a {
+        color: #fb3311;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .stepbars .step-divider {
+        position: relative;
+        margin-left: 20px;
+        border-top: 2px solid #6a7680;
+        width: auto;
+        display: inline-flex;
+        flex-grow: 1;
+    }
+    .stepbars li:last-of-type {
+        width: 15%;
+    }
+    body h5 {
+        font-size: 14px;
+    }
+
+    h1, h2, h3, h4, h5 {
+        clear: both;
+        font-weight: 600;
+        line-height: 1.4em;
+        margin-bottom: 0.3em;
+    }
+    .category-select {
+        width: 200px;
+        display: inline-block;
+        min-height: 32px;
+        position: relative;
+    }
+    :focus-visible {
+        outline: 0;
+    }
+    .category-select select {
+        display: block;
+        width: 200px;
+    }
+    input[type=text]:active, input[type=text]:hover, input[type=text]:focus, input[type=number]:active, input[type=number]:hover, input[type=number]:focus, input[type=password]:active, input[type=password]:hover, input[type=password]:focus, textarea:active, textarea:hover, textarea:focus, select:active, select:hover, select:focus {
+        border: 1px solid #6a7680;
+    }
+    select {
+        border: 1px solid #dce1e5;
+        border-radius: 4px;
+        color: #000;
+        height: 32px;
+        line-height: initial!important;
+        padding-left: 12px;
+        padding-right: 32px;
+        min-width: 70px;
+        background-color: #fff;
+        display: inline-block;
+        font-family: inherit;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url(https://www.classmarker.com/img4/icons/caret.svg);
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 50%;
+    }
+    .clearheight30 {
+        clear: both;
+        height: 30px;
+        width: auto;
+    }
+    .table {
+        border-radius: 8px;
+        clear: both;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,40,77,.2);
+        background: #fff;
+    }
+    .table .hover-row {
+        border-radius: 8px;
+    }
+
+    .table .hover-row {
+        background-color: #fff;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+    .table .table-body {
+        margin-bottom: 36px;
+    }
+    .table .hover-row .row:first-of-type {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    @media screen and (min-width: 900px){
+        .hover-row .row:hover, .single-hover-row:hover {
+            background: #f6f6f8;
+            border-radius: 0!important;
+        }
+    }
+    .table .row {
+        border-bottom: 1px solid #dce1e5;
+        position: relative;
+        clear: both;
+        min-height: 28px;
+        margin: 0;
+        padding: 18px 24px;
+        display: flex;
+        align-items: baseline;
+        flex-direction: row;
+    }
+
+    .row {
+        display: flex;
+        align-items: baseline;
+    }
+    .clearfix:after, .row:after {
+        clear: both;
+    }
+    .col-span-8 {
+        width: 80%!important;
+    }
+    .col-span-05, .col-span-1, .col-span-15, .col-span-2, .col-span-25, .col-span-3, .col-span-35, .col-span-4, .col-span-45, .col-span-5, .col-span-55, .col-span-6, .col-span-65, .col-span-7, .col-span-75, .col-span-8, .col-span-85, .col-span-9, .col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .table .row .checkbox {
+        left: -15px;
+        position: absolute;
+        top: -4px;
+    }
+    input[type=radio] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        margin: 0;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        position: relative;
+        top: 5px;
+        margin-right: 8px;
+    }
+    .assignselect {
+        display: none;
+    }
+    .table .row .checkbox+* {
+        margin-left: 4px;
+    }
+    .table .row .name {
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+    .hand {
+        cursor: pointer;
+    }
+    .name {
+        display: block;
+        font-size: 14px;
+        line-height: 32px;
+        min-height: 2px;
+        margin-bottom: 30px;
+        padding: 0 40px;
+    }
+    .test-name {
+        background-position: -1px 1px;
+    }
+    .clearheight {
+        clear: both;
+        height: 15px;
+        width: auto;
+    }
+</style>
+<div id="content" class="clearfix">
+    <div class="innerWrapper">
+
+
+        <ul class="steps stepbars stepsbars2">
+            <li class="step-1  current">
+                <icon class="icon step-circle"><span class="step-number">1</span></icon>
+                <a class="step-text" href="/a/assign/tests/">Select Test</a>
+                <span class="step-divider"></span>
+            </li>
+            <li class="step-2 ">
+                <icon class="icon step-circle"><span class="step-number">2</span></icon>
+                <span class="step-text">Assign</span>
+                <span class="step-divider"></span>
+            </li>
+            <li class="step-3 ">
+                <icon class="icon step-circle"><span class="step-number">3</span></icon>
+                <span class="step-text">Settings</span>
+                <span class="step-divider"></span>
+            </li>
+            <li class="step-4 last">
+                <icon class="icon step-circle"><span class="step-number">4</span></icon>
+                <span class="step-text">Review</span>
+            </li>
+        </ul>
+        <h5>Filter Tests by Category:</h5>
+        <script>
+            var dropdownParentCategories = { "-1": { "value": "Show All Tests", "default_select": true, "sub-categories": [] }, "p1": { "value": " Atabek ", "default_select": false, "sub-categories": { "1": { "value": "Please" } } }, "p0": { "value": " Generic Parent ", "default_select": false, "sub-categories": [{ "value": "Generic" }] } }    </script>
+        <div class="category-select no_parent_cat_selection parent-cat-dd"><input type="hidden"
+                id="selected_category_value-test_cat_select" name="cat_id" value="-1"><input type="hidden"
+                id="selected_sub_category_id-test_cat_select" name="selected_sub_category_id-test_cat_select"
+                value="-1"><select name="filter_parent_cat_id" id="cat_id-test_cat_select"
+                class="parent-category-select">
+                <option value="-1" selected="selected">Show All Tests</option>
+                <option value="p1"> Atabek </option>
+                <option value="p0"> Generic Parent </option>
+            </select>
+        </div>
+        <div class="clearheight30"></div>
+        <form action="/a/assign/groups/" method="get" id="dosubmit_rg">
+            <div class="table">
+                <ul class="table-body hover-row">
+                    <li class="sbcid0 row" id="assigntog_2117377">
+
+                        <div class="col-span-8">
+                            <input class="checkbox assignselect " type="radio" id="t2117377" name="test_id"
+                                value="2117377">
+                            <label for="t2117377" class="hand test-name name">AFASFSFSD</label>
+                        </div>
+                    </li>
+                    <li class="sbcid1 row" id="assigntog_2150955">
+
+                        <div class="col-span-8">
+                            <input class="checkbox assignselect " type="radio" id="t2150955" name="test_id"
+                                value="2150955">
+                            <label for="t2150955" class="hand test-name name">Fuckng</label>
+                        </div>
+                    </li>
+                    <li class="sbcid0 row" id="assigntog_2150700">
+
+                        <div class="col-span-8">
+                            <input class="checkbox assignselect " type="radio" id="t2150700" name="test_id"
+                                value="2150700">
+                            <label for="t2150700" class="hand test-name name">Fuckng Astrum</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div class="clearheight"></div>
+    </div>
+</div>

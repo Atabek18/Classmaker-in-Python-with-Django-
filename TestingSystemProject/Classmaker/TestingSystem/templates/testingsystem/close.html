@@ -1,0 +1,13 @@
+<form action="{% url 'TestingSystem:submit_form' %}" method="post" target="_blank">
+    {% csrf_token %}
+    <!-- Form fields go here -->
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" value="Submit">
+  </form>
+  
+  <script>
+    document.querySelector('form').addEventListener('submit', function() {
+        window.close();
+    });
+  </script>

@@ -1,0 +1,299 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{% static 'testingsystem/css/question.css' %}">
+<style>
+.link-button {
+background: none;
+border: none;
+color: red; /* Change color to match your link color */
+text-decoration: none;
+cursor: pointer;
+padding: 0; /* Optional: Adjust padding to your preference */
+font: inherit; /* Optional: Inherit font styles */
+}
+
+.link-button:hover {
+text-decoration: underline;
+}
+.header {
+    background: none repeat scroll 0 0 #000000;
+    min-width: 940px
+}
+.cmtableTabs .taboff1 {
+    border: 1px solid #aaa;
+    background: #fff;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+.nav-list a {
+    text-decoration: none;
+}
+.table:hover{
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2), 0 6px 10px #7f95a8;
+    transition: 0.5s;
+}
+</style>
+    <div id="content" class="clearfix">
+        <div class="innerWrapper" id="innerWrapper_id">
+            <div class="col-span-10"></div>
+            <ul class="cmtableTabs">
+                <li class="tabon1">
+                    <a href="{% url 'TestingSystem:tests' %}">Tests</a>
+                </li>
+                <li class="taboff1">
+                    <a href="{% url 'TestingSystem:questions-views' %}">Question Bank</a>
+                </li>
+            </ul>
+
+            <div class="table">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div id="dotogtab_01_testquestions" style="display: block;">
+                        <div class="table-utility row above">
+                            <div class="col-span-5">
+                                <div class="dropdown dropdown-x">
+                                    <a class="dropdown-toggle no_anchor" href="#">Select All </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="expandAnswers">Expand all answers</a></li>
+                                        <li><a href="#" class="collapseAnswers">Collapse all answers</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% for question in questions %}
+                            <div class="table-body question-footer-hover-trigger">
+                                <div>
+                                    <div class="row test-question">
+                                        <a id="q34249576"></a>
+                                        <div class="col-span-25">
+                                            <h4 class="question-name name">Question {{ question.Q_N }}</h4>
+                                        </div>
+                                        <div class="col-span-1"><span class="caret">&nbsp;</span></div>
+
+                                        <div class="col-span-1">
+                                            <span class="right">{{ question.ranking }}   pt</span>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="editor question">
+                                            
+                                            <p>{{ question.text|safe }}</p>
+
+                                            <div class="hide" id="dotog_ans34249576" style="display: none;">
+
+                                                <div class="clearheight"></div>
+
+                                                <p><strong>Correct phrase:</strong>
+                                                    <span class="tooltip showTooltip"
+                                                        title="User must correct the phrase above to exactly match the correct phrase below.">&nbsp;</span>
+                                                </p>
+                                                {% for answer in question.answers %}
+                                                    <table class="answholder">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><span class="satick"></span></td>
+                                                                {% if answer.answer %}
+                                                                    {% if answer.is_correct %}
+                                                                        <td>
+                                                                            <img src="{% static 'testingsystem/img/correctv3.png'%}" srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x" width="15" height="16" alt="Correct"> 
+                                                                        </td>
+                                                                    {% else %}
+                                                                        <td></td>
+                                                                    {% endif %}
+                                                                    <td class="answer">{{ answer.answer|safe }}</td>
+                                                                {% elif answer.true or answer.false %}
+                                                                    {% if answer.true %}
+                                                                        <tr>
+                                                                            <td>
+                                                                                <img src="{% static 'testingsystem/img/correctv3.png'%}" srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x" width="15" height="16" alt="Correct"> 
+                                                                            </td>
+                                                                            <td class="answer">
+                                                                                {{ answer.true }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td class="answer">
+                                                                                {{ answer.false }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% elif answer.false %}
+                                                                        <tr>
+                                                                            <td></td>
+                                                                            <td class="answer">
+                                                                                {{ answer.true }}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <img src="{% static 'testingsystem/img/correctv3.png'%}" srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x" width="15" height="16" alt="Correct"> 
+                                                                            </td>
+                                                                            <td class="answer">
+                                                                                {{ answer.false }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% endif %}
+
+                                                                {% else %}
+                                                                    <td>
+                                                                        <img src="{% static 'testingsystem/img/correctv3.png'%}" srcset="{% static 'testingsystem/img/correctv3.png'%} 1x, {% static 'testingsystem/img/correctv3@3x.png'%} 3x" width="15" height="16" alt="Correct"> 
+                                                                    </td>
+                                                                    <td class="answer">{{ answer.freetext|safe }}</td>
+                                                                {% endif %}
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="question-footer-hover">
+                                            <div class="divider-solid"></div>
+                                            <div class="col-span-7">
+                                                <div class="question-footer">
+                                                    <a href="#" id="tog_ans34249576" class="open-close-toggle"><i
+                                                            class="fa fa-expand" aria-hidden="true"></i> Answers</a>
+                                                    <span class="eq-links-divider"> | </span>
+                                                    {% if question.qtype == 'multiple' %}
+                                                        <a
+                                                            href="{% url 'TestingSystem:question_edit_multiple' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                            class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                        </a>
+                                                    {% elif question.qtype == 'freetext' %}
+                                                        <a
+                                                            href="{% url 'TestingSystem:question_edit_freetext' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                            class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                        </a>
+                                                    {% else %}
+                                                        <a
+                                                            href="{% url 'TestingSystem:question_edit_truefalse' question_id=question.Q_ID question_description=question.question_description %}"><i
+                                                            class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                                        </a>
+                                                    {% endif %}
+                                                    <span class="eq-links-divider"> | </span><a href="#" class="upgradeRpc"><i
+                                                            class="fa fa-files-o" aria-hidden="true"></i> Duplicate</a><span
+                                                        class="eq-links-divider"></span>
+                                                </div>
+                                                <div id="dsqit-34249576" class="hidden"></div>
+                                            </div>
+
+                                                <div class="col-span-3 col-btns">
+                                                    <span class="right">
+                                                            <span id="d34249576">
+                                                                    <button type="submit" class="link-button" name="question_delete_id" value="{{ question.Q_ID }}">Remove From Test</button>
+                                                            </span>
+                                                    </span>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+
+            <a id="bottom"></a>
+            <div class="clearheight60"></div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const answerLinks = document.querySelectorAll('.open-close-toggle');
+                    
+                    answerLinks.forEach(link => {
+                        link.addEventListener('click', function(event) {
+                            event.preventDefault(); // Prevent the default link behavior
+                            
+                            const questionRow = link.closest('.row');
+                            
+                            const answersElement = questionRow.querySelector('.hide');
+                            
+                            if (answersElement) {
+                                if (answersElement.style.display === 'none') {
+                                    answersElement.style.display = 'block';
+                                } else {
+                                    answersElement.style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                });
+
+
+                asset_image_toggle_max_width = 600; asset_image_allow_toggle = false;
+                $(document).ready(function () {
+                    $("#sortable").sortable();
+
+
+                    $('#duplicate2').click(function () {
+                        $('#duplicate3').show();
+                    });
+                    $('#duplicate1').click(function () {
+                        $('#duplicate3').hide();
+                    });
+                    $('.dselected').click(function () {
+                        $('#dselected_id').attr('checked', 'checked');
+                    });
+                });
+            </script>
+            <div class="generic-overlay">
+                <div class="generic-overlay-content"></div>
+                <div class="clearheight30"></div>
+            </div>
+            <div class="jqmWindowWide jqmID3 jqDrag jqmID1" id="qbankExportDiv"></div>
+            <script>
+                $(document).ready(function () {
+                    $('#qbankExportDiv').jqm({ ajax: '/a/tests/rpc/qbankExport.rpc.php?test_id=2117377', trigger: 'a.qbankExport' });
+                    /* If coming from edit question page, open answers div for that question */
+                    var hash = window.location.hash.substr(2);
+                    if (hash.length > 0) {
+                        $('#dotog_ans' + hash).show();
+                    }
+                });
+            </script>
+        </div>
+        <script>
+            document.getElementById("toggroup_01_deletetest").addEventListener("click", function() {
+                var firstWebpage = document.getElementById("innerWrapper_id");
+                var secondWebpage = document.getElementById("secondWebpage");
+                
+                firstWebpage.style.opacity = 0.1; // Set low opacity
+                secondWebpage.style.display = "block";
+            });
+
+            document.getElementById("secondpage").addEventListener("click", function() {
+                var firstWebpage = document.getElementById("innerWrapper_id");
+                var secondWebpage = document.getElementById("secondWebpage");
+                
+                firstWebpage.style.opacity = 1; // Set low opacity
+                secondWebpage.style.display = "none";
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.querySelector('.delete-form');
+                var deleteButton = form.querySelector('.delete-button');
+
+                form.addEventListener('submit', function(event) {
+                    // Prevent the form from submitting immediately
+                    if (event.submitter === deleteButton) {
+                        event.preventDefault();
+
+                    // Create a hidden input element to hold the test_id value
+                        var hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'test_id';
+                        hiddenInput.value = deleteButton.value;
+
+                        // Append the hidden input to the form
+                        form.appendChild(hiddenInput);
+
+                        // Now submit the form
+                        form.submit();
+                    }
+                });
+            });
+        </script>
+    </div>
+{% endblock %}

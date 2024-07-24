@@ -1,0 +1,47 @@
+{% extends "testingsystem/main.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matching Test</title>
+    <link rel="stylesheet" href="{% static 'analyze/css/styles.css' %}">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group question">
+                {{ question_form.media }}
+                <div class="form-error">{{ question_form.non_field_errors }}</div>
+                {% for f in question_form %}
+                    <p><label for="{{ f.id_for_label }}">Question Text: </label>{{ f }}</p>
+                    <div class="form-error"> {{ f.errors }} </div>
+                {% endfor %}
+            </div>
+            <div class="form-group right">
+                {{ option_formset.management_form }}
+                {% for option_form in option_formset %}
+                    <div class="form-error">{{ option_form.non_field_errors }}</div>
+                    {{ option_form.left_item }}
+                    {{ option_form.media }}
+                {% endfor %}
+            </div>
+            <div class="form-group left">
+                {{ option_formset.management_form }}
+                {% for option_form in option_formset %}
+                    <div class="form-error">{{ option_form.non_field_errors }}</div>
+                    {{ option_form.right_item }}
+                    {{ option_form.media }}
+                {% endfor %}
+            </div>
+            <button type="submit">Add Matching Item</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <link rel="stylesheet" href="{% static 'userscore/css/UserScoreStyle.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Test Results</h1>
+            <p>User Name: {{ name }} {{ surname }}</p>
+        </header>
+        <main>
+            <section class="result">
+                <h2>Test Summary</h2>
+                <div class="info">
+                    <p><span class="label">Points:</span> <span class="value">{{ score }} / {{ ranks }}</span></p>
+                    <p><span class="label">Percentage:</span> <span class="value">{{ percentage }}%</span></p>
+                    <p><span class="label">Duration:</span> <span class="value">{{ duration }}</span></p>
+                    <p><span class="label">Started:</span> <span class="value">{{ started }}</span></p>
+                    <p><span class="label">Finished:</span> <span class="value">{{ finished }}</span></p>
+                </div>
+            </section>
+            <section class="feedback">
+                <h2>Feedback</h2>
+                <p>{{ feedback }}</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

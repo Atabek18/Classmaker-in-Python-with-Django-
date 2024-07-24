@@ -1,0 +1,3220 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    font-size: 14px;
+  }
+
+  body {
+    background: none repeat scroll 0 0 #f6f6f8;
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    line-height: 1;
+  }
+
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+  }
+
+  #content {
+    background: none repeat scroll 0 0 #f6f6f8;
+    padding: 30px 0;
+    min-width: 940px;
+  }
+
+  #content .innerWrapper,
+  .branding,
+  .menu.main,
+  #footer {
+    margin: 0 auto;
+    max-width: 1000px;
+    min-width: 900px;
+    padding: 0 20px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .result-overlay .result-overlay-content,
+  .innerWrapper,
+  #print-content,
+  #single-result-content,
+  .group-result {
+    width: 100%;
+    padding-top: 22px;
+    box-sizing: border-box;
+  }
+
+  .clearheight20 {
+    clear: both;
+    height: 20px;
+    width: auto;
+  }
+
+  .col-span-10 {
+    width: 100% !important;
+  }
+
+  .col-span-05,
+  .col-span-1,
+  .col-span-15,
+  .col-span-2,
+  .col-span-25,
+  .col-span-3,
+  .col-span-35,
+  .col-span-4,
+  .col-span-45,
+  .col-span-5,
+  .col-span-55,
+  .col-span-6,
+  .col-span-65,
+  .col-span-7,
+  .col-span-75,
+  .col-span-8,
+  .col-span-85,
+  .col-span-9,
+  .col-span-10 {
+    float: left;
+    line-height: 1;
+    margin-right: 0;
+    position: relative;
+    word-wrap: break-word;
+  }
+
+  .breadcrumb3 {
+    font-size: 13px;
+    color: #6a7680;
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .breadcrumb3 .first {
+    height: 20px;
+    padding: 10px 16px 0 0;
+    margin-right: 12px;
+    font-weight: 600;
+  }
+
+  a {
+    color: #fb3311;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .breadcrumb3 a {
+    margin-right: 8px;
+    color: inherit;
+    height: 21px;
+    padding: 9px 18px 0 0;
+    font-weight: 400;
+  }
+
+  .card {
+    border-radius: 8px;
+    clear: both;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+    background: #fff;
+  }
+
+  #card-title-area .card-header {
+    padding-bottom: 8px;
+  }
+
+  .card .card-header.no-border {
+    border-bottom: none;
+  }
+
+  .card .card-header {
+    color: #6a7680;
+    line-height: 20px;
+    display: flex;
+    border-bottom: solid 1px #dce1e5;
+    min-height: 16px;
+    padding: 24px 32px;
+  }
+
+  body .color-black {
+    color: #000 !important;
+  }
+
+  #wrapEdit_tn,
+  #wrapEdit_gn {
+    width: 90%;
+    display: inline-block;
+  }
+
+  .clearheight5 {
+    clear: both;
+    height: 5px;
+    width: auto;
+  }
+
+  .field-group {
+    display: block;
+    margin-bottom: 20px;
+    padding-right: 5px;
+  }
+
+  .field-group label {
+    line-height: 30px;
+  }
+
+  .form-field-title {
+    display: inline-block;
+    float: left;
+    margin-top: 3px;
+    margin-right: 10px;
+    text-align: right;
+    width: 125px;
+  }
+
+  input[type=text],
+  input[type=number],
+  input[type=password],
+  textarea {
+    border: 1px solid #dce1e5;
+    border-radius: 4px;
+    padding: 15px 16px;
+    color: #000;
+    line-height: 1.3em;
+    height: 14px;
+    font-size: 14px;
+  }
+
+  .hide {
+    display: block;
+  }
+
+  #editLink_gn,
+  #editLink_tn,
+  #editLink_cmuserid,
+  #editLink_accesscode,
+  #editLink_extrainfo1,
+  #editLink_extrainfo2,
+  #editLink_extrainfo3,
+  #editLink_extrainfo4,
+  #editLink_extrainfo5,
+  #editLink_user {
+    cursor: pointer;
+  }
+
+  .card .card-header .test-name-big {
+    padding: 8px 8px 8px 32px;
+    background-position: -2px 7px;
+    font-size: 25px;
+  }
+
+  .card .card-header h1,
+  .card .card-header h2,
+  .card .card-header h3,
+  .card .card-header h4,
+  .card .card-header h5,
+  .card .card-header h6,
+  .card .card-header h7,
+  .card .card-header h8 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .name-big {
+    display: block;
+    line-height: 1;
+    min-height: 2px;
+    margin-bottom: 3px;
+    padding: 0 36px;
+    color: #000;
+  }
+
+  .test-name-big {
+    background-position: -2px 1px;
+  }
+
+  .edit-symbol {
+    background-image: url(../../../img4/icons/sprite.png?v=1);
+    background-image: -webkit-image-set(url(../../../img4/icons/sprite.png?v=1) 1x, url(../../../img4/icons/sprite@2x.png?v=1) 2x, url(../../../img4/icons/sprite@3x.png?v=1) 3x);
+    background-image: image-set(url(../../../img4/icons/sprite.png?v=1) 1x, url(../../../img4/icons/sprite@2x.png?v=1) 2x, url(../../../img4/icons/sprite@3x.png?v=1) 3x);
+    background-repeat: no-repeat;
+    background-position: -1px -4768px;
+    margin-left: 5px;
+    width: 16px;
+    height: 12px;
+    display: inline-block;
+  }
+
+  .tab {
+    margin-left: 135px !important;
+  }
+
+  .btn.btn-create,
+  .btn.btn-assign,
+  a.btn.btn-create,
+  a.btn.btn-assign,
+  .btn-large.btn-create,
+  .btn-large.btn-assign,
+  a.btn-large.btn-create,
+  a.btn-large.btn-assign {
+    background: none repeat scroll 0 0 #fb3311;
+    color: #fff !important;
+  }
+
+  .btn.btn-white,
+  .btn.btn-cancel,
+  a.btn.btn-white,
+  a.btn.btn-cancel,
+  .btn-large.btn-white,
+  .btn-large.btn-cancel,
+  a.btn-large.btn-white,
+  a.btn-large.btn-cancel {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #dce1e5 !important;
+    height: calc(16px - 1px) !important;
+    color: #000 !important;
+  }
+
+  .btn,
+  a.btn {
+    box-sizing: content-box;
+    border: none;
+    border-radius: 4px;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px !important;
+    line-height: 1;
+    margin: 0;
+    outline: none;
+    padding: 8px 12px;
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+    width: auto;
+    outline: 0 !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    height: 16px;
+    line-height: 16px;
+    font-family: Inter, sans-serif;
+    background: #edf0f2;
+  }
+
+  .clearheight60 {
+    clear: both;
+    height: 60px;
+    width: auto;
+  }
+
+  .card-title-area .card-content {
+    padding-top: 8px;
+    min-height: fit-content;
+    padding-bottom: 32px;
+  }
+
+
+  .row {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .align-center {
+    align-items: center !important;
+  }
+
+  .menu-options {
+    display: flex;
+    align-items: center;
+    left: -13px;
+  }
+
+  .col-span-5 {
+    width: 50% !important;
+  }
+
+  .menu-options a.toggle-active {
+    font-size: 12px;
+    color: #6a7680;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding: 6px 10px;
+    line-height: 17px;
+    position: relative;
+  }
+
+  .menu-options a.toggle-active .icon {
+    vertical-align: top;
+  }
+
+  .icon.duplicate-grey {
+    background: url(https://www.classmarker.com/img4/icons/icon-duplicate-grey.svg) no-repeat;
+  }
+
+  .icon {
+    height: 16px;
+    width: 16px;
+    display: inline-flex;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  .menu-options .divider {
+    border-left: 1px solid #dce1e5;
+    display: inline-flex;
+    height: 15px;
+  }
+
+  .icon.print-grey {
+    background: url(https://www.classmarker.com/img4/icons/icon-print-grey.svg) no-repeat;
+  }
+
+  .icon.delete-grey {
+    background: url(https://www.classmarker.com/img4/icons/icon-delete-grey.svg) no-repeat;
+  }
+
+  .btn-large,
+  a.btn-large {
+    font-size: 14px !important;
+    padding: 8px 16px;
+    height: 20px;
+    min-width: 78px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .right {
+    display: block;
+    float: right !important;
+  }
+
+  .btn-large .fa,
+  a.btn-large .fa {
+    margin-right: 8px;
+  }
+
+  :root .fa-rotate-90,
+  :root .fa-rotate-180,
+  :root .fa-rotate-270,
+  :root .fa-flip-horizontal,
+  :root .fa-flip-vertical {
+    filter: none;
+  }
+
+  .fa-flip-vertical {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+    -webkit-transform: scale(1, -1);
+    -ms-transform: scale(1, -1);
+    transform: scale(1, -1);
+  }
+
+  .fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .fa-mail-forward:before,
+  .fa-share:before {
+    content: "\f064";
+  }
+
+  .btn.btn-secondary,
+  a.btn.btn-secondary {
+    display: inline-flex;
+    height: 36px;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: 1px solid #dce1e5;
+    background: #fff;
+    box-sizing: border-box;
+  }
+
+  .btn-space {
+    margin-right: 8px !important;
+  }
+
+  .btn.btn-secondary .fa,
+  a.btn.btn-secondary .fa {
+    margin-right: 8px;
+  }
+
+  .fa-play:before {
+    content: "\f04b";
+  }
+
+  .clearfix:after,
+  .row:after {
+    clear: both;
+  }
+
+  .clearfix:before,
+  .clearfix:after,
+  .row:before,
+  .row:after {
+    content: "";
+    display: table;
+  }
+
+  .editor {
+    line-height: 1.5;
+  }
+
+  #card-title-area .card-content .alert-box {
+    margin-top: 28px;
+  }
+
+  .alert-box.alert-white,
+  .alert-box.alert-default {
+    border: 1px solid var(--grey-grey-40, #DCE1E5);
+    background: #fff;
+    padding: 15px 9px 15px 15px;
+  }
+
+  .alert-box {
+    padding: 15px 9px 15px 45px;
+    margin: 20px 0;
+    line-height: 20px;
+    clear: both;
+    border-left: 3px solid #ffd551;
+    background: var(--yellow-warning-light, #FFFBED) url(/img4/icons/alert-normal.svg) no-repeat 13px 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+  }
+
+  .col-span-4 {
+    width: 40% !important;
+  }
+
+  .col-span-1 {
+    width: 10%;
+  }
+
+  .editor p,
+  .editor ul,
+  .editor ol,
+  .editor img {
+    margin-bottom: 1em;
+  }
+
+  .bold {
+    font-weight: 600;
+  }
+
+  .littledark {
+    color: #444;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  ul {
+    line-height: 20px;
+  }
+
+  ol,
+  ul {
+    list-style: none outside none;
+  }
+
+  .editor ul {
+    list-style: disc none;
+    margin-left: 15px;
+  }
+
+  ::marker {
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+    text-indent: 0px !important;
+    text-align: start !important;
+    text-align-last: start !important;
+  }
+
+  .alert-box p:last-child,
+  .ajaxerror p:last-child,
+  .ajaxsuccess p:last-child {
+    margin-bottom: 0;
+  }
+
+  #card-title-area .card-content .test-message {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  .group-message,
+  .test-message {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #dce1e5;
+    border-radius: 4px;
+    margin: 5px 0 16px;
+    padding: 16px;
+    clear: both;
+  }
+
+  body h4 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 1.4em;
+    padding: 2px 0 10px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    clear: both;
+    font-weight: 600;
+    line-height: 1.4em;
+    margin-bottom: 0.3em;
+  }
+
+  .clearheight {
+    clear: both;
+    height: 15px;
+    width: auto;
+  }
+
+  .dotted {
+    color: #fff;
+    clear: both;
+    float: none;
+    height: 1px;
+    margin: 5px 10px 10px;
+    padding: 0;
+    border-bottom: 1px dotted #d2d2d2;
+  }
+
+  .form-field-title.not-input {
+    margin-top: 0 !important;
+  }
+
+  input[type=radio] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+    margin-right: 8px;
+  }
+
+  input[type=radio]:checked::before {
+    content: url(https://www.classmarker.com/img4/icons/radio-button-selected.svg);
+  }
+
+  input[type=radio]::before {
+    content: url(https://www.classmarker.com/img4/icons/radio-button.svg);
+    width: 20px;
+    height: 20px;
+  }
+
+  .editor strong {
+    font-weight: 600;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .explain {
+    font-size: 12px;
+    color: #6a7680;
+    line-height: 20px;
+  }
+
+  .padleft30 {
+    padding-left: 30px;
+  }
+
+  .name {
+    display: block;
+    font-size: 14px;
+    line-height: 32px;
+    min-height: 2px;
+    margin-bottom: 30px;
+    padding: 0 40px;
+  }
+
+  .test-name {
+    background-position: -1px 1px;
+  }
+
+  .menu-sections li,
+  .home-name,
+  .results-name,
+  .certificate-name,
+  .icon-calendar,
+  .icon-calendar-green,
+  .test-name,
+  .test-name-big,
+  .group-name,
+  .group-name-big,
+  .link-name,
+  .stat-name,
+  .stat-name-big,
+  .search-name,
+  .member-name,
+  .member-name-medium,
+  .member-name-big,
+  .question-name,
+  .theme-name,
+  .media-name,
+  .category-name,
+  .lock-name,
+  .certificate-name,
+  .accesslist-name,
+  .ipblock-name,
+  .community-name,
+  .tick,
+  .dropdown-x>a,
+  .tooltip,
+  .dropdown-x label a,
+  .btn-create .caret,
+  .btn-actions .caret,
+  .btn.dropdown-toggle .caret,
+  .btn-assign.alt-a,
+  .btn.btn-toggle-analytics,
+  .table .result-fail,
+  .table .result-pass,
+  .table .result-grading,
+  .write-pre,
+  .write-ol,
+  .write-ul,
+  .write-font-link,
+  .write-video,
+  .user-manual,
+  .write-center,
+  .write-bold,
+  .write-fontM,
+  .write-fontL,
+  .write-fontS,
+  .write-question-preview,
+  .write-sub,
+  .write-sup,
+  .write-italic,
+  .write-underline,
+  .write-line-through,
+  .write-square-root,
+  .write-image,
+  .write-font-color,
+  .video-help,
+  .step-by-step,
+  .envelope-name {
+    background-image: url(https://www.classmarker.com/img4/icons/sprite.png?v=1);
+    background-image: -webkit-image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-image: image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-repeat: no-repeat;
+  }
+
+  .margleft {
+    margin-left: 15px !important;
+  }
+
+  .edit-name:hover {
+    background-color: #e4f1fb;
+    border-radius: 2px 2px 2px 2px;
+    border: 1px solid #ccc;
+  }
+
+  .menu-options a:hover {
+    background: var(--blue-blue-light, #E4F1FB);
+    border-radius: 4px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  :focus-visible {
+    outline: 0;
+  }
+
+  .btn.btn-create:hover,
+  .btn.btn-assign:hover,
+  a.btn.btn-create:hover,
+  a.btn.btn-assign:hover,
+  .btn-large.btn-create:hover,
+  .btn-large.btn-assign:hover,
+  a.btn-large.btn-create:hover,
+  a.btn-large.btn-assign:hover {
+    background: none repeat scroll 0 0 #e02e0f;
+  }
+
+  .btn.btn-create,
+  .btn.btn-assign,
+  a.btn.btn-create,
+  a.btn.btn-assign,
+  .btn-large.btn-create,
+  .btn-large.btn-assign,
+  a.btn-large.btn-create,
+  a.btn-large.btn-assign {
+    background: none repeat scroll 0 0 #fb3311;
+    color: #fff !important;
+  }
+
+  .btn:hover,
+  a.btn:hover {
+    background-color: #e7e8eb;
+  }
+
+  .btn:focus,
+  .blocklink:focus,
+  .nextprev a:focus,
+  a.continue-here:focus,
+  a.btn-download:focus,
+  a.jump_to_q:focus {
+    outline: solid 1px #707070;
+  }
+
+  .btn-create:hover,
+  .btn-assign:hover,
+  .btn-results:hover,
+  .btn-noresults:hover,
+  .btn-preview:hover,
+  .btn-analytics:hover,
+  .btn-fail:hover,
+  .btn-rowhead:hover {
+    color: #fff;
+  }
+
+  .btn:hover,
+  .btn-edit:hover,
+  .btn-cancel:hover,
+  .btn-delete:hover,
+  .btn-grading:hover {
+    color: #444;
+  }
+
+  .btn.btn-secondary:hover,
+  a.btn.btn-secondary:hover {
+    background: #f6f6f8;
+  }
+
+  .table.noborder,
+  .table.no-border,
+  .row.no-border {
+    border: none !important;
+  }
+
+  .table {
+    border-radius: 8px;
+    clear: both;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+    background: #fff;
+  }
+
+  .col-span-7 {
+    width: 70% !important;
+  }
+
+  span#how-man-questions {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 11px;
+  }
+
+  span.qcount-summary {
+    font-size: 13px;
+    margin-right: 25px;
+    color: #6a7680;
+  }
+
+  .col-span-3 {
+    width: 30% !important;
+  }
+
+  .explain .tooltip {
+    margin-left: 12px;
+  }
+
+  .tooltip {
+    background-position: 0 -3550px;
+    color: #000;
+    cursor: help;
+    display: inline-block;
+    outline: medium;
+    position: relative;
+    text-decoration: none;
+    text-indent: -999em;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+
+  .card.nav.panel>.card-header {
+    background-color: #e8eaee;
+    color: #6a7680;
+    border-bottom: none;
+  }
+
+  .card.nav>.card-header {
+    padding: 0;
+    min-height: 56px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+
+  .card .card-header {
+    color: #6a7680;
+    line-height: 20px;
+    display: flex;
+    border-bottom: solid 1px #dce1e5;
+    min-height: 16px;
+    padding: 24px 32px;
+  }
+
+  .card.nav.panel>.card-header li {
+    height: 60px;
+    min-width: 200px;
+    align-items: center;
+    gap: 18px;
+    height: 60px;
+    min-width: 200px;
+    line-height: 22px;
+  }
+
+  .card.nav.panel>.card-header .nav-item.active:hover,
+  .card.nav.panel>.card-header li.tabon>.nav-item:hover {
+    border-radius: 0;
+  }
+
+  .card.nav.panel>.card-header .nav-item.active,
+  .card.nav.panel>.card-header li.tabon>.nav-item {
+    color: #fb3311;
+    background: #fff;
+    border-top: 2px solid #fb3311;
+    border-bottom: none;
+    line-height: 20px;
+  }
+
+  .card.nav.panel>.card-header li>.nav-item {
+    top: 0;
+    display: inline-flex;
+    position: relative;
+    border-radius: 0;
+    font-weight: 600;
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    box-sizing: border-box;
+    align-items: baseline;
+    justify-content: center;
+  }
+
+  .card .card-header .nav-item:hover:first-of-type,
+  .card .card-header li.taboff:hover:first-of-type {
+    border-top-right-radius: 0;
+    border-top-left-radius: 8px;
+  }
+
+  .card .card-header .nav-item.active,
+  .card .card-header li.tabon>.nav-item {
+    color: #fb3311;
+    background: #fff;
+    border-bottom: 2px solid #fb3311;
+    padding: 18px 24px 16px;
+    display: inline-flex;
+    position: relative;
+  }
+
+  .card .card-header .nav-item:hover,
+  .card .card-header li.taboff:hover {
+    background: #f6f6f8;
+  }
+
+  .card .card-header .nav-item,
+  .card .card-header li>.nav-item {
+    text-decoration: none;
+    padding: 18px 24px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  .card .card-header a.nav-item {
+    color: inherit;
+  }
+
+  .card.nav.panel>.card-header .nav-item.active .badge-round,
+  .card.nav.panel>.card-header li.tabon>.nav-item .badge-round {
+    color: #fb3311;
+    background-color: rgba(251, 54, 24, .05);
+  }
+
+  .card.nav.panel>.card-header li>.nav-item .badge-round {
+    color: #6a7680;
+    background-color: #fff;
+  }
+
+  .card .card-header .nav-item.active .badge-round,
+  .card .card-header li.tabon>.nav-item .badge-round {
+    color: #fb3311;
+    background-color: rgba(251, 54, 24, .05);
+  }
+
+  .card .card-header .nav-item .badge-round,
+  .card .card-header li>.nav-item .badge-round {
+    margin-left: 8px;
+    bottom: 1px;
+    position: relative;
+    background-color: #edf0f2;
+  }
+
+  .badge-round {
+    border-radius: 100px;
+    background-color: #edf0f2;
+    color: #6a7680;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 20px;
+    padding-left: 7px;
+    padding-right: 7px;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -.05em;
+    height: 20px;
+  }
+
+  .card .card-header li.taboff>.nav-item {
+    position: relative;
+    top: 20px;
+  }
+
+  .dropdown-x {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: solid 1px #dce1e5;
+    border-radius: 4px;
+  }
+
+  .dropdown {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+  }
+
+  .dropdown-x>a,
+  .dropdown-x label a {
+    background-position: 2px -1840px;
+    display: block;
+    height: 31px;
+    width: 31px;
+    text-indent: -9999px;
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  .dropdown.dropdown-x .showTooltip,
+  .dropdown.dropdown-x .showTooltipHTML,
+  .dropdown.dropdown-x .showTooltipEast,
+  .dropdown.dropdown-x .showTooltipUnder,
+  .dropdown.dropdown-x .showTooltipUpper {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .clearfix:before,
+  .clearfix:after,
+  .row:before,
+  .row:after {
+    content: "";
+    display: table;
+  }
+
+  #test-question-utility-row .btn-white {
+    margin-right: 8px;
+  }
+
+  .row .col-btns .btn:last-of-type {
+    margin-right: 0;
+  }
+
+  .btn.btn-white:hover,
+  .btn.btn-cancel:hover,
+  a.btn.btn-white:hover,
+  a.btn.btn-cancel:hover,
+  .btn-large.btn-white:hover,
+  .btn-large.btn-cancel:hover,
+  a.btn-large.btn-white:hover,
+  a.btn-large.btn-cancel:hover {
+    background: #f6f6f8;
+  }
+
+  .row .col-btns .btn {
+    margin-right: 8px;
+  }
+
+  .btn.btn-white,
+  .btn.btn-cancel,
+  a.btn.btn-white,
+  a.btn.btn-cancel,
+  .btn-large.btn-white,
+  .btn-large.btn-cancel,
+  a.btn-large.btn-white,
+  a.btn-large.btn-cancel {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #dce1e5 !important;
+    height: calc(16px - 1px) !important;
+    color: #000 !important;
+  }
+
+  .btn:hover,
+  a.btn:hover {
+    background-color: #e7e8eb;
+  }
+
+  .btn:focus,
+  .blocklink:focus,
+  .nextprev a:focus,
+  a.continue-here:focus,
+  a.btn-download:focus,
+  a.jump_to_q:focus {
+    outline: solid 1px #707070;
+  }
+
+  .btn:hover,
+  .btn-edit:hover,
+  .btn-cancel:hover,
+  .btn-delete:hover,
+  .btn-grading:hover {
+    color: #444;
+  }
+
+  .btn-actions {
+    min-width: 63px;
+  }
+
+  .btn-actions .caret {
+    background-position: -2px -2705px;
+    padding: 0 4px;
+    height: 12px;
+    position: relative;
+    top: 2px;
+    margin-left: 4px;
+  }
+
+  .row .col-btns .btn:last-of-type {
+    margin-right: 0;
+  }
+
+  .btn.btn-analytics:hover,
+  a.btn.btn-analytics:hover,
+  .btn-large.btn-analytics:hover,
+  a.btn-large.btn-analytics:hover {
+    background-color: #0071d9;
+  }
+
+  .row .col-btns .btn {
+    margin-right: 8px;
+  }
+
+  .btn.btn-analytics,
+  a.btn.btn-analytics,
+  .btn-large.btn-analytics,
+  a.btn-large.btn-analytics {
+    background: none repeat scroll 0 0 #0896e6;
+    color: #fff !important;
+    white-space: nowrap;
+  }
+
+  .col-span-5 {
+    width: 50% !important;
+  }
+
+  .btn:hover,
+  a.btn:hover {
+    background-color: #e7e8eb;
+  }
+
+  .btn:focus,
+  .blocklink:focus,
+  .nextprev a:focus,
+  a.continue-here:focus,
+  a.btn-download:focus,
+  a.jump_to_q:focus {
+    outline: solid 1px #707070;
+  }
+
+  .btn-create:hover,
+  .btn-assign:hover,
+  .btn-results:hover,
+  .btn-noresults:hover,
+  .btn-preview:hover,
+  .btn-analytics:hover,
+  .btn-fail:hover,
+  .btn-rowhead:hover {
+    color: #fff;
+  }
+
+  .btn:hover,
+  .btn-edit:hover,
+  .btn-cancel:hover,
+  .btn-delete:hover,
+  .btn-grading:hover {
+    color: #444;
+  }
+
+  .col-btns {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .question-title__index {
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+  }
+
+  .col-span-35 {
+    width: 35% !important;
+  }
+
+  .col-span-55 {
+    width: 55% !important;
+  }
+
+  .col-span-1 {
+    width: 10%;
+  }
+
+  .editor.question,
+  .wysiwyg {
+    width: 640px;
+    color: #444;
+  }
+
+  .editor.question,
+  .wysiwyg {
+    width: 100%;
+    color: #000;
+  }
+
+  .question-footer-hover.opacityon {
+    opacity: .2;
+  }
+
+  .question-footer-hover {
+    min-height: 30px;
+  }
+
+  .question-footer-hover .divider-solid {
+    margin: 32px 0 12px;
+  }
+
+  .divider-solid {
+    clear: both;
+    float: none;
+    width: 100%;
+    height: 1px;
+    margin: 16px 0;
+    padding: 0;
+    border-bottom: 1px solid #dce1e5;
+  }
+
+  .question-footer {
+    font-size: 13px;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .question-footer>a {
+    margin-right: 24px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .fa-expand:before {
+    content: "\f065";
+  }
+
+  .fa-pencil:before {
+    content: "\f040";
+  }
+
+  .f-right {
+    float: right;
+  }
+
+  .answholder {
+    width: 100%;
+    margin-left: 0;
+    border-collapse: collapse;
+    margin: 16px 0 32px;
+    font-size: 14px;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .answholder .selected-answer {
+    background-color: #f6f6f8;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .answholder tr {
+    display: block;
+    min-height: 20px;
+    height: auto;
+    padding: 12px 52px 12px 12px;
+    margin-bottom: 5px;
+    line-height: 19px;
+  }
+
+  td.number {
+    width: 20px;
+    font-weight: 700;
+    padding-bottom: 0;
+    vertical-align: top;
+    font-size: 13px;
+    color: #000;
+    font-family: helvetica;
+  }
+
+  .number {
+    width: 30px;
+    padding-bottom: 0.6em;
+  }
+
+  td.answer {
+    width: 515px;
+    max-width: 515px;
+    padding: 0;
+    vertical-align: middle;
+  }
+
+  .answer {
+    margin-bottom: 1px;
+  }
+
+  .answholder .feedback-icon {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+  }
+
+  .icon.feedback-correct {
+    height: 20px;
+    width: 20px;
+  }
+
+  .editor.question,
+  .wysiwyg {
+    width: 640px;
+    color: #444;
+  }
+
+  table.qb-q-info {
+    color: #6a7680;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  table.qb-q-info td {
+    padding: 0 10px 2px 5px;
+    min-width: 130px;
+  }
+
+  .editor strong {
+    font-weight: 600;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .answholder.freetext tr {
+    min-height: 20px;
+    padding: 6px 0;
+  }
+
+  .answholder.freetext tr td {
+    line-height: 20px;
+  }
+
+  .answholder.freetext tr td .icon.feedback-correct {
+    top: 3px;
+    position: relative;
+  }
+
+  .answholder.freetext tr .answer {
+    padding-left: 12px;
+  }
+
+  .matching_answholder {
+    width: 600px;
+    table-layout: fixed;
+    margin-top: 32px;
+  }
+
+  .matching_answholder .m_left,
+  .matching_answholder .m_right {
+    width: 48%;
+    padding: 5px 5px 5px 0;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .matching_answholder .m_middle {
+    width: 7%;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .m_first_divider {
+    margin-top: 0 !important;
+  }
+
+  .m_divider {
+    margin: 15px 0;
+  }
+
+  .dotted {
+    color: #fff;
+    clear: both;
+    float: none;
+    height: 1px;
+    margin: 5px 10px 10px;
+    padding: 0;
+    border-bottom: 1px dotted #d2d2d2;
+  }
+
+  .no-shadow {
+    filter: none;
+    box-shadow: none !important;
+  }
+
+  #dotogtab_01_testassignments>.accordion-fold {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .table.narrow-row .accordion-fold {
+    background: none repeat scroll 0 0 #fff;
+  }
+
+  .table .accordion-fold {
+    background: none repeat scroll 0 0 #fff;
+  }
+
+  .accordion-fold {
+    clear: both;
+    display: none;
+  }
+
+  .table .hover-row {
+    background-color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  #dotogtab_01_testassignments>.accordion-fold>.hover-row>.row {
+    padding-left: 24px;
+  }
+
+  .table.narrow-row .row.group-list-row {
+    height: 64px !important;
+    min-height: 64px;
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    align-items: center;
+  }
+
+  .table.narrow-row .accordion-fold .row {
+    align-items: baseline;
+    padding-left: 61px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    min-height: 46px;
+  }
+
+  .table .accordion-fold .row {
+    height: auto !important;
+    align-items: baseline;
+    padding-left: 61px;
+  }
+
+  .table.narrow-row .row {
+    height: 28px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 900px) {
+
+    .hover-row .row:hover,
+    .single-hover-row:hover {
+      background: #f6f6f8;
+      border-radius: 0 !important;
+    }
+  }
+
+  .table .row {
+    border-bottom: 1px solid #dce1e5;
+    position: relative;
+    clear: both;
+    min-height: 28px;
+    margin: 0;
+    padding: 18px 24px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+  }
+
+  .table.narrow-row .row.link-list-row {
+    height: 64px;
+    min-height: 64px;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+  }
+
+  .table.narrow-row .row.link-list-row .link-name-area,
+  .table.narrow-row .row.link-list-row link-status-area {
+    top: 7px;
+    position: relative;
+  }
+
+  .col-span-6 {
+    width: 60% !important;
+  }
+
+  .table.narrow-row .row.link-list-row .link-name-area .name-wrapper.link-name-wrapper,
+  .table.narrow-row .row.link-list-row link-status-area .name-wrapper.link-name-wrapper {
+    top: 0;
+  }
+
+  .name-wrapper.link-name-wrapper {
+    position: relative;
+  }
+
+  .name-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    width: 100%;
+  }
+
+  .table .row .name {
+    line-height: 28px;
+    margin-bottom: 0;
+  }
+
+  .name-wrapper .name.link-name {
+    font-weight: 600;
+  }
+
+  .name-wrapper .name {
+    position: relative;
+    width: 32px;
+    height: 30px;
+    margin-right: 6px;
+    padding: 0;
+    display: inline-flex;
+  }
+
+  .link-name {
+    background-position: -2px -491px;
+  }
+
+  .name-wrapper .name+a,
+  .name-wrapper .name+.text {
+    text-decoration: none;
+    color: inherit;
+    line-height: 16px;
+    max-width: calc(100% - 70px);
+    cursor: pointer;
+    max-height: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .linksinafold.show-direct-links {
+    padding-top: 40px;
+  }
+
+  .editor {
+    line-height: 1.5;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .editor {
+    line-height: 1.5;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .linksinafold {
+    margin: 5px 0 0 36px;
+    font-size: 13px;
+    padding: 0;
+    clear: both;
+  }
+
+  .editor strong {
+    font-weight: 600;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .tooltip {
+    background-position: 0 -3550px;
+    color: #000;
+    cursor: help;
+    display: inline-block;
+    outline: medium;
+    position: relative;
+    text-decoration: none;
+    text-indent: -999em;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+
+  .table.narrow-row .row.link-list-row .link-status-area {
+    position: relative;
+    top: 7px;
+  }
+
+  .test-status-notice.active {
+    color: #349968;
+    background: #e6fff2;
+  }
+
+  .test-status-notice {
+    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 16px;
+    gap: 6px;
+    height: 20px;
+    width: 75px;
+    margin-right: 20px;
+    margin-top: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 5px;
+  }
+
+  .gray,
+  .active {
+    color: #4d4d4d;
+  }
+
+  .test-status-notice+.showTooltipHTML,
+  .test-status-notice+.showTooltipUpper {
+    width: 74px;
+    height: 23px;
+    display: block;
+    bottom: 23px;
+    position: absolute;
+    top: 5px;
+    right: 24px;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus,
+  .row.link-list-row .assigned-test-icon-menus {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 130px;
+  }
+
+  .row.group-list-row.link-tab-opened .open_embed_links,
+  .row.link-list-row.link-tab-opened .open_embed_links {
+    background-image: url(https://www.classmarker.com/img4/icons/link-hover.svg);
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links {
+    background-image: url(https://www.classmarker.com/img4/icons/link-fade.svg);
+    margin-right: 8px;
+    float: initial;
+    border-radius: 0;
+    border: none;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon,
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+  }
+
+  .open_embed_links {
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    border: 1px solid #dce1e5;
+    display: inline-block;
+    float: right;
+    margin-right: 40px;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links .link-name,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links .link-name {
+    background-image: none;
+    border-radius: inherit;
+    border: inherit;
+  }
+
+  .open_embed_links .link-name {
+    width: 28px;
+    height: 23px;
+    size: 16px;
+    display: inline-block;
+    top: 4px;
+    left: 4px;
+    position: relative;
+  }
+
+  .open_embed_links .link-name {
+    background-position: 2px -524px;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon {
+    width: 32px;
+    height: 32px;
+    background-image: url(https://www.classmarker.com/img4/icons/setting-fade.svg);
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon,
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon+.setting-icon-tool-tip,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon+.setting-icon-tool-tip {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+
+  .col-btns {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .table.narrow-row .row.link-list-row .col-btns {
+    top: 8px;
+  }
+
+  .col-span-1 {
+    width: 10%;
+  }
+
+  .row .col-btns .btn:last-of-type {
+    margin-right: 0;
+  }
+
+  .row .col-btns .btn {
+    margin-right: 8px;
+  }
+
+  .btn.btn-results,
+  .btn.btn-preview,
+  a.btn.btn-results,
+  a.btn.btn-preview,
+  .btn-large.btn-results,
+  .btn-large.btn-preview,
+  a.btn-large.btn-results,
+  a.btn-large.btn-preview {
+    background: none repeat scroll 0 0 #3cb27a;
+    color: #fff !important;
+  }
+
+  .col-btns>a.btn-results,
+  .col-btns>a.btn-noresults {
+    margin-left: 10px;
+  }
+
+  .row.group-list-row.link-tab-opened .assigned-test-icon-menus,
+  .row.link-list-row.link-tab-opened .assigned-test-icon-menus {
+    display: inline-flex;
+  }
+
+  .btn.btn-results:hover,
+  .btn.btn-preview:hover,
+  a.btn.btn-results:hover,
+  a.btn.btn-preview:hover,
+  .btn-large.btn-results:hover,
+  .btn-large.btn-preview:hover,
+  a.btn-large.btn-results:hover,
+  a.btn-large.btn-preview:hover {
+    background: none repeat scroll 0 0 #349968;
+  }
+
+  .dropdown-x:hover {
+    border: solid 1px #dce1e5;
+    background-color: #f6f6f8;
+    cursor: pointer;
+  }
+
+  .options {
+    left: -76px;
+  }
+
+  .dropdown ul {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+    gap: 9px;
+    background: #fff;
+    width: max-content;
+    box-shadow: 0 4px 12px rgba(0, 35, 67, .35);
+    border-radius: 6px;
+    border: 1px solid #dce1e5;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: none;
+    z-index: 100;
+    left: 0;
+  }
+
+  ul.dropdown-menu {
+    position: absolute;
+    font-size: 14px;
+    border: solid 1px #ccc;
+  }
+
+  .dropdown ul a {
+    width: 100%;
+  }
+
+  .dropdown ul a,
+  .dropdown .dropdown ul li span.print_options {
+    color: #000 !important;
+    display: block;
+    padding: 4px 8px;
+    text-decoration: none;
+    height: 20px;
+    line-height: 20px;
+    font-family: inherit;
+    font-weight: 400;
+    width: max-content;
+  }
+
+  .dropdown ul li a:hover {
+    color: #fb3311 !important;
+  }
+
+  .dropdown ul li:hover {
+    background: rgba(251, 51, 17, .05);
+    color: #fb3311 !important;
+    border-radius: 4px;
+  }
+
+  .ui-tabs-nav li .dropdown-menu>li:hover a,
+  .dropdown-menu>li:hover {
+    cursor: pointer;
+  }
+
+  ul.dropdown-menu-edit-test-add-questions li a i {
+    margin-right: 3px;
+  }
+
+  .fa-fw {
+    width: 1.28571429em;
+    text-align: center;
+  }
+
+  .fa-plus:before {
+    content: "\f067";
+  }
+
+  #test-intro {
+    margin-bottom: 45px;
+  }
+
+  #test-intro .card-content {
+    min-height: 20px !important;
+    padding-bottom: 32px;
+  }
+
+  #test-intro .card-content .edit-message {
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  #test-intro .card-content #dotog_testintro {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  .group-message,
+  .test-message {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #dce1e5;
+    border-radius: 4px;
+    margin: 5px 0 16px;
+    padding: 16px;
+    clear: both;
+  }
+
+  .table .accordion-fold .row {
+    height: auto !important;
+    align-items: baseline;
+    padding-left: 61px;
+  }
+
+  .clearfix:after,
+  .row:after {
+    clear: both;
+  }
+
+  .clearfix:before,
+  .clearfix:after,
+  .row:before,
+  .row:after {
+    content: "";
+    display: table;
+  }
+
+  body .no-padding {
+    padding: 0 !important;
+  }
+
+  .answholder .selected-answer {
+    background-color: #f6f6f8;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .answholder tr {
+    display: block;
+    min-height: 20px;
+    height: auto;
+    padding: 12px 52px 12px 12px;
+    margin-bottom: 5px;
+    line-height: 19px;
+  }
+
+  .menu-options a.toggle-active.menu-options-active {
+    background-color: #e4f1fb;
+    border-radius: 4px;
+  }
+
+  .card .card-content {
+    padding: 32px 32px 16px;
+    min-height: 64px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .card.nav>.card-content {
+    min-height: 32px;
+    padding: 16px 24px;
+  }
+
+  .table .table-body {
+    margin-bottom: 36px;
+  }
+
+  #dotogtab_01_testassignments .test-no-questions {
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 310px;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .test-no-questions {
+    background: #fff;
+    width: 100%;
+    height: 405px;
+    flex-direction: column;
+    margin-top: 16px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 3px 0 rgba(0, 40, 77, .2);
+    border-radius: 8px;
+  }
+
+  .font-primary {
+    color: #000;
+  }
+
+  .font-secondary {
+    color: #6a7680;
+  }
+
+  input.btn {
+    line-height: normal !important;
+  }
+</style>
+<div id="content" class="clearfix">
+  <div class="innerWrapper">
+    <div class="col-span-10">
+      <p class="breadcrumb3"><a href="{% url 'TestingSystem:tests' %}" class="first"><span>Tests</span></a><span>Edit
+          Test</span></p>
+    </div>
+    <div class="clearheight20"></div>
+    <div class="clearheight20"></div>
+    <div id="card-title-area" class="card">
+      <div class="card-header no-border color-black">
+        <div id="wrapEdit_tn">
+          <form class="genericForm" id="dosubmit_testname" method="POST">{% csrf_token %}
+            <div class="misc_cat hide">
+              <div class="field-group">
+                <label class="form-field-title" for="editText_tn">Test Name:</label> <input size="40" type="text"
+                  id="editText_tn" class="hide" name="update_test_name" maxlength="255" value="{{ test_name }}"
+                  style="display: block;">
+              </div>
+              <!-- <div class="field-group">
+                <label class="form-field-title" for="cat_id">Category:</label>
+                <script>
+                  var dropdownParentCategories = { "p0": { "value": " Generic Parent ", "default_select": false, "sub-categories": [{ "value": "Generic" }] } }    </script>
+                <div class="category-select no_parent_cat_selection parent-cat-dd"><input type="hidden"
+                    id="selected_category_value-test_page" name="cat_id" value="0"><input type="hidden"
+                    id="selected_sub_category_id-test_page" name="selected_sub_category_id-test_page" value="-1"><select
+                    name="filter_parent_cat_id" id="cat_id-test_page" class="parent-category-select">
+                    <option value="p0"> Generic Parent </option>
+                  </select>
+                  <div style="position:relative" class="sub-category-select"><select name="filter_sub_cat_id"
+                      id="sub_cat_id-test_page">
+                      <option value="0">Generic</option>
+                    </select></div><input type="hidden" id="disable_parent_select-test_page"
+                    name="disable_parent_select" value="true">
+                </div> <a href="#" id="createCatRpc" class="littlelink">New Category</a> <span
+                  class="showTooltip tooltip"
+                  title="Categorizing your Tests and Questions allows you to easily keep these items organized. You can also view results by Category to help better analyze problem areas.">Tip</span>
+              </div> -->
+            </div>
+            <div id="editLink_tn">
+              <h2 id="showText_tn" class="bbcodeInWrapper test-name-big name-big edit-name show-edit-symbol">
+                {{ test_name }}<span class="edit-symbol"></span></h2>
+            </div>
+            <div class="misc_testname tab hide"><br>
+              <a href="#" class="ie_btn ajaxSubmitBtn hide btn btn-create notextchange" id="submit_testname">Update</a>
+              <a class="ie_btn ajaxCancelBtn hide btn btn-cancel notextchange">Cancel</a>
+              <div class="clearheight60"></div>
+            </div>
+          </form>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var updateLink = document.getElementById('submit_testname');
+              updateLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                var form = document.getElementById('dosubmit_testname');
+                form.submit();
+              });
+            });
+          </script>
+
+        </div>
+        <div class="clearheight5"></div>
+
+      </div>
+
+      <div class="card-content">
+        <div class="row align-center">
+          <div class="col-span-5 menu-options">
+            <a id="toggroup_01_duplicate" class="toggle-active" href="#"><i class="icon duplicate-grey"
+                aria-hidden="true"></i> Duplicate</a>
+            <span class="divider"></span>
+
+            <a id="toggroup_01_paper" class="toggle-active" href="#"><i class="icon print-grey" aria-hidden="true"></i>
+              Print</a>
+
+            <span class="divider"></span>
+            <a id="toggroup_01_deletetest" class="toggle-active" href="#"><i class="icon delete-grey"
+                aria-hidden="true"></i> Delete</a>
+          </div>
+
+          <div class="col-span-5">
+            <a href="{% url 'Assign:showed-assign' test_id=test_id test_description=slug %}"
+              class="btn btn-large btn-create assign-test-big right"><i class="fa fa-share fa-flip-vertical"
+                aria-hidden="true"></i> Assign Test</a><a href="{% url 'UserResponse:preview' test_id=test_id %}"
+              onclick="openPreviewGroupTest(2117377, 0)" class="btn btn-secondary right btn-space"><i class="fa fa-play"
+                aria-hidden="true"></i> Preview</a>
+          </div>
+
+        </div>
+
+
+
+        <div class="test-message hide editor" id="dotoggroup_01_assign">
+          <div class="page pagecontent editor">
+
+            <h3>Assign Test</h3>
+            <p>Tests must be assigned to a Group or Link before they can be taken.</p>
+            <a href="{% url 'Assign:showed-assign' test_id=test_id test_description=slug %}"
+              class="btn btn-assign">Assign Test</a>
+
+          </div>
+          <div class="clearheight"></div>
+        </div>
+
+
+
+
+        <div class="no-padding hide editor" id="dotoggroup_01_duplicate">
+
+          <div class="alert-box alert-white">
+            <div class="row noborder ">
+              <div class="col-span-4 editor">
+                <p class="bold">Assign this Test again:</p>
+                <ul class="littledark">
+                  <li>Each Test can be assigned multiple times with customized settings applied each time.</li>
+                  <li>There is NO need to duplicate your Test, simply assign it to a different Group or Link.</li>
+                </ul>
+
+              </div>
+              <div class="col-span-1">
+                &nbsp;
+              </div>
+
+              <div class="col-span-5 editor">
+                <p class="bold">Duplicate this Test:</p>
+                <ul class="littledark">
+                  <li>Duplicate and make slight variations of this Test.</li>
+                  <li>For example, you can duplicate this Test and then add or delete Questions without affecting the
+                    original version. <strong>Important:</strong> See <strong>Question</strong> options below.</li>
+                </ul>
+
+              </div>
+            </div>
+
+            <div class="row noborder nopad">
+              <div class="col-span-4 editor">
+                <p><a class="btn btn-create"
+                    href="{% url 'Assign:showed-assign' test_id=test_id test_description=slug %}">Assign</a></p>
+              </div>
+              <div class="col-span-1">
+                &nbsp;
+              </div>
+              <div class="col-span-5 editor">
+                <p><a class="anchor_scroll_confirmduplicate open_anchor_element btn btn-create" href="#">Duplicate</a>
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+          <div class="scroll_confirmduplicate hide">
+            <div class="test-message">
+              <h4>Duplicate Test</h4>
+              <form method="POST">{% csrf_token %}
+                <div class="field-group">
+                  <label class="form-field-title" for="tn">Test name:</label> <input type="text" size="30"
+                    name="duplicate_test_name" class="check" maxlength="255" id="tn">
+                </div>
+
+                <!-- <div class="field-group">
+                  <label class="form-field-title" for="cat_select">Test Category:</label>
+                  <script>
+                    var dropdownParentCategories = { "p0": { "value": " Generic Parent ", "default_select": false, "sub-categories": [{ "value": "Generic" }] } }    </script>
+                  <div class="category-select no_parent_cat_selection parent-cat-dd"><input type="hidden"
+                      id="selected_category_value-duplicate" name="cat_id" value="0"><input type="hidden"
+                      id="selected_sub_category_id-duplicate" name="selected_sub_category_id-duplicate"
+                      value="-1"><select name="filter_parent_cat_id" id="cat_id-duplicate"
+                      class="parent-category-select">
+                      <option value="p0"> Generic Parent </option>
+                    </select>
+                    <div style="position:relative" class="sub-category-select"><select name="filter_sub_cat_id"
+                        id="sub_cat_id-duplicate">
+                        <option value="0">Generic</option>
+                      </select></div><input type="hidden" id="disable_parent_select-duplicate"
+                      name="disable_parent_select" value="true">
+                  </div> <a href="#" id="createCatRpc_2" class="littlelink">New Category</a> <span
+                    class="showTooltip tooltip"
+                    title="Categorizing your Tests and Questions allows you to easily keep these items organized. You can also view results by Category to help better analyze problem areas.">Tip</span>
+                </div> -->
+                <div class="dotted"></div>
+                <div class="clearheight"></div>
+
+                <div>
+                  <div class="tab bold">Important Question Options</div>
+                  <div class="clearheight">
+                  </div>
+                  <div class="alert-box alert-white tab"><i class="fa fa-info-circle" aria-hidden="true"></i> <i>Did you
+                      know:</i><br>All Questions in ClassMarker are stored in your Question bank. Your Tests simply
+                    reference these Questions.</div>
+                  <div class="clearheight"></div>
+                  <span class="form-field-title not-input">Questions:</span>
+                  <input type="radio" name="duplicate_questions" value="no" checked="checked" id="duplicate1">
+                  <label for="duplicate1">Reference the <strong>Same</strong> Questions from your Question
+                    bank</label><br>
+                  <span class="tab padleft30 explain">
+                    <i>If you edit a Question in this Duplicated Test, you will change it in all other Tests where that
+                      Question is used.</i>
+                  </span><br>
+
+                  <br>
+                  <span class="tab"><input type="radio" name="duplicate_questions" value="yes" id="duplicate2"></span>
+                  <label for="duplicate2">Create <strong>Duplicate copies</strong> of each Question in this
+                    Test</label><br>
+                  <div class="tab padleft30 explain">
+                    <i>This means you will have two copies of each Question from this Test in your Question bank.<br>
+                      Note: You would use this option if you want to make changes to only the new Duplicated
+                      Questions</i>
+                  </div><br>
+                  <div class="clearheight"></div>
+                  <div class="clearheight"></div>
+                  <div class="clearheight"></div>
+                </div>
+                <p>
+                  <input type="submit" class="btn btn-delete showLoading hidemeAdmin"
+                    value="Duplicate chosen method">
+                </p>
+                <!-- <div class="alert-box editor alert-confirmation ">
+                  Upgraded accounts can make duplicate copies of their Tests and Questions in ClassMarker.<div
+                    class="clearheight"></div>  
+                  <span class="little"><a href="#" class="upgradeRpc">Upgraded Account Features</a></span>
+                </div> -->
+              </form>
+              <div class="clearheight"></div>
+            </div>
+          </div>
+        </div>
+        <div class="test-message hide editor" id="dotoggroup_01_paper">
+          <div class="col no-border">
+            <p class="bold">Paper Testing</p>
+            <div class="clearheight"></div>
+            <p>You can print Tests to paper, in addition to providing online, if required.</p>
+            <div class="clearheight"></div>
+            <a href="/a/tests/test/print/?test_id=2117377" class="btn btn-assign">Prepare Test for Printing</a>
+          </div>
+        </div>
+
+
+        <div class="test-message hide editor" id="dotoggroup_01_deletetest">
+          <div class=" editor">
+            <p class="bold">Delete Test</p>
+            <form method="POST" class="genericPostForm" id="usedForIeResubmit_deleteTest"
+              onsubmit="return showAlertWithCancel()">{% csrf_token %}
+              <div class="clearheight5"></div>
+              <span class="test-name name">AFASFSFSD</span>
+              <div class="margleft">
+                <ul>
+                  <li>Deleting this Test is Permanent!</li>
+                  <li>Questions in this Test will remain in your Question Bank</li>
+                </ul>
+              </div>
+              <div id="msgDiv2117377" class="hide"></div>
+              <div class="clearheight"></div>
+              <span>
+                <input type="submit" class="submitBtn btn btn-create checkDelete" name="status"
+                  value="Delete this Test">
+                <script>
+                  function showAlertWithCancel() {
+                    var result = confirm('Do you want to proceed?');
+                    if (result) {
+                    } else {
+                      return false;
+                    }
+                  }
+                </script>
+              </span>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div id="test-intro" class="card">
+      <div class="card-content">
+        <strong class="edit-message">Test Introduction</strong>
+        <a href="#" id="tog_testintro">+ Add Introduction</a>
+        <div class="delay_hide_sceditor test-message editor" id="dotog_testintro" style="display: none;">
+          <p>Introduction text will be displayed before Users start this Test. Introduction text is optional.</p>
+          <div>
+            <form id="dosubmit_testintro" class="genericPostForm" method="POST">{% csrf_token %}
+              {{ form.as_p }}
+              {{ form.media }}
+              <p><input type="submit" id="submit_testintro" class="btn btn-create btnSubmit" value="Update"></p>
+            </form>
+          </div>
+        </div>
+        <script>
+          document.getElementById('tog_testintro').addEventListener('click', function () {
+            var introDiv = document.getElementById('dotog_testintro');
+            if (introDiv.style.display === 'none' || introDiv.style.display === '') {
+              introDiv.style.display = 'block';
+            } else {
+              introDiv.style.display = 'none';
+            }
+          });
+        </script>
+      </div>
+    </div>
+    <div class="editor table noborder" id="scrollToShowCount">
+      <div class="col-span-7">
+        <span id="how-man-questions"><span id="total_questions_count">3</span> Questions</span>
+        <span class="qcount-summary">(<span id="static_points">3</span> Points)</span>
+      </div>
+      <div class="col-span-3">
+        <p class="explain right">
+          Question Bank: <span id="question_bank_count">12</span> Questions <span class="showTooltipUnder tooltip"
+            original-title="All Questions you add to your account are stored in your Questions Bank. Your Tests simply reference those Questions. You can also reuse Questions across multiple Tests.">&nbsp;</span>
+        </p>
+      </div>
+    </div>
+    <div class="clearheight5"></div>
+
+    <div class="card nav panel">
+      <ul class="card-header">
+        <li class="tabon"><a href="#" id="togtab_01_testquestions" class="nav-item "
+            onclick="toggleEditTestButtons('test')">Test Questions <span class="badge-round">{{ questions|length }}</span> </a></li>
+        <li class="taboff"><a href="#" id="togtab_01_testassignments" class="nav-item"
+            onclick="toggleEditTestButtons('assign')">
+            Assigned Tests<span class="badge-round">{{ assign_items|length }}</span> </a></li>
+        <script>
+          function toggleEditTestButtons(tabType) {
+            var questionsTab = document.getElementById('togtab_01_testquestions');
+            var assignmentsTab = document.getElementById('togtab_01_testassignments');
+            if (tabType === 'test') {
+              questionsTab.parentNode.className = 'tabon';
+              assignmentsTab.parentNode.className = 'taboff';
+            } else if (tabType === 'assign') {
+              questionsTab.parentNode.className = 'taboff';
+              assignmentsTab.parentNode.className = 'tabon';
+            }
+          }
+        </script>
+      </ul>
+      <div id="question-tab" class="card-content">
+        <div id="test-question-utility-row" class="table-utility row above" style="display: flex;">
+          <div class="col-span-5">
+            <div class="dropdown dropdown-x">
+              <a class="dropdown-toggle no_anchor" href="#">Select All </a>
+              <span id="questionbank-expand-toggle" class="showTooltipUpper" original-title="Show Answers"></span>
+            </div>
+          </div>
+          <div class="col-span-5 col-btns">
+            <div class="dropdown">
+              <a class="btn btn-actions btn-white">Actions <span class="caret">&nbsp;</span> </a>
+              <ul class="dropdown-menu edit-test-options">
+                <li><a href="/a/tests/qb/settings/?test_id=2117377"
+                    title="Edit settings for all Fixed Questions in this Test at once." class="showTooltipEast">Edit
+                    question settings</a></li>
+                <li><a href="#" title="Export the Fixed Questions in this Test."
+                    class="showTooltipEast qbankExport">Export questions</a></li>
+
+              </ul>
+            </div>
+            <div class="dropdown">
+              <a class="btn btn-analytics dropdown-toggle no_anchor"
+                href="{% url 'TestingSystem:create-multiple' test_id=test_id test_description=slug %}"> Add Question</a>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div id="dotogtab_01_testassignments" class="table narrow-row no-shadow hide" style="display: none;">
+          <div class="accordion-fold" style="display:block">
+            {% if not assign_items %}
+            <ul class="table-body">
+
+              <li class="row test-no-questions">
+                <p>You need to Assign this Test to a Group or Link before it can be taken. <a
+                    href="/online-testing/manual/?get_content=assign" class="popup">Learn
+                    more</a>.</p>
+              </li>
+            </ul>
+            {% endif %}
+            <ul class="hover-row">
+              {% for assign_item in assign_items%}
+              <li class="row link-list-row">
+                <div class="col-span-6 link-name-area">
+                  <div class="name-wrapper link-name-wrapper">
+                    <p class="link-name name"></p>
+                    <a class="graylink"
+                      href="{% url 'Assign:edit-assign' assign_id=assign_item.id test_description=slug %}">
+                      {{ assign_item.assign_name }} </a>
+                  </div>
+                  <div class="linksinafold show-direct-links editor clear hide" id="4dp64df43d31d998">
+                    <p><strong>Options for giving access to this
+                        test:</strong></p>
+                    <p>Test link <span class="showTooltip tooltip"
+                        title="Use this format to send this link to your test takers via email. You can also post this link on your website, add to facebook, twitter etc.">tip</span>
+                      <br><input class="textinput" type="text" size="40" value="{{ assign_item.slug_field }}"
+                        onclick="javascript:this.focus();this.select();" readonly="readonly">
+                    </p>
+                    <p>Embed test into your website <span class="showTooltipHTML tooltip"
+                        title="Insert this HTML code to embed this test directly in your website.<br></span>Only use 'one' test per 'web page'.">tip</span>
+
+                      <br><input class="textinput" type="text" size="40"
+                        value="<script src=&quot;{{ assign_item.slug_field }}&quot; data-quiz=&quot;4dp64df43d31d998&quot; data-width=&quot;700&quot; data-height=&quot;800&quot; ></script>"
+                        onclick="javascript:this.focus();this.select();" readonly="readonly">
+                    </p>
+                  </div>
+                </div>
+                <div class="col-span-3 link-status-area">
+
+                  <div class="test-status-notice active"> Active</div> <span class="showTooltipHTML"
+                    title="Available">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <div class="assigned-test-icon-menus">
+                    <span class="open_embed_links ">
+                      <a href="#" class="open_embed_links_edit_test_page link-name"
+                        data-ext_test_id="4dp64df43d31d998"></a></span>
+                    <a href="{% url 'Assign:edit-assign' assign_id=assign_item.id test_description=slug %}"
+                      class="setting-icon"></a>
+                    <span class="showTooltipUpper setting-icon-tool-tip"
+                      title="Settings">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                </div>
+                <div class="col-span-1 col-btns littledark">
+                  <a href="{% url 'Assign:edit-assign' assign_id=assign_item.id test_description=slug %}"
+                    class="btn btn-results">Results</a>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="dotogtab_01_testquestions" style="display: block;">
+
+        <div class="question-footer-hover-trigger">
+          {% if not questions %}
+          <div class="row test-no-questions">
+            <p class="bold font-primary">No Questions are in your Test yet.</p>
+            <p class="font-secondary">Add your first Question!</p>
+          </div>
+          {% endif %}
+          {% for question in questions %}
+          {% if question.qtype == 'option'%}
+          <div class="card">
+            <div class="card-header test-question">
+              <a id="q34305723"></a>
+              <div class="col-span-35 question-title__index"><span>Question 1</span>
+              </div>
+              <div class="col-span-55 question-title__category">
+                <span class="right">Generic Parent&nbsp; / Generic</span>
+              </div>
+              <div class="col-span-1 question-title__score">
+                <span class="right">1 pt</span>
+              </div>
+            </div>
+            <div class="card-content ">
+              <div class="editor question">
+                <div class=" qpad">{{ question.text|safe }}</div>
+                <div class="hide" id="dotog_ans34305723">
+                  <div class="clearheight"></div>
+
+                  <table class="answholder">
+                    <tbody>
+                      {% for answer in question.answers %}
+                      <tr {% if answer.is_correct %} class="selected-answer" {% endif %}>
+                        <td class="number">A. </td>
+                        <td class="answer">{{ answer.answer|safe }}</td>
+                        {% if answer.is_correct %}
+                        <td class="feedback-icon"><img src="https://www.classmarker.com/img4/icons/feedback-correct.svg"
+                            class="icon feedback-correct"></td>
+                        {% endif %}
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <div class="divider-solid"></div>
+                  <div class="clearheight"></div>
+                  <table class="qb-q-info">
+                    <tbody>
+                      <tr>
+                        <td>Question Type:</td>
+                        <td>Multiple Choice</td>
+                      </tr>
+                      <tr>
+                        <td>Randomize Answers:</td>
+                        <td>Yes</td>
+                      </tr>
+                      <tr>
+                        <td>Date Added:</td>
+                        <td class="padleft5">Tue 29th Aug 2023</td>
+                      </tr>
+                      <tr>
+                        <td>Last Modified:</td>
+                        <td class="padleft5">N/A</td>
+                      </tr>
+                      <tr>
+                        <td>QID#:</td>
+                        <td class="padleft5">{{ question.Q_ID }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <div class="question-footer-hover opacityon">
+                <div class="divider-solid"></div>
+                <div class="question-footer">
+                  <a href="#" id="tog_ans34305723" class="open-close-toggle"><i class="fa fa-expand"
+                      aria-hidden="true"></i> Answers</a>
+                  <a
+                    href="{% url 'TestingSystem:question_edit_multiple' question_id=question.Q_ID question_description=question.question_description %}"><i
+                      class="fa fa-pencil" aria-hidden="true"></i> Edit</a><a href="#" class="upgradeRpc"><i
+                      class="fa fa-files-o" aria-hidden="true"></i> Duplicate</a> <a id="sqit-34305723"><i
+                      class="fa fa-location-arrow" aria-hidden="true"></i> Used In</a>
+                  <div id="d34305723" class="f-right">
+                    <a href="?questionIdDelete={{ question.Q_ID }}-{{question.question_description}}"
+                      id="removeq-34305723" class="edit-test-page">Remove From Test</a>
+                  </div>
+                  <div id="dsqit-34305723" class="hidden"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% elif question.qtype == 'freetext'%}
+          <div class="card">
+            <div class="card-header test-question">
+              <a id="q34250028"></a>
+              <div class="col-span-35 question-title__index"><span>Question {{ question.Q_N }}</span>
+              </div>
+              <div class="col-span-55 question-title__category">
+                <span class="right">Generic Parent&nbsp; / Generic</span>
+              </div>
+              <div class="col-span-1 question-title__score">
+                <span class="right">{{ question.ranking }} pt</span>
+              </div>
+            </div>
+            <div class="card-content ">
+              <div class="editor question">
+                <div class=" bbcode qpad"><span class="xbbcode-code">{{ question.text|safe }}</span></div>
+
+                <div class="hide" id="dotog_ans34250028">
+
+                  <div class="clearheight"></div>
+                  <p><strong>Accepted answers:</strong></p>
+                  <table class="answholder freetext">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="icon feedback-correct"></span>
+                        </td>
+                        {% for answer in question.answers %}
+                        <td class="answer">{{ answer.freetext }}</td>
+                        {% endfor %}
+                      </tr>
+                      <tr>
+                        <td><img src="/img3/i.gif" width="20" height="1" alt=""></td>
+                        <td><img src="/img3/i.gif" width="20" height="1" alt=""></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="divider-solid"></div>
+                  <div class="clearheight"></div>
+                  <table class="qb-q-info">
+                    <tbody>
+                      <tr>
+                        <td>Question Type:</td>
+                        <td>Free Text</td>
+                      </tr>
+                      <tr>
+                        <td>Date Added:</td>
+                        <td class="padleft5">Fri 18th Aug 2023</td>
+                      </tr>
+                      <tr>
+                        <td>Last Modified:</td>
+                        <td class="padleft5">N/A</td>
+                      </tr>
+                      <tr>
+                        <td>QID#:</td>
+                        <td class="padleft5">34,250,028</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <div class="question-footer-hover opacityon">
+                <div class="divider-solid"></div>
+                <div class="question-footer">
+                  <a href="#" id="tog_ans34250028" class="open-close-toggle"><i class="fa fa-expand"
+                      aria-hidden="true"></i> Answers</a>
+                  <a
+                    href="{% url 'TestingSystem:question_edit_freetext' question_id=question.Q_ID question_description=question.question_description %}"><i
+                      class="fa fa-pencil" aria-hidden="true"></i> Edit</a><a href="#" class="upgradeRpc"><i
+                      class="fa fa-files-o" aria-hidden="true"></i> Duplicate</a> <a id="sqit-34250028"><i
+                      class="fa fa-location-arrow" aria-hidden="true"></i> Used In</a>
+                  <div id="d34250028" class="f-right">
+                    <a href="?questionIdDelete={{ question.Q_ID }}-{{question.question_description}}"
+                      id="removeq-34250028" class="edit-test-page">Remove From Test</a>
+                  </div>
+                  <div id="dsqit-34250028" class="hidden"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% elif question.qtype == 'matching' %}
+          <div class="card">
+            <div class="card-header test-question">
+              <a id="q34403892"></a>
+              <div class="col-span-35 question-title__index"><span>Question {{ question.Q_N }}</span>
+              </div>
+              <div class="col-span-55 question-title__category">
+                <span class="right">Generic Parent&nbsp; / Generic</span>
+              </div>
+              <div class="col-span-1 question-title__score">
+                <span class="right">{{ question.ranking }} pt</span>
+              </div>
+            </div>
+            <div class="card-content ">
+              <div class="editor question">
+                <div class=" qpad">Match the options below: {{ question.text|safe }}</div>
+                <div class="hide" id="dotog_ans34403892">
+                  <table class="matching_answholder">
+                    <tbody>
+                      <tr>
+                        <th class="m_left"><strong>Clue</strong></th>
+                        <th class="m_middle"></th>
+                        <th class="m_right"><strong>Match</strong></th>
+                      </tr>
+                      {% for answer in question.answers %}
+                      <tr>
+                        <td colspan="3">
+                          <div class="dotted m_divider m_first_divider"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="m_left matching-imgw" data-question-type="matching">{{ answer.left_item }}</td>
+                        <td class="m_middle"></td>
+                        <td class="m_right matching-imgw" data-question-type="matching">{{ answer.right_item }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <div class="divider-solid"></div>
+                  <div class="clearheight"></div>
+                  <table class="qb-q-info">
+                    <tbody>
+                      <tr>
+                        <td>Question Type:</td>
+                        <td>Matching</td>
+                      </tr>
+                      <tr>
+                        <td>Grade style:</td>
+                        <td class="padleft5">Full points if all answers are correct</td>
+                      </tr>
+                      <tr>
+                        <td>Shuffle style:</td>
+                        <td class="padleft5">Shuffle Clues and Matches</td>
+                      </tr>
+                      <tr>
+                        <td>Date Added:</td>
+                        <td class="padleft5">Fri 15th Sep 2023</td>
+                      </tr>
+                      <tr>
+                        <td>Last Modified:</td>
+                        <td class="padleft5">N/A</td>
+                      </tr>
+                      <tr>
+                        <td>QID#:</td>
+                        <td class="padleft5">{{ question.Q_ID }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+              <div class="question-footer-hover opacityon">
+                <div class="divider-solid"></div>
+                <div class="question-footer">
+                  <a href="#" id="tog_ans34403892" class="open-close-toggle"><i class="fa fa-expand"
+                      aria-hidden="true"></i> Answers</a>
+                  <a
+                    href="{% url 'TestingSystem:question_edit_matching' question_id=question.Q_ID question_description=question.question_description %}"><i
+                      class="fa fa-pencil" aria-hidden="true"></i> Edit</a><a href="#" class="upgradeRpc"><i
+                      class="fa fa-files-o" aria-hidden="true"></i> Duplicate</a> <a id="sqit-34403892"><i
+                      class="fa fa-location-arrow" aria-hidden="true"></i> Used In</a>
+                  <div id="d34403892" class="f-right">
+                    <a href="?questionIdDelete={{ question.Q_ID }}-{{question.question_description}}"
+                      id="removeq-34403892" class="edit-test-page">Remove From Test</a>
+                  </div>
+                  <div id="dsqit-34403892" class="hidden"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% elif question.qtype == 'truefalse' %}
+          <div class="card">
+            <div class="card-header test-question">
+              <a id="q34866774"></a>
+              <div class="col-span-35 question-title__index"><span>Question {{ question.Q_N }}</span>
+              </div>
+              <div class="col-span-55 question-title__category">
+                <span class="right">Generic Parent&nbsp; / Generic</span>
+              </div>
+              <div class="col-span-1 question-title__score">
+                <span class="right">{{ question.ranking }} pt</span>
+              </div>
+            </div>
+            <div class="card-content ">
+              <div class="editor question">
+                <div class=" qpad">{{ question.text|safe }}</div>
+                <div class="hide" id="dotog_ans34866774">
+                  <div class="clearheight"></div>
+                  <table class="answholder">
+                    <tbody>
+                      {% for answer in question.answers %}
+                      <tr class="selected-answer">
+                        <td class="number">A. </td>
+                        <td class="answer">{{answer.modify_truefalse_text }}</td>
+                        {% if answer.truefalse %}
+                        <td class="feedback-ico n"><img
+                            src="https://www.classmarker.com/img4/icons/feedback-correct.svg"
+                            class="icon feedback-correct"></td>
+                        {% endif %}
+                      </tr>
+                      <!-- <tr>
+                        <td class="number">B. </td>
+                        <td class="answer">False</td>
+                        {% if answer.false %}
+                        <td class="feedback-ico n"><img
+                            src="https://www.classmarker.com/img4/icons/feedback-correct.svg"
+                            class="icon feedback-correct"></td>
+                        {% endif %}
+                      </tr> -->
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <div class="divider-solid"></div>
+                  <div class="clearheight"></div>
+                  <table class="qb-q-info">
+                    <tbody>
+                      <tr>
+                        <td>Question Type:</td>
+                        <td>True False</td>
+                      </tr>
+                      <tr>
+                        <td>Date Added:</td>
+                        <td class="padleft5">Wed 22nd Nov 2023</td>
+                      </tr>
+                      <tr>
+                        <td>Last Modified:</td>
+                        <td class="padleft5">N/A</td>
+                      </tr>
+                      <tr>
+                        <td>QID#:</td>
+                        <td class="padleft5">{{ question.Q_ID}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="question-footer-hover opacityon">
+                <div class="divider-solid"></div>
+                <div class="question-footer">
+                  <a href="#" id="tog_ans34866774" class="open-close-toggle"><i class="fa fa-expand"
+                      aria-hidden="true"></i> Answers</a>
+                  <a
+                    href="{% url 'TestingSystem:question_edit_truefalse' question_id=question.Q_ID question_description=question.question_description %}"><i
+                      class="fa fa-pencil" aria-hidden="true"></i> Edit</a><a href="#" class="upgradeRpc"><i
+                      class="fa fa-files-o" aria-hidden="true"></i> Duplicate</a> <a id="sqit-34866774"><i
+                      class="fa fa-location-arrow" aria-hidden="true"></i> Used In</a>
+                  <div id="d34866774" class="f-right">
+                    <a href="?questionIdDelete={{ question.Q_ID }}-{{question.question_description}}"
+                      id="removeq-34866774" class="edit-test-page">Remove From Test</a>
+                  </div>
+                  <div id="dsqit-34866774" class="hidden"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+          <div class="card scroll_autoselect  hide ">
+            <div class="card-header test-question">
+              <h4 class="">Have Extra Questions included from your Question Bank</h4>
+            </div>
+            <div class="card-content editor dohighlight_autoselected">
+              <div class="confirmation">Currently <strong>0</strong> Random Questions will be selected from your
+                Question Bank and included in this Test.</div>
+              <ul class="padleft"></ul>
+
+              <div class="alert-box alert-default">
+                <i class="fa fa-info-circle"></i> <a href="#random_settings" id="tog_randomexplain"
+                  class="showcont">Learn about
+                  Fixed vs Random questions</a>
+                <div class="hide" id="dotog_randomexplain">
+                  <div class="clearheight"></div>
+                  <p><strong>Tip:</strong> All Questions you add to your Tests are always added to your <a
+                      href="/a/tests/qb/">Question Bank</a> for re-use.</p>
+
+                  <ul class="littledark">
+                    <li><strong>Fixed</strong> Questions will be given each time this Test is taken.</li>
+                    <li><strong>Random</strong> Questions will be selected from your <strong>Question Bank</strong>
+                      (<i>not
+                        from Fixed Questions in this Test</i>) each time this Test is taken.
+                    </li>
+                    <li>You can set either <strong>Fixed</strong> or <strong>Random</strong> Questions in your Test, or
+                      use
+                      both.
+                    </li>
+                    <li>The same Question will never appear twice in the same Test.</li>
+                  </ul>
+                  <div class="clearheight"></div>
+                  <h5>How to Randomize the 'Fixed Questions' already in this Test?</h5>
+                  <p class="littledark">You can select to randomize the <strong>order</strong> of <strong>Fixed
+                      Questions</strong> in this Test when <strong>Assigning</strong> it to be taken.</p>
+                </div>
+              </div>
+              <div class="clearheight"></div>
+
+              <p><a href="#random_settings" id="tog_drandom" class=" btn btn-results hideme">Select your Random Question
+                  Settings</a></p>
+
+
+              <div class="row hide random-questions-forms dual" id="dotog_drandom">
+
+
+                <div class="col-span-45">
+                  <h5>Option 1</h5>
+                  <p class="explain">Total Nº of Active Questions from selected Sub Categories. <span
+                      class="showTooltipHTML tooltip"
+                      title="Each time the Test is started, select the total number of Questions to be randomly chosen from selected Categories.<br/><br/>Questions will display in random order irrespective of their Categories.">Tip</span>
+                  </p>
+                  <p><a class=" showcont" href="#" id="tograndomoptionleft">Use this option</a></p>
+
+                  <form class="hide" action="/a/tests/test/editRandomQuestions.rpc.php" id="dotograndomoptionleft"
+                    method="post">
+                    <input type="hidden" name="random_option" value="option1">
+                    <input type="hidden" name="test_id" value="2117377">
+                    <input type="hidden" name="order_by_cat_id" value="0">
+
+
+                    <div class="field-group">
+                      <label class="form-field-title showTooltip" for="num_rand_id">Nº of Questions</label>
+                      <input class="input showTooltip input_number_cats" type="number"
+                        title="How many random Questions in total you want to add from selected Categories below?"
+                        min="0" max="300" size="3" name="num_random" id="num_rand_id" value="">
+
+                    </div>
+
+                    <div class="field-group">
+                      <p class="qb-parent-cat">Generic Parent »</p>
+                      <div><input class="input tab-auto-cats" type="checkbox" id="c1_0" name="cat_id_0" value="0">
+                        <label for="c1_0">Generic <span class="right little">12 Avail</span></label>
+                      </div><br>
+                    </div>
+
+                    <div class="field-group">
+                      <span class="form-field-title">Include:</span><select name="static_questions_position">
+                        <option value="0" selected="selected">Randomly mixed in</option>
+                        <option value="1">At end of Test</option>
+                        <option value="2">At start of Test</option>
+                      </select> <span
+                        title="Choose where randomly selected Questions will display in relation to any Fixed Questions set in this Test."
+                        class="showTooltip tooltip">&nbsp;</span>
+                    </div>
+
+
+                    <span class="tab">
+                      <input type="submit" class="btn btn-create">
+                    </span>
+
+                  </form>
+                </div>
+
+
+                <div class="col-span-1">
+                  <div class="or">or </div> &nbsp;
+                </div>
+
+                <style>
+                  #sortable div span {
+                    float: left;
+                  }
+                </style>
+                <div class="col-span-45 ">
+                  <h5>Option 2</h5>
+                  <p class="explain">Specific Nº of Active Questions per selected Sub Category. <span
+                      class="showTooltipEast tooltip"
+                      title="Each time the Test is started, select a specific number of Questions per Sub Category to be randomly chosen.<br/><br/>Allows ordering and grouping Questions by Category.">Tip</span>
+                  </p>
+                  <p><a class=" showcont" href="#" id="tograndomoptionright">Use this option</a></p>
+
+
+
+                  <form class="hide" action="/a/tests/test/editRandomQuestions.rpc.php" id="dotograndomoptionright"
+                    method="post">
+                    <input type="hidden" name="random_option" value="option2">
+                    <input type="hidden" name="test_id" value="2117377">
+                    <div class="field-group">
+                      <div id="sortable" class="ui-sortable">
+                        <div class="row random-question-categories align-center ui-sortable-handle">
+                          <div class="col-span-3">
+                            <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                            <input class="input showTooltip input_number_cats"
+                              title="How many random Questions from this Category?" size="2" type="number" min="0"
+                              max="12" name="cat_id_0" value="" id="c2_0">
+                          </div>
+                          <div class="col-span-55">
+                            <label class="titlename" for="c2_0">
+                              <span class="qb-parent-cat">Generic Parent »</span><br>
+                              Generic
+                            </label>
+                          </div>
+                          <div class="col-span-15">
+                            <span class="right little">12 Avail</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field-group">
+                      <span class="form-field-title">Order:</span>
+                      <input type="radio" name="order_by_cat_id" value="0" id="rqo1" checked="checked"> <label
+                        for="rqo1">In Random Order</label>
+                      <div class="clearheight5"></div>
+                      <span class="tab"><input type="radio" name="order_by_cat_id" value="1" id="rqo2"> <label
+                          for="rqo2">Grouped by Category</label></span>
+                    </div>
+                    <div class="field-group">
+
+                      <span class="tab">(Drag by <span class="ui-icon ui-icon-arrowthick-2-n-s"></span> to arrange
+                        order)</span>
+                    </div>
+
+                    <div class="field-group">
+                      <span class="form-field-title">Include:</span><select name="static_questions_position">
+                        <option value="0" selected="selected">Randomly mixed in</option>
+                        <option value="1">At end of Test</option>
+                        <option value="2">At start of Test</option>
+                      </select> <span
+                        title="Choose where randomly selected Questions will display in relation to any Fixed Questions set in this Test.
+                  Note: If selecting to order Questions 'Grouped by Category' above, you can only choose Fixed Questions to display either at the Start or End of Test (not mixed in)."
+                        class="showTooltip tooltip">&nbsp;</span>
+                    </div>
+
+                    <!--<a href="#" class="genericSubmitLink tab btn btn-create">Save changes</a>-->
+                    <span class="tab">
+                      <input type="submit" class="btn btn-create" id="remove_empty_random_cat_inputs">
+                    </span>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <a id="bottom"></a>
+    <div class="clearheight60"></div>
+
+
+    <script>
+      asset_image_toggle_max_width = 600; asset_image_allow_toggle = false;
+      $(document).ready(function () {
+
+
+
+        $("#sortable").sortable();
+
+
+        $('#duplicate2').click(function () {
+          $('#duplicate3').show();
+        });
+        $('#duplicate1').click(function () {
+          $('#duplicate3').hide();
+        });
+        $('.dselected').click(function () {
+          $('#dselected_id').attr('checked', 'checked');
+        });
+      });
+    </script>
+
+
+    <div class="generic-overlay ">
+      <div class="generic-overlay-content"></div>
+      <div class="clearheight30"></div>
+    </div>
+    <div class="jqmWindowWide jqmID3 jqDrag jqmID1" id="qbankExportDiv"></div>
+    <script>
+
+      function toggleEditTestButtons(name) {
+        if (name == 'test') {
+          $('#test-question-utility-row').show();
+          $('#question-tab').removeClass('no-padding');
+        } else {
+          $('#test-question-utility-row').hide();
+          $('#question-tab').addClass('no-padding');
+        }
+      }
+
+      $(document).ready(function () {
+        $('#qbankExportDiv').jqm({
+          ajax: '/a/tests/rpc/qbankExport.rpc.php?test_id=2117377',
+          trigger: 'a.qbankExport'
+        });
+        /* If coming from edit question page, open answers div for that question */
+        var hash = window.location.hash.substr(2);
+        if (hash.length > 0) {
+          $('#dotog_ans' + hash).show();
+
+        }
+
+
+      });
+    </script>
+  </div><!-- innerWrapper -->
+  <img src="/img3/icon_loading_circleV35.gif" alt="Hidden Loading Image" class="hide" width="20" height="20">
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggleLinks = document.querySelectorAll('.open-close-toggle');
+    toggleLinks.forEach(function (toggleLink) {
+      toggleLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        var cardContent = toggleLink.closest('.card-content');
+        var toggleContent = cardContent.querySelector('.hide');
+        if (toggleContent) {
+          toggleContent.style.display = (toggleContent.style.display === 'none' || toggleContent.style.display === '') ? 'block' : 'none';
+        }
+      });
+    });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('editLink_tn').addEventListener('click', function () {
+      document.getElementById('editLink_tn').style.display = 'none';
+      document.querySelector('.misc_testname').style.display = 'block';
+      document.querySelector('.misc_cat').style.display = 'block';
+    });
+    document.querySelector('.ie_btn.ajaxCancelBtn.hide.btn.btn-cancel.notextchange').addEventListener('click', function () {
+      document.getElementById('editLink_tn').style.display = 'block';
+      document.querySelector('.misc_testname').style.display = 'none';
+      document.querySelector('.misc_cat').style.display = 'none';
+    });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggleLink = document.getElementById('toggroup_01_duplicate');
+    var toggleDiv = document.getElementById('dotoggroup_01_duplicate');
+
+    var printLink = document.getElementById('toggroup_01_paper');
+    var printDiv = document.getElementById('dotoggroup_01_paper');
+
+    var deleteLink = document.getElementById('toggroup_01_deletetest');
+    var deleteDiv = document.getElementById('dotoggroup_01_deletetest');
+
+    toggleLink.addEventListener('click', function () {
+      toggleDiv.style.display = (toggleDiv.style.display === 'none' || toggleDiv.style.display === '') ? 'block' : 'none';
+      printDiv.style.display = 'none';
+      printLink.classList.remove('menu-options-active');
+      deleteDiv.style.display = 'none';
+      deleteLink.classList.remove('menu-options-active');
+      toggleLink.classList.toggle('menu-options-active');
+    });
+
+    printLink.addEventListener('click', function () {
+      printDiv.style.display = (printDiv.style.display === 'none' || printDiv.style.display === '') ? 'block' : 'none';
+      toggleDiv.style.display = 'none';
+      toggleLink.classList.remove('menu-options-active');
+      deleteDiv.style.display = 'none';
+      deleteLink.classList.remove('menu-options-active');
+      printLink.classList.toggle('menu-options-active');
+    });
+
+    deleteLink.addEventListener('click', function () {
+      deleteDiv.style.display = (deleteDiv.style.display === 'none' || deleteDiv.style.display === '') ? 'block' : 'none';
+      printDiv.style.display = 'none';
+      printLink.classList.remove('menu-options-active');
+      toggleDiv.style.display = 'none';
+      toggleLink.classList.remove('menu-options-active');
+      deleteLink.classList.toggle('menu-options-active');
+    });
+
+    var duplicatetest = document.querySelector('.anchor_scroll_confirmduplicate.open_anchor_element.btn.btn-create');
+    var instructionDuplicate = document.querySelector('.scroll_confirmduplicate');
+    duplicatetest.addEventListener('click', function () {
+      instructionDuplicate.style.display = (printDiv.style.display === 'none' || printDiv.style.display === '') ? 'block' : 'none';
+    })
+  });
+</script>
+
+<script>
+  const togtab_01_testquestions = document.getElementById("togtab_01_testquestions");
+  const togtab_01_testassignments = document.getElementById("togtab_01_testassignments");
+  var testquestionutility = document.getElementById('test-question-utility-row');
+  var dotogtab_01_testquestions = document.getElementById('dotogtab_01_testquestions');
+  var dotogtab_01_testassignments = document.getElementById('dotogtab_01_testassignments');
+  var questiontab = document.getElementById('question-tab');
+
+  togtab_01_testquestions.addEventListener("click", function () {
+    togtab_01_testquestions.parentElement.classList.add("tabon");
+    togtab_01_testassignments.parentElement.classList.remove("tabon");
+    testquestionutility.style.display = 'block';
+    dotogtab_01_testassignments.style.display = 'none';
+    dotogtab_01_testquestions.style.display = 'block';
+    questiontab.parentElement.classList.remove('no-padding');
+  });
+
+  togtab_01_testassignments.addEventListener("click", function () {
+    togtab_01_testassignments.parentElement.classList.add("tabon");
+    togtab_01_testquestions.parentElement.classList.remove("tabon");
+    testquestionutility.style.display = 'none';
+    dotogtab_01_testassignments.style.display = 'block';
+    dotogtab_01_testquestions.style.display = 'none';
+    questiontab.parentElement.classList.add('no-padding');
+
+  });
+
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggleLinks = document.querySelectorAll('.open_embed_links_edit_test_page.link-name');
+    toggleLinks.forEach(function (toggleLink) {
+      toggleLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        var parentLi = toggleLink.closest('.link-list-row');
+        var toggleContent = parentLi.querySelector('.linksinafold.show-direct-links.editor.clear.hide');
+        toggleContent.style.display = (toggleContent.style.display === 'none' || toggleContent.style.display === '') ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+
+{% endblock %}

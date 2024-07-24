@@ -1,0 +1,287 @@
+<!-- {% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+<style>
+    #content {
+        background: none repeat scroll 0 0 #f6f6f8;
+        padding: 30px 0;
+        min-width: 940px;
+    }
+
+    #content .innerWrapper, .branding, .menu.main, #footer {
+        margin: 0 auto;
+        max-width: 700px;
+        min-width: 600px;
+        padding: 0 20px;
+        position: relative;
+        box-sizing: border-box;
+    }
+    .result-overlay .result-overlay-content, .innerWrapper, #print-content, #single-result-content, .group-result {
+        width: 60%;
+        padding-top: 22px;
+        box-sizing: border-box;
+    }
+    .result-overlay .result-overlay-content, .innerWrapper, #print-content, #single-result-content, .group-result {
+        width: 100%;
+        padding-top: 22px;
+        box-sizing: border-box;
+    }
+    .col-span-10 {
+        width: 100%!important;
+    }
+
+    .col-span-05, .col-span-1, .col-span-15, .col-span-2, .col-span-25, .col-span-3, .col-span-35, .col-span-4, .col-span-45, .col-span-5, .col-span-55, .col-span-6, .col-span-65, .col-span-7, .col-span-75, .col-span-8, .col-span-85, .col-span-9, .col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .clearheight20 {
+        clear: both;
+        height: 20px;
+        width: auto;
+    }
+    .clearheight30 {
+        clear: both;
+        height: 30px;
+        width: auto;
+    }
+    .clearheight {
+        clear: both;
+        height: 15px;
+        width: auto;
+    }
+    .table {
+        border-radius: 8px;
+        clear: both;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,40,77,.2);
+        background: #fff;
+    }
+    .table .row {
+        border-bottom: 1px solid #dce1e5;
+        position: relative;
+        clear: both;
+        min-height: 28px;
+        margin: 0;
+        padding: 18px 24px;
+        display: flex;
+        align-items: baseline;
+        flex-direction: row;
+    }
+
+    .row {
+        display: flex;
+        align-items: baseline;
+    }
+    .col-span-5 {
+        width: 50%!important;
+    }
+    .display-block {
+        display: block!important;
+    }   
+    .table .row.test-question .question-name {
+        background: none repeat scroll 0 0 transparent;
+        font-size: 23px;
+        padding: 3px 26px 2px 0;
+    }
+    .table .row .name {
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+    .name {
+        display: block;
+        font-size: 14px;
+        line-height: 32px;
+        min-height: 2px;
+        margin-bottom: 30px;
+        padding: 0 40px;
+    }
+    .question-name {
+        background-position: 4px -735px;
+    }
+    .tooltip {
+        background-position: 0 -3550px;
+        color: #000;
+        cursor: help;
+        display: inline-block;
+        outline: medium;
+        position: relative;
+        text-decoration: none;
+        text-indent: -999em;
+        width: 20px;
+        height: 20px;
+        margin-left: 8px;
+    }
+    span.wonderBtn.selected {
+        background: none repeat scroll 0 0 #0896e6;
+        color: #fff;
+        border: none;
+        padding: 8px 13px;
+    }
+
+    span.wonderBtn {
+        border-radius: 3px;
+        position: relative;
+        margin: 0 3px 0 0;
+        white-space: nowrap;
+        display: inline;
+        padding: 7px 13px;
+        border: 1px solid #d0d0d0;
+        background: #fff;
+        font-size: 14px;
+    }
+
+    span.wonderBtn a {
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 0;
+    }
+    a {
+        color: #fb3311;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .editor {
+        line-height: 1.5;
+    }
+
+    .editor {
+        line-height: 1.5;
+    }
+    .stats-col1 {
+        width:48%;
+        padding-left: 12%;
+        float: left;
+    }
+    .stats-col3 {
+        width: 48%;
+        padding-left: 12%;
+        float: left;
+    }
+    .stats-home-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 23px;
+    }
+    .stats-home-border {
+        border-right: 1px solid #aaa;
+    }
+    .table .row .name {
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+    .stats-home .name {
+        margin-bottom: 10px!important;
+    }
+    .name {
+        display: block;
+        font-size: 14px;
+        line-height: 32px;
+        min-height: 2px;
+        margin-bottom: 30px;
+        padding: 0 40px;
+    }
+    .test-name {
+        background-position: -1px 1px;
+    }
+</style>
+
+<div id="content" class="clearfix">
+    <div class="innerWrapper">
+    
+    
+            <div class="col-span-10"><p class="breadcrumb3"><span class="first">Statistics</span></p></div><div class="clearheight20"></div><div class="clearheight20"></div>
+            <div class="clearheight30"></div>
+            <div class="table">
+    
+                <div class="row test-question">
+                    <div class="col-span-5">
+                        <h4 class="question-name name">Statistics <span class="showTooltipHTML tooltip" original-title="All Statistics pages are cached and recalculated within 3 hours.">Tip</span>
+                        </h4>
+                    </div>
+                </div>
+    
+                <div class="row stats-home display-block">
+    
+                                        <div class="clearheight30"></div>
+    
+                        <div class="" style="width:48%;padding-left:19%;float:left;">
+                            <span class="wonderBtn selected showLoading hidemeAdmin"><a href="{% url 'TestingSystem:statisticByTest' %}">By Test</a></span>
+    
+                        </div>
+                        <div class="" style="width:48%;padding-left:19%;float:left;">
+                            <span class="wonderBtn selected showLoading hidemeAdmin"><a href="{% url 'TestingSystem:statisticByLink' %}">By Link</a></span>
+    
+                        </div>
+                        <div class="clearheight30"></div>
+                                    <div class="clearheight30"></div>
+    
+                    <div class="stats-home-border stats-home-panel editor stats-col1">
+    
+                        <h4 class="name test-name">Tests</h4>
+                        <h4 class="name question-name" style="background-position: 1px -735px;">Questions</h4>
+                    </div>
+                    <div class="stats-home-panel editor stats-col3">
+    
+                        <h4 class="name link-name">Links</h4>
+                        <h4 class="name member-name" style="padding-right:0px">Non-Registered Users</h4>
+                    </div>
+                    <div class="clearheight30"></div>
+    
+                </div>
+    
+    
+            </div>
+    
+    
+            <div class="clearheight"></div>
+            <div class="clearheight"></div>
+            <div class="clearheight"></div>
+            <div class="clearheight"></div>
+            <div class="clearheight"></div>
+            <div class="clearheight"></div>
+            <div class="clearheight"></div>
+    
+    
+            <div class="clearheight"></div>
+    
+    
+            </div>innerWrapper
+    <img src="/img3/icon_loading_circleV35.gif" alt="Hidden Loading Image" class="hide" width="20" height="20">
+    </div>
+
+{% endblock %} -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- {% if debug %} -->
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
+
+<script type="module">
+    import RefreshRuntime from 'http://localhost:5173/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+  </script>
+  <script type="module" src="http://localhost:5173/src/main.tsx"></script>
+  <!-- {% else %} -->
+  <!-- <script type="module" crossorigin src="{% static '/assets/js/index.min.js' %}"></script> -->
+    <!-- <link rel="stylesheet" href="{% static '/assets/css/index.min.css' %}"> -->
+
+    <!-- {% endif %} -->
+    
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

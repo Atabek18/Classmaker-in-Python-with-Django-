@@ -1,0 +1,1034 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dynamic Form Example</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'userresponce/css/user_response.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #dynamic-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .question p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"],
+        input[type="text"] {
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #submit-button {
+            background-color: #28a745;
+            display: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .time-display {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #hours,
+        #minutes,
+        #seconds {
+            padding: 5px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+
+
+        .time-container {
+            text-align: center;
+            margin: 50px auto;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        #dynamic-form {
+            border-radius: 10px;
+            max-width: 40%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        #question-container label {
+            display: block;
+            position: relative;
+            font-weight: 30;
+            font-size: 1em;
+            padding: 5px;
+            margin: auto;
+            height: 40px;
+            z-index: 9;
+            cursor: pointer;
+            -webkit-transition: all 0.25s linear;
+            transition: all 0.25s linear;
+        }
+
+        #question-container label:hover {
+            color: #0e9409;
+            /* Change color to white on hover */
+        }
+
+        #question-container .check {
+            display: block;
+            position: absolute;
+            border: 5px solid #AAAAAA;
+            border-radius: 100%;
+            height: 25px;
+            width: 25px;
+            top: 30px;
+            left: 20px;
+            z-index: 5;
+            transition: border .25s linear;
+            -webkit-transition: border .25s linear;
+        }
+
+        .matching-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #ffffff;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .matching-container:hover {
+            background-color: #e9e9e9;
+        }
+
+        .matching-left {
+            font-size: 17px;
+            font-weight: bold;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .matching-right select {
+            padding: 5px;
+            font-size: 16px;
+            border: 1.5px solid #ccc;
+            border-radius: 3px;
+            background-color: #fff;
+            color: #333;
+            outline: none;
+        }
+
+        .matching-right select:hover {
+            border-color: #0000FF;
+            /* Blue border on hover */
+        }
+
+        .matching-right select:focus {
+            border-color: #0000FF;
+            /* Blue border on focus */
+        }
+
+        .matching-right select option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .matching-right select option:hover {
+            background-color: #ADD8E6;
+            /* Light blue background on option hover */
+        }
+
+        input[type="text"] {
+            width: 98%;
+            border: 0.5px solid #b3b2b2;
+            border-radius: 4px;
+            outline: none;
+            margin-right: 0px;
+            margin-bottom: 20px;
+            margin-top: 0px;
+            padding: 6px;
+        }
+
+        input[type="text"]:hover {
+            border: 1px solid #6f6f6f;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border: 2px solid #80bdff;
+        }
+
+        input[type="text"]::before {
+            background-color: #ADD8E6;
+            animation: shine 2s infinite alternate;
+        }
+    </style>
+    <style>
+        :root {
+            --gray: #ffffff;
+            --darkgray: #ffffff;
+        }
+
+        select {
+            appearance: none;
+            outline: 0;
+            border: 1px solid rgb(239, 233, 233);
+            box-shadow: none;
+            flex: 1;
+            padding: 0 1em;
+            color: #000000;
+            background-color: var(--darkgray);
+            background-image: none;
+            cursor: pointer;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        .select {
+            position: relative;
+            display: flex;
+            width: 15em;
+            height: 40px;
+            border-radius: .25em;
+            overflow: hidden;
+        }
+
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #d7d2d2;
+            transition: .25s all ease;
+            pointer-events: none;
+        }
+
+        .select:hover::after {
+            color: #ffffff;
+        }
+
+        h1 {
+            margin: 0 0 0.25em;
+        }
+
+        a {
+            font-weight: bold;
+            color: var(--gray);
+            text-decoration: none;
+            padding: .25em;
+            border-radius: .25em;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-horizontal">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h2>Registeration</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            {{registerForm.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="surname">Surname</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            {{registerForm.surname }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fa fa-at"></i>
+                            </div>
+                            {{ registerForm.email }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="phone">Phone</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            {{registerForm.phone_number}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="which_season">Season Number</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            {{registerForm.season_number}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 field-label-responsive">
+                    <label for="season_name">Season Type</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+                                <i class="fa fa-compass fa-lg"></i>
+                            </div>
+                            <div class="select">
+                                {{registerForm.season_type}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <button id="button" class="btn btn-success">
+                        <i class="fa fa-user-plus"></i>Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <form id="dynamic-form" method="POST" style="display: none;">
+        {% csrf_token %}
+        <!-- <div class="time-container">
+            <div class="time-display" id="timeSpent">
+                <p><span id="hours">00</span> : <span id="minutes">00</span> : <span id="seconds">00</span></p>
+                <p><span id="sometext"></span></p>
+            </div>
+        </div> -->
+        <style>
+            #progress-bar {
+                width: 100%;
+                height: 30px;
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                overflow: hidden;
+                margin-bottom: 10px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                /* Shadow */
+            }
+
+            #progress {
+                height: 100%;
+                background: linear-gradient(to right, #bc1a1a, #500303);
+                /* Gradient */
+                border-radius: 5px;
+                transition: width 1s linear;
+            }
+
+            /* Animation for completion */
+            @keyframes progressComplete {
+                0% {
+                    transform: scaleX(1);
+                }
+
+                50% {
+                    transform: scaleX(1.05);
+                }
+
+                100% {
+                    transform: scaleX(1);
+                }
+            }
+
+            #progress.complete {
+                animation: progressComplete 0.5s ease-in-out;
+            }
+
+            #remaining-time {
+                font-size: 16px;
+                text-align: center;
+            }
+
+            /* Responsive design */
+            @media (max-width: 600px) {
+                #progress-bar {
+                    height: 20px;
+                }
+
+                #remaining-time {
+                    font-size: 14px;
+                }
+            }
+        </style>
+        <div id="progress-bar">
+            <div id="progress" style="width: 0%;"></div>
+        </div>
+        <div id="remaining-time">Loading...</div>
+
+        <script>
+            class LineBarAnimation {
+                constructor(endPoint, limitedTimeInSeconds = 600, remainingTimeInSeconds = 600) {
+                    this.currentTime = Math.floor(Date.now() / 1000);
+                    this.endPoint = endPoint; 
+                    this.limitedTimeInSeconds = limitedTimeInSeconds; // 10 minutes
+                    this.remainingTimeInSeconds = remainingTimeInSeconds; // Initial remaining time
+                }
+
+                updateProgressBar() {
+                    const progressBar = document.getElementById("progress");
+                    const remainingPercentage = (this.remainingTimeInSeconds / this.limitedTimeInSeconds) * 100;
+                    progressBar.style.width = remainingPercentage + "%";
+                }
+
+                updateRemainingTimeDisplay() {
+                    const remainingTimeElement = document.getElementById("remaining-time");
+                    const minutes = Math.floor(this.remainingTimeInSeconds / 60);
+                    const seconds = this.remainingTimeInSeconds % 60;
+                    remainingTimeElement.innerText = minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+                }
+
+                decrementRemainingTime() {
+                    const timerInterval = setInterval(() => {
+                        this.remainingTimeInSeconds--;
+                        if (this.remainingTimeInSeconds < 0) {
+                            clearInterval(timerInterval);
+                            return;
+                        }
+                        this.updateProgressBar();
+                        this.updateRemainingTimeDisplay();
+                    }, 1000);
+                }
+
+                startAnimation() {
+                    this.remainingTimeInSeconds = this.endPoint - this.currentTime;
+                    this.decrementRemainingTime();
+                    this.updateRemainingTimeDisplay(); // Update the remaining time display initially
+                }
+            }
+        </script>
+        <div class="page_shown">
+            <div id="question-container">
+            </div>
+        </div>
+        <button type="button" id="prev-button" style="display: none;">Previous</button>
+        <button type="button" id="next-button">Next</button>
+        <button type="button" id="submit-button" style="display: none;">Submit</button>
+    </form>
+    <button id="start-button" style="display: none;"> Start</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div id="responseContainer"></div>
+    <script>
+        const container = document.querySelector('.container');
+        var startButton = document.getElementById('start-button');
+        var dynamicForm = document.getElementById("dynamic-form");
+        const form = $('#dynamic-form');
+        const questionContainer = $('#question-container');
+        const prevButton = $('#prev-button');
+        const nextButton = $('#next-button');
+        const submitButton = $('#submit-button');
+        const xhr = new XMLHttpRequest();
+        const storedToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwtToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+        let userAnswers = {};
+        var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+        xhr.open('POST', "{% url 'API_TEST:init_test' %}?quiz_id={{ assign_slug }}");
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        if (storedToken !== '' & storedToken !== null & storedToken !== undefined) {
+            xhr.setRequestHeader('Authorization', `Bearer ${storedToken}`);
+        }
+        xhr.setRequestHeader('X-CSRFToken', csrf_token);
+        const requestData = { csrfmiddlewaretoken: csrf_token };
+        const jsonData = JSON.stringify(requestData);
+        xhr.send(jsonData);
+        let init_responseData = null;
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                init_responseData = JSON.parse(xhr.responseText);
+                if (init_responseData.state === 'test_in_progress') {
+                    $(".container").hide();
+                    $('#start-button').hide();
+                    $('#dynamic-form').show();
+                    const testData = init_responseData;
+                    const currentPage = testData.data.test.current_page;
+                    const total_page = testData.data.test.total_pages;
+                    const questionData = extractQuestionsFromPage(testData.data, currentPage);
+                    var limitTime = testData.settings.test.time_limits;
+                    var timeoutTimestamp = testData.settings.test.timeout_timestamp;
+                    var remainingTime = testData.settings.test.remaining_time;
+                    const animation = new LineBarAnimation(timeoutTimestamp, limitTime, remainingTime);
+                    animation.startAnimation();
+                    showQuestion(questionData, currentPage);
+                    display_setups(currentPage, total_page, testData);
+                }
+                else if (init_responseData.state === 'test_complete') {
+                    $(".container").hide();
+                    $('#start-button').hide();
+                    $('#dynamic-form').hide();
+                }
+                else if (init_responseData.state === 'user_registered') {
+                    $(".container").hide();
+                    $('#start-button').show();
+                    $('#dynamic-form').hide();
+                }
+            } else {
+                console.error('Error:', xhr.statusText);
+            }
+        };
+
+        function extractQuestionsFromPage(data, currentPage) {
+            const sections = data.test.sections;
+            for (let i = 0; i < sections.length; i++) {
+                const pages = sections[i].pages;
+
+                for (let j = 0; j < pages.length; j++) {
+                    if (pages[j].page === currentPage) {
+                        return pages[j].contents.filter(content => content.type === "question");
+                    }
+                }
+            }
+
+            return [];
+        }
+        function showFreetextQuestion(question, questionIndex) {
+            const questionDiv = $('<div>', { class: `question ${question.sub_type}`, id: `question_${questionIndex}` });
+            const questionText = $('<p>').html(question.question);
+            questionDiv.append(questionText);
+
+            const textInput = $('<input>', {
+                type: 'text',
+                name: `question_${questionIndex}_freetext`,
+                value: question.user_answer || userAnswers[`question_${question.id}_freetext`] || '',
+            });
+            textInput.on('input', function () {
+                question.user_answer = $(this).val();
+                const questionType = question.sub_type;
+                const questionKey = `question_${questionIndex}_${questionType}`;
+                userAnswers[questionKey] = question.user_answer;
+
+            })
+
+            questionDiv.append(textInput);
+            questionContainer.append(questionDiv);
+        }
+        function showTrueFalseQuestion(question, questionIndex) {
+            const questionDiv = $('<div>', { class: `question ${question.sub_type}`, id: `question_${questionIndex}` });
+            const questionText = $('<p>').html(question.question);
+            questionDiv.append(questionText);
+            const options = question.options;
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                const optionLabel = $('<label>');
+                const optionInput = $('<input>', {
+                    type: 'radio',
+                    name: `question_${questionIndex}_truefalse`,
+                    value: option.id,
+                    checked: question.user_answer === option.id || userAnswers[`question_${questionIndex}_truefalse`] === option.id,
+                });
+                optionInput.on('change', function () {
+                    question.user_answer = $(this).val();
+                    const questionType = question.sub_type;
+                    const questionKey = `question_${questionIndex}_${questionType}`;
+                    userAnswers[questionKey] = question.user_answer;
+                });
+                optionLabel.append(optionInput, option.content);
+                questionDiv.append(optionLabel);
+            }
+
+            questionContainer.append(questionDiv);
+        }
+        function showMatchingQuestion(question, questionIndex) {
+            const questionDiv = $('<div>', { class: `question ${question.sub_type}`, id: `question_${questionIndex}` });
+            const questionText = $('<p>').html(question.question);
+            questionDiv.append(questionText);
+            console.log(questionText);
+            const matchingPairs = question.options.matches;
+
+            for (let i = 0; i < matchingPairs.length; i++) {
+                const pair = matchingPairs[i];
+                const matchingContainer = $('<div>', { class: 'matching-container' });
+
+                const matchingLeft = $('<div>', { class: 'matching-left' }).html(pair.content);
+                const matchingRight = $('<div>', { class: 'matching-right' });
+
+                const select = $('<select>', {
+                    name: `question_${questionIndex}_matching_${i}`,
+                });
+
+                select.append($('<option>', {
+                    value: '',
+                    text: 'Select...',
+                }));
+
+                question.options.clues.forEach((clue) => {
+                    const optionValue = `${pair.id}_${clue.id}`;
+                    const optionText = clue.content;
+
+                    const isSelected = question.user_answer[`question_${questionIndex}_matching_${i}`] === optionValue;
+
+                    select.append($('<option>', {
+                        value: optionValue,
+                        text: optionText,
+                        selected: isSelected,
+                    }));
+                });
+
+                select.on('change', function () {
+                    const selectedValue = $(this).val();
+                    question.user_answer[`question_${questionIndex}_matching_${i}`] = selectedValue;
+
+                    question.options.clues.forEach((clue) => {
+                        const correspondingValue = `${pair.id}_${clue.id}`;
+                        if (selectedValue === correspondingValue) {
+                            question.user_answer[`question_${questionIndex}_matching_${i}`] = selectedValue;
+                        }
+                    });
+                });
+
+                matchingRight.append(select);
+                matchingContainer.append(matchingLeft, matchingRight);
+                questionDiv.append(matchingContainer);
+            }
+
+            questionContainer.append(questionDiv);
+        }
+        function showMultipleChoiceQuestion(question, questionIndex) {
+            const questionDiv = $('<div>', { class: `question ${question.sub_type}`, id: `question_${questionIndex}` });
+            const questionText = $('<p>').html(question.question);
+            questionDiv.append(questionText);
+
+            const options = question.options;
+
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                const optionLabel = $('<label>');
+                const optionInput = $('<input>', {
+                    type: 'radio',
+                    name: `question_${questionIndex}_option`,
+                    value: option.id,
+                    checked: question.user_answer[0] === option.id || userAnswers[`question_${questionIndex}_option`] === option.id,
+                });
+                optionInput.on('change', function () {
+                    question.user_answer = $(this).val();
+                    const questionType = question.sub_type;
+                    const questionKey = `question_${questionIndex}_${questionType}`;
+                    userAnswers[questionKey] = question.user_answer;
+                });
+                optionLabel.append(optionInput, option.content);
+                questionDiv.append(optionLabel);
+            }
+
+            questionContainer.append(questionDiv);
+        }
+        function showQuestion(questions, page_id) {
+            questionContainer.empty();
+            const pageDiv = $(".page_shown");
+            pageDiv.attr('id', page_id);
+            for (let index = 0; index < questions.length; index++) {
+                const question = questions[index];
+                const questionType = question.sub_type;
+                const question_id = question.id;
+                if (questionType === 'freetext') {
+                    showFreetextQuestion(question, question_id);
+                } else if (questionType === 'truefalse') {
+                    showTrueFalseQuestion(question, question_id);
+                } else if (questionType === 'matching') {
+                    showMatchingQuestion(question, question_id);
+                } else if (questionType === 'option') {
+                    showMultipleChoiceQuestion(question, question_id);
+                }
+                saveUserAnswer(question, page_id);
+            }
+        }
+        function saveUserAnswerFreeText(currentQuestionIndex) {
+            const answer = $(`input[name="question_${currentQuestionIndex}_freetext"]`).val();
+            const questionKey = `question_${currentQuestionIndex}_freetext`;
+            userAnswers[questionKey] = answer;
+        }
+
+        function saveUserAnswerTrueFalse(currentQuestionIndex) {
+            const selectedOption = $(`input[name="question_${currentQuestionIndex}_truefalse"]:checked`).val();
+            const questionKey = `question_${currentQuestionIndex}_truefalse`;
+            userAnswers[questionKey] = selectedOption;
+        }
+
+        function saveUserAnswerMatching(currentQuestionIndex) {
+            const matchingPairs = questionData[currentQuestionIndex].options.matches;
+            const matchingAnswers = {};
+
+            matchingPairs.forEach((pair, i) => {
+                const selectedValue = $(`select[name="question_${currentQuestionIndex}_matching_${i}"]`).val();
+                matchingAnswers[`question_${currentQuestionIndex}_matching_${i}`] = selectedValue;
+            });
+
+            const questionKey = `question_${currentQuestionIndex}_matching`;
+            userAnswers[questionKey] = matchingAnswers;
+        }
+
+        function saveUserAnswerMultipleChoice(currentQuestionIndex) {
+            const selectedOption = $(`input[name="question_${currentQuestionIndex}_option"]:checked`).val();
+            const questionKey = `question_${currentQuestionIndex}_option`;
+            userAnswers[questionKey] = selectedOption;
+        }
+
+        function saveUserAnswer(currentQuestionIndex, questionType) {
+            if (questionType === 'freetext') {
+                saveUserAnswerFreeText(currentQuestionIndex);
+            } else if (questionType === 'truefalse') {
+                saveUserAnswerTrueFalse(currentQuestionIndex);
+            } else if (questionType === 'matching') {
+                saveUserAnswerMatching(currentQuestionIndex);
+            } else if (questionType === 'option') {
+                saveUserAnswerMultipleChoice(currentQuestionIndex);
+            }
+        }
+        let start_responseData = null;
+        $(document).on('click', '#start-button', function (e) {
+            e.preventDefault();
+            $(this).hide();
+            $('#dynamic-form').show();
+            const csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            const storedToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwtToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', "{% url 'API_TEST:test_in_progress' %}", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Authorization', `Bearer ${storedToken}`);
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
+            var data = {
+                csrfmiddlewaretoken: csrf_token,
+            };
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    start_responseData = JSON.parse(xhr.responseText);
+                    const currentPage = start_responseData.data.test.current_page;
+                    const total_page = start_responseData.data.test.total_page;
+                    const questionData = extractQuestionsFromPage(start_responseData.data, currentPage);
+                    showQuestion(questionData, currentPage);
+                    display_setups(currentPage, total_page, start_responseData);
+                    var limitTime = start_responseData.settings.test.time_limits;
+                    var timeoutTimestamp = start_responseData.settings.test.timeout_timestamp;
+                    var remainingTime = start_responseData.settings.test.remaining_time;
+                    console.log(limitTime, timeoutTimestamp, remainingTime);
+                    const animation = new LineBarAnimation(timeoutTimestamp, limitTime, remainingTime);
+                    animation.startAnimation();
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+            xhr.send(JSON.stringify(data));
+            xhr.onerror = function () {
+                console.error('Network error occurred');
+            };
+        });
+        function display_setups(current_page, total_page, data) {
+            const pages = data.data.test.sections[0].pages;
+            if (parseInt(current_page, 10) === 1 && current_page !== total_page) {
+                $("#prev-button").hide();
+                $("#next-button").show();
+            }
+            if (current_page === total_page) {
+                $("#next-button").hide();
+                $("#submit-button").show();
+                $("#prev-button").show();
+            }
+            if (current_page !== total_page & parseInt(current_page, 10) !== 1) {
+                $("#prev-button").show();
+            }
+            if (current_page === total_page & parseInt(current_page, 10) === 1) {
+                $("#next-button").hide();
+                $("#prev-button").hide();
+            }
+            const submit_checker = submitApply(pages);
+            if (submit_checker == true) {
+                $("#submit-button").show();
+            }
+        }
+        function submitApply(pages) {
+            if (pages.length > 1) {
+                var pre_last_page = pages[pages.length - 2];
+                for (let i = 0; i < pre_last_page.contents.length; i++) {
+                    if (pre_last_page.contents[i].user_answer.length !== 0) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        $(document).on('submit', '.form-horizontal', function (e) {
+            e.preventDefault();
+            $('.container').hide();
+            $('#start-button').show();
+            var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', "{% url 'API_TEST:user_info' %}?quiz_id={{ assign_slug }}", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Authorization', 'your-auth-token');
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
+
+            var data = {
+                csrfmiddlewaretoken: csrf_token,
+                name: $('#name').val(),
+                surname: $('#surname').val(),
+                email: $('#email').val(),
+                phone_number: $('#phone_number').val(),
+                season_number: $('#season_number').val(),
+                season_type: $('#season_type').val(),
+            };
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    const register_responseData = JSON.parse(xhr.responseText);
+                    const jwtToken = register_responseData.token;
+                    document.cookie = `jwtToken=${jwtToken}; path=/;`;
+                    const expirationDate = new Date();
+                    expirationDate.setTime(expirationDate.getTime() + 60 * 30 * 1000); // 1 hour
+                    document.cookie = `jwtToken=${jwtToken}; expires=${expirationDate.toUTCString()}; path=/;`;
+
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+            xhr.send(JSON.stringify(data));
+
+            xhr.onerror = function () {
+                console.error('Network error occurred');
+            };
+        });
+        function getQuestionsAnswer(next_page, status) {
+            const page_shown = $('.page_shown');
+            const current_page_id = page_shown.attr('id');
+            const question_container = page_shown.find('#question-container');
+            if (question_container.length > 0) {
+                const questions = question_container.find('.question');
+                const extract_class = questions.attr('class').split(' ');
+                const question_type = extract_class[extract_class.length - 1];
+                const extract_id = questions.attr('id').match(/\d+/)[0];
+                const selected_value = questions.find(`input[name="question_${extract_id}_${question_type}"]:checked`).val();
+                if (!selected_value) {
+                    return false;
+                }
+                const data = {
+                    csrfmiddlewaretoken: csrf_token,
+                    next_page: next_page,
+                    page: parseInt(current_page_id, 10),
+                    status: status,
+                    answers: [
+                        {
+                            question_id: extract_id,
+                            type: question_type,
+                            answer: selected_value !== null ? selected_value : '',
+                        }
+                    ]
+                };
+                return data;
+            }
+            return { 'status': false };
+        }
+        $(document).on('click', '#next-button', function (e) {
+            e.preventDefault();
+            var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            const storedToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwtToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', `{% url 'API_TEST:continue' %}?test_id={{ test_id }}&link_id={{ link_id }}`, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Authorization', `Bearer ${storedToken}`);
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
+            const data = getQuestionsAnswer(true, 'continue');
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    var continue_responseData = JSON.parse(xhr.responseText);
+                    const testData = start_responseData || init_responseData;
+                    const currentPage = continue_responseData.data.test.current_page;
+                    var total_page = continue_responseData.data.test.total_pages;
+                    const questionData = extractQuestionsFromPage(testData.data, currentPage);
+                    showQuestion(questionData, currentPage);
+                    display_setups(currentPage, total_page, testData);
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+            if (data != false) {
+                xhr.send(JSON.stringify(data));
+            }
+
+            xhr.onerror = function () {
+                console.error('Network error occurred');
+            };
+        });
+        $(document).on('click', '#prev-button', function (e) {
+            e.preventDefault();
+            var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            var xhr = new XMLHttpRequest();
+            const storedToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwtToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+            xhr.open('POST', `{% url 'API_TEST:continue' %}?test_id={{ test_id }}&link_id={{ link_id }}`, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Authorization', `Bearer ${storedToken}`);
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
+            const data = getQuestionsAnswer(false, 'continue');
+            if (data != false) {
+                xhr.send(JSON.stringify(data));
+            }
+            xhr.onerror = function () {
+                console.error('Network error occurred');
+            };
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    const continue_responseData = JSON.parse(xhr.responseText);
+                    const testData = start_responseData || init_responseData;
+                    const currentPage = continue_responseData.data.test.current_page;
+                    const totalPages = continue_responseData.data.test.total_pages;
+                    const questionData = extractQuestionsFromPage(testData.data, currentPage);
+                    showQuestion(questionData, currentPage);
+                    display_setups(currentPage, totalPages, testData);
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+        });
+        $(document).on('click', '#submit-button', function (e) {
+            e.preventDefault();
+            var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
+            var xhr = new XMLHttpRequest();
+            const storedToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwtToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+            xhr.open('POST', `{% url 'API_TEST:continue' %}?test_id={{ test_id }}&link_id={{ link_id }}`, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Authorization', `Bearer ${storedToken}`);
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
+            const data = getQuestionsAnswer(false, 'complete');
+            $('#dynamic-form').hide();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    const continue_responseData = JSON.parse(xhr.responseText);
+                    // const testData = start_responseData || init_responseData;
+                    // const currentPage = continue_responseData.data.test.current_page;
+                    // const questionData = extractQuestionsFromPage(testData.data, currentPage);
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            };
+            xhr.send(JSON.stringify(data));
+
+            xhr.onerror = function () {
+                console.error('Network error occurred');
+            };
+        });
+    </script>
+</body>
+
+</html>

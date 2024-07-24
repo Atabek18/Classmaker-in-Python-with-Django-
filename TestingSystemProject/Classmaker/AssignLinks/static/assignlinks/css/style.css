@@ -1,0 +1,109 @@
+.settings-box {
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  width: 650px;
+  box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+}
+
+.accordion-toggle.closed,
+.accordion-toggle-overlay.closed {
+  background-position: 102.5% -2632px;
+}
+
+.settings-box .accordion-toggle {
+  border-radius: 5px;
+  padding: 14px 16px;
+  font-size: 13px;
+}
+
+.accordion-toggle,
+.accordion-toggle-overlay,
+.row.test-question,
+.row.group-name-row {
+  background: none repeat scroll 0 0 #f9fafb;
+  position: relative;
+}
+
+.accordion-toggle,
+.accordion-toggle-overlay {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  clear: both;
+  font-weight: 700;
+  line-height: 1.4em;
+  margin-bottom: 0.3em;
+}
+
+.settings-box h3 {
+  float: left;
+  font-size: 13px;
+  margin-top: 0;
+  text-align: left;
+  width: 108px;
+}
+
+.form-field-title {
+  display: inline-block;
+  margin-top: 3px;
+  margin-right: 10px;
+  text-align: right;
+  width: 125px;
+}
+
+.settings-status {
+  line-height: 1.4em;
+}
+
+.field-group {
+  margin-bottom: 60px;
+  padding-right: 5px;
+}
+
+.settings-box .accordion-fold {
+  background: none repeat scroll 0 0 #fff;
+  border-top: 1px solid #aaa;
+  border-radius: 0 0 5px 5px;
+  padding-top: 27px;
+}
+
+.accordion-fold {
+  clear: both;
+  display: none;
+}
+
+input[type=text],
+input[type=number],
+input[type=password],
+textarea {
+  border: 1px solid #ddd;
+  border-radius: 3px 3px 3px 3px;
+  margin-bottom: 8px;
+  margin-left: 0;
+  padding: 6px;
+  color: #444;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 95.25%;
+  line-height: 1.3em;
+}
+
+.django-ckeditor-widget {
+  position: relative;
+  left: 20px;
+  top: 50px;
+  margin-top: 20px
+}
+
+.assign-name p {
+  padding-bottom: 50px;
+}
+
+.input-group-text {
+  padding: 0.1rem .75rem;
+}

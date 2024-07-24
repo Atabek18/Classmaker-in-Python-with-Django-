@@ -1,0 +1,56 @@
+{
+  "data": {
+    "pages": [
+      {
+        "page": 1,
+        "contents": [
+          {
+            "question": "Which of the following is the major element in earth crust?",
+            "choices": [
+              "Silicon",
+              "Oxygen",
+              "Iron",
+              "Aluminium"
+            ],
+            "answer": "Oxygen"
+          },
+          {
+            "question": "Which among the following country is known as “Land of White Elephant”?",
+            "choices": [
+              "India",
+              "Sri Lanka",
+              "UAE",
+              "Thailand"
+            ],
+            "answer": "Thailand"
+          }
+        ]
+      },
+      {
+        "page": 2,
+        "contents": [
+          {
+            "question": "What is the capital of Austria ?",
+            "choices": [
+              "Graz",
+              "Salzburg",
+              "Innsbruck",
+              "Vienna"
+            ],
+            "answer": "Vienna"
+          },
+          {
+            "question": "The term Ground Stroke is associated with which of the following games?",
+            "choices": [
+              "Cricket",
+              "Badminton",
+              "Tennis",
+              "Draughts"
+            ],
+            "answer": "Tennis"
+          }
+        ]
+      }
+    ]
+  }
+}

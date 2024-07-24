@@ -1,0 +1,2684 @@
+{% extends "testingsystem/Main_Page.html" %}
+
+{% load bootstrap4 %}
+{% load static %}
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
+{% block content %}
+{% bootstrap_css %}
+<link rel="stylesheet" href="{% static 'assignlinks/css/style.css' %}">
+<style>
+    .settings-box {
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        width: 650px;
+        box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+    }
+
+    .assign-name p {
+        padding-bottom: 50px;
+        width: 650px;
+
+    }
+
+    .assign-name-input {
+        background-color: #d9dcdf;
+        width: 650px;
+    }
+
+    .assign-name input:focus {
+        border: 1px solid #65696e;
+        outline: none;
+        background-color: #f0f0f0;
+    }
+
+    .field-group .limit-class {
+        margin-left: 100px;
+        margin-bottom: 0px;
+    }
+
+    .field-group .limit-class:focus {
+        border: 1px solid #65696e;
+        outline: none;
+        background-color: #f0f0f0;
+    }
+
+    .field-group .restrict-class {
+        margin-left: 100px;
+        margin-bottom: 20px;
+    }
+
+    .field-group .restrict-class:focus {
+        border: 1px solid #65696e;
+        outline: none;
+        background-color: #f0f0f0;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .available {
+        padding-right: 120px;
+        padding-left: 300px;
+    }
+
+    .display select:focus {
+        border: 1px solid #65696e;
+        outline: none;
+        background-color: #f0f0f0;
+    }
+
+    .display option:checked {
+        background-color: #ff0000;
+        color: #fff;
+    }
+
+    .display {
+        padding-left: 100px;
+    }
+
+    .settings-box .accordion-fold {
+        background: none repeat scroll 0 0 #fff;
+        border-top: 1px solid #aaa;
+        border-radius: 0 0 5px 5px;
+        padding-top: 27px;
+        padding-bottom: 5px;
+    }
+
+    @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+        input[type="checkbox"] {
+            --active: #1851ec;
+            --active-inner: #fff;
+            --focus: 1px rgba(39, 94, 254, 0.3);
+            --border: #bbc1e1;
+            --border-hover: #275efe;
+            --background: #fff;
+            --disabled: #f6f8ff;
+            --disabled-inner: #e1e6f9;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            height: 21px;
+            outline: none;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            margin: 0;
+            cursor: pointer;
+            border: 1px solid var(--bc, var(--border));
+            background: var(--b, var(--background));
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+
+            &:after {
+                content: "";
+                display: block;
+                left: 0;
+                top: 0;
+                position: relative;
+                transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+                    opacity var(--d-o, 0.2s);
+            }
+
+            &:checked {
+                --b: var(--active);
+                --bc: var(--active);
+                --d-o: 0.3s;
+                --d-t: 0.6s;
+                --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+            }
+
+            &:disabled {
+                --b: var(--disabled);
+                cursor: not-allowed;
+                opacity: 0.9;
+
+                &:checked {
+                    --b: var(--disabled-inner);
+                    --bc: var(--border);
+                }
+
+                &+label {
+                    cursor: not-allowed;
+                }
+            }
+
+            &:hover {
+                &:not(:checked) {
+                    &:not(:disabled) {
+                        --bc: var(--border-hover);
+                    }
+                }
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 var(--focus);
+            }
+
+            &:not(.switch) {
+                width: 21px;
+
+                &:after {
+                    opacity: var(--o, 0);
+                }
+
+                &:checked {
+                    --o: 1;
+                }
+            }
+
+            &+label {
+                font-size: 14px;
+                line-height: 21px;
+                display: inline-block;
+                vertical-align: top;
+                cursor: pointer;
+                margin-left: 4px;
+            }
+        }
+
+        input[type="checkbox"] {
+            &:not(.switch) {
+                border-radius: 30px;
+
+                &:after {
+                    width: 6px;
+                    height: 9px;
+                    border: 1px solid var(--active-inner);
+                    border-top: 0;
+                    border-left: 0;
+                    left: 6px;
+                    top: 4px;
+                    transform: rotate(var(--r, 20deg));
+                }
+
+                &:checked {
+                    --r: 43deg;
+                }
+            }
+
+            &.switch {
+                width: 38px;
+                border-radius: 11px;
+
+                &:after {
+                    left: 2px;
+                    top: 2px;
+                    border-radius: 50%;
+                    width: 15px;
+                    height: 15px;
+                    background: var(--ab, var(--border));
+                    transform: translateX(var(--x, 0));
+                }
+
+                &:checked {
+                    --ab: var(--active-inner);
+                    --x: 17px;
+                }
+
+                &:disabled {
+                    &:not(:checked) {
+                        &:after {
+                            opacity: 0.6;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .django-ckeditor-widget {
+        left: 23px;
+    }
+
+    .pass-mark-stp {
+        position: relative;
+        left: 100px;
+    }
+
+    .pass-mark-stp:focus {
+        border: 1px solid #65696e;
+        outline: none;
+        background-color: #f0f0f0;
+    }
+
+    .email_send {
+        padding-left: 100px;
+    }
+
+    .email_send .creator-email:focus {
+        border: 1px solid #65696e;
+        outline: none;
+        background-color: #f0f0f0;
+    }
+
+    .settings-box label {
+        padding-right: 20px;
+    }
+
+    .settings-box p {
+        margin-bottom: 8px;
+    }
+
+    .container {
+        margin-top: 300px;
+    }
+
+    .settings-box .accordion-toggle {
+        border-radius: 8px;
+        padding: 5px 16px;
+        font-size: 13px;
+        background-color: white;
+
+    }
+</style>
+<style>
+    .stepbars {
+        display: block;
+        font-size: 14px;
+        position: relative;
+        text-decoration: none !important;
+        width: auto;
+        height: 24px;
+        margin-bottom: 32px
+    }
+
+    .stepbars li {
+        display: inline-flex;
+        align-items: center;
+        font-size: 14px;
+        height: inherit;
+        padding-left: 21px;
+        position: relative;
+        width: 40%
+    }
+
+    .stepbars li:first-of-type {
+        padding-left: 0
+    }
+
+    .stepbars li:last-of-type {
+        width: 15%
+    }
+
+    .stepbars li a {
+        color: #6a7680
+    }
+
+    .stepbars li a:hover {
+        text-decoration: none
+    }
+
+    .stepbars .step-circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50px;
+        background: #6a7680;
+        color: #fff;
+        margin-right: 12px
+    }
+
+    .stepbars .step-circle .step-number {
+        position: relative;
+        width: inherit;
+        height: inherit;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: inherit
+    }
+
+    .stepbars .step-divider {
+        position: relative;
+        margin-left: 20px;
+        border-top: 2px solid #6a7680;
+        width: auto;
+        display: inline-flex;
+        flex-grow: 1
+    }
+
+    .stepbars .current .step-circle {
+        background: #fb3311
+    }
+
+    .stepbars .current a,
+    .stepbars .current .step-text {
+        color: #fb3311
+    }
+
+    .nav-bar {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+</style>
+<style>
+    @import"https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
+    @import"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";
+
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+        border: 0;
+        font: inherit;
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline
+    }
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+        display: block
+    }
+
+    body {
+        line-height: 1
+    }
+
+    ol,
+    ul {
+        list-style: none outside none
+    }
+
+    ul {
+        line-height: 20px
+    }
+
+    .card {
+        border-radius: 8px;
+        clear: both;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+        background: #fff
+    }
+
+    .card .card-content {
+        padding: 32px 60px 16px;
+        min-height: 64px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px
+    }
+
+
+    #test-dashboard-title-card .card-content {
+        padding-bottom: 32px
+    }
+
+    #test-dashboard-title-card .test-dashboard-name-area {
+        display: flex;
+        margin-top: 4px;
+        margin-bottom: 8px
+    }
+
+    #test-dashboard-title-card .link-name {
+        background-position-x: -2px
+    }
+
+    #test-dashboard-title-card .link-name.name {
+        padding-left: 30px;
+        margin-bottom: 16px
+    }
+
+    #test-dashboard-title-card .link-name.name .text {
+        color: #6a7680;
+        font-weight: 600
+    }
+
+    #test-dashboard-title-card .link-panel {
+        display: flex;
+        position: relative;
+        background: #f6f6f8;
+        border: 1px solid #dce1e5;
+        border-radius: 8px;
+        padding: 8px 8px 8px 24px
+    }
+
+    #test-dashboard-title-card .link-panel .url-script-area {
+        display: inline-flex;
+        align-items: center
+    }
+
+    #test-dashboard-title-card .link-panel .button-area {
+        display: flex;
+        justify-content: flex-end
+    }
+
+    #test-dashboard-title-card .link-panel #embed-code-panel {
+        display: none
+    }
+
+    #test-dashboard-title-card #embed-code-explanation {
+        margin-top: 24px;
+        display: none
+    }
+
+    #test-dashboard-title-card #embed-code-explanation ul {
+        list-style: disc;
+        padding-left: 31px;
+        padding-top: 3px
+    }
+
+    .col-span-05,
+    .col-span-1,
+    .col-span-15,
+    .col-span-2,
+    .col-span-25,
+    .col-span-3,
+    .col-span-35,
+    .col-span-4,
+    .col-span-45,
+    .col-span-5,
+    .col-span-55,
+    .col-span-6,
+    .col-span-65,
+    .col-span-7,
+    .col-span-75,
+    .col-span-8,
+    .col-span-85,
+    .col-span-9,
+    .col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word
+    }
+
+    .col-span-3 {
+        width: 30% !important
+    }
+
+    .col-span-35 {
+        width: 35% !important
+    }
+
+    .col-span-4 {
+        width: 40% !important
+    }
+
+    .col-span-45 {
+        width: 45% !important
+    }
+
+    .col-span-5 {
+        width: 50% !important
+    }
+
+    .col-span-55 {
+        width: 55% !important
+    }
+
+    .col-span-6 {
+        width: 60% !important
+    }
+
+    .col-span-65 {
+        width: 65% !important
+    }
+
+    .col-span-7 {
+        width: 70% !important
+    }
+
+    .col-span-75 {
+        width: 75% !important
+    }
+
+    .col-span-8 {
+        width: 80% !important
+    }
+
+    .col-span-85 {
+        width: 85% !important
+    }
+
+    .col-span-9 {
+        width: 90% !important
+    }
+
+    .col-span-10 {
+        width: 100% !important
+    }
+
+    .breadcrumb3 {
+        font-size: 13px;
+        color: #6a7680;
+        font-weight: 400;
+        margin-bottom: 0;
+    }
+
+    .col-span-1.margin,
+    .col-span-2.margin,
+    .col-span-3.margin,
+    .col-span-4.margin,
+    .col-span-45.margin,
+    .col-span-5.margin,
+    .col-span-6.margin,
+    .col-span-7.margin,
+    .col-span-8.margin,
+    .col-span-9.margin,
+    .col-span-10.margin {
+        margin-right: 2%;
+        float: left;
+        position: relative;
+        word-wrap: break-word
+    }
+
+    .col-span-1.margin {
+        width: 8%
+    }
+
+    .col-span-2.margin {
+        width: 18%
+    }
+
+    .col-span-3.margin {
+        width: 28%
+    }
+
+    .col-span-4.margin {
+        width: 38%
+    }
+
+    .col-span-5.margin {
+        width: 48%
+    }
+
+    .col-span-6.margin {
+        width: 58%
+    }
+
+    .col-span-7.margin {
+        width: 68%
+    }
+
+    .col-span-8.margin {
+        width: 78%
+    }
+
+    .col-span-9.margin {
+        width: 88%
+    }
+
+    .col-span-10.margin {
+        width: 98%
+    }
+
+    .test-dashboard-name-area .test-name-big.name-big {
+        display: inline-block;
+        width: 20px;
+        height: 22px;
+        margin-bottom: 0;
+        padding: 0;
+        position: absolute;
+        top: 3px
+    }
+
+    .test-dashboard-name-area h2 {
+        display: inline-block;
+        width: calc(100% - 30px);
+        margin-left: 30px
+    }
+
+    .result-overlay .settings-box .email-icon {
+        top: 15px
+    }
+
+    .result-overlay .settings-box .accordion-fold>.accordion-fold>.table>.row:first-of-type {
+        display: block
+    }
+
+    .dropdown-menu {
+        list-style: none !important
+    }
+
+    #date-dropdown>.delete-filter-padding {
+        width: 428px
+    }
+
+    #date-dropdown>.delete-filter-padding #date-between {
+        margin-top: 8px;
+        margin-bottom: 8px
+    }
+
+    #date-dropdown>.delete-filter-padding #date-between #from {
+        margin-bottom: 4px
+    }
+
+    #grade-filter-area {
+        display: inline-block;
+        position: relative
+    }
+
+    .generic-overlay #manage-access-list>.close-generic-overlay {
+        float: right
+    }
+
+    .generic-overlay #access-list-edit-form .row {
+        flex-direction: column
+    }
+
+    .generic-overlay select {
+        width: 263px
+    }
+
+    .generic-overlay input[type=text],
+    .generic-overlay textarea {
+        width: 230px !important
+    }
+
+    .generic-overlay #access-list-edit-form .form-field-title {
+        width: 134px;
+        margin-right: 20px;
+        position: relative;
+        top: 4px
+    }
+
+    .generic-overlay #access-list-edit-form .tab {
+        margin-left: 154px !important
+    }
+
+    .generic-overlay #access-list-edit-form .field-group .tooltip {
+        bottom: -1px;
+        margin-left: 8px
+    }
+
+    .generic-overlay #access-list-edit-form .col-btns {
+        width: 100%;
+        text-align: initial
+    }
+
+    .generic-overlay .field-group {
+        display: block;
+        width: 100%
+    }
+
+    .generic-overlay #al1 {
+        width: 230px;
+        margin-bottom: 12px
+    }
+
+    .generic-overlay label[for=al1] {
+        text-align: left
+    }
+
+    .generic-overlay #access-list-id-label-area {
+        margin-bottom: 28px
+    }
+
+    .generic-overlay .showcont {
+        margin-top: 12px !important
+    }
+
+    .generic-overlay #view-access-code-menu {
+        color: #000
+    }
+
+    .generic-overlay #view-access-code-menu .row {
+        flex-direction: column
+    }
+
+    .generic-overlay #view-access-code-menu h4 {
+        margin-bottom: 28px
+    }
+
+    .generic-overlay #view-access-code-menu #list_order_by {
+        width: 152px !important
+    }
+
+    .generic-overlay #view-access-code-menu #query_type {
+        width: 145px !important;
+        margin-left: 2px
+    }
+
+    .generic-overlay #view-access-code-menu #query_string {
+        width: 99px !important;
+        margin-left: 4px;
+        margin-right: 2px
+    }
+
+    .generic-overlay #view-access-code-menu #search_codes {
+        display: initial
+    }
+
+    .generic-overlay #view-access-code-menu p {
+        margin-bottom: 14px
+    }
+
+    .generic-overlay #access_codes_table {
+        padding-bottom: 8px
+    }
+
+    .generic-overlay #access_codes_table .table-utility.row {
+        min-height: 24px;
+        margin-bottom: 8px
+    }
+
+    .generic-overlay #access_codes_table .table-utility.row .col-span-55,
+    .generic-overlay #access_codes_table .table-utility.row .col-span-45 {
+        height: 24px;
+        line-height: 24px
+    }
+
+    .generic-overlay #access_codes_table .table-utility.row .col-span-55 .tooltip,
+    .generic-overlay #access_codes_table .table-utility.row .col-span-45 .tooltip {
+        top: 2px;
+        margin-left: 8px
+    }
+
+    .generic-overlay #access_codes_table .row {
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        color: #000
+    }
+
+    .generic-overlay #access_codes_table .row .access-code-item-icons {
+        text-align: right;
+        bottom: 2px
+    }
+
+    .generic-overlay #access_codes_table .row .access-code-item-icons .search {
+        position: relative;
+        margin-right: 20px;
+        background-size: 16px
+    }
+
+    .generic-overlay #access_codes_table .row .access-code-item-icons .fa-trash-o {
+        font-size: 16px;
+        bottom: 2px;
+        position: relative
+    }
+
+    .generic-overlay #access_codes_table .column-title {
+        font-size: 11px
+    }
+
+    .generic-overlay #manage-theme .form-field-title {
+        text-align: left;
+        width: fit-content;
+        margin-right: 36px
+    }
+
+    .generic-overlay #manage-theme .page {
+        width: 70%
+    }
+
+    .generic-overlay #manage-theme .aside {
+        width: 28%
+    }
+
+    body {
+        font-size: 14px
+    }
+
+    body h1 {
+        font-size: 30px
+    }
+
+    body h2 {
+        font-size: 23px
+    }
+
+    body h3 {
+        font-size: 20px
+    }
+
+    body h4 {
+        font-size: 18px
+    }
+
+    body h5 {
+        font-size: 14px
+    }
+
+    body .float-left {
+        float: left
+    }
+
+    body .float-right {
+        float: right
+    }
+
+    body ::placeholder {
+        color: #6a7680;
+        opacity: 1
+    }
+
+    body :-ms-input-placeholder {
+        color: #000
+    }
+
+    body ::-ms-input-placeholder {
+        color: #000
+    }
+
+    body .no-padding {
+        padding: 0 !important
+    }
+
+    body .no-padding-left {
+        padding-left: 0 !important
+    }
+
+    body .no-padding-right {
+        padding-right: 0 !important
+    }
+
+    body .margin-top-12 {
+        margin-top: 12px
+    }
+
+    body .margin-left-8 {
+        margin-left: 8px
+    }
+
+    body .color-black {
+        color: #000 !important
+    }
+
+    body .color-grey {
+        color: #6a7680 !important
+    }
+
+    body .line-height-high {
+        line-height: 32px
+    }
+
+    body .flex {
+        display: flex !important
+    }
+
+    body .flex-column {
+        flex-direction: column !important
+    }
+
+    body .flex-row {
+        flex-direction: row !important
+    }
+
+    body .no-border-bottom {
+        border-bottom: none !important
+    }
+
+    .empty-group-link-row {
+        height: initial !important;
+        flex-direction: column !important;
+        align-items: baseline !important
+    }
+
+
+    .test-availible-badge {
+        background: #00e87c;
+        padding: 4px 16px;
+        width: 95px;
+        height: 35px;
+        border-radius: 100px;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-weight: 600;
+        margin-right: 15%;
+    }
+
+    .test-availible-badge.unavailable {
+        background: #edf0f2;
+        color: #6a7680
+    }
+
+    .btn,
+    a.btn {
+        box-sizing: content-box;
+        border: none;
+        border-radius: 4px;
+        color: #000;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px !important;
+        line-height: 1;
+        margin: 0;
+        outline: none;
+        padding: 8px 12px;
+        position: relative;
+        text-align: center;
+        text-decoration: none !important;
+        width: auto;
+        outline: 0 !important;
+        text-decoration: none !important;
+        font-weight: 600;
+        height: 16px;
+        line-height: 16px;
+        font-family: Inter;
+        background: #edf0f2
+    }
+
+    .btn:hover,
+    a.btn:hover {
+        background-color: #e7e8eb
+    }
+
+    .btn:disabled,
+    .btn[disabled],
+    a.btn:disabled,
+    a.btn[disabled] {
+        opacity: .4;
+        cursor: initial
+    }
+
+    .btn:disabled:hover,
+    .btn[disabled]:hover,
+    a.btn:disabled:hover,
+    a.btn[disabled]:hover {
+        background: #edf0f2;
+        color: #000;
+        opacity: .4;
+        cursor: initial
+    }
+
+    .btn.btn-secondary,
+    a.btn.btn-secondary {
+        display: inline-flex;
+        height: 36px;
+        padding: 8px 16px;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        border-radius: 4px;
+        border: 1px solid #0000ff;
+        background: #0000ff;
+        color: rgb(255, 255, 255);
+        box-sizing: border-box
+    }
+
+    .btn.btn-secondary .fa,
+    a.btn.btn-secondary .fa {
+        margin-right: 8px
+    }
+
+    .btn.btn-secondary:hover,
+    a.btn.btn-secondary:hover {
+        background: #fefeff;
+        color: #0000ffdf;
+        border: 1px solid #000000;
+
+    }
+
+    .btn.btn-white,
+    .btn.btn-cancel,
+    a.btn.btn-white,
+    a.btn.btn-cancel,
+    .btn-large.btn-white,
+    .btn-large.btn-cancel,
+    a.btn-large.btn-white,
+    a.btn-large.btn-cancel {
+        background: none repeat scroll 0 0 #fff;
+        border: 1px solid #dce1e5 !important;
+        height: calc(16px - 1px) !important;
+        color: #000 !important
+    }
+
+    .btn-transparent {
+        background-color: transparent;
+        border: 1px solid #dce1e5;
+        height: calc(16px - 2px)
+    }
+
+    .btn.btn-white.btn-large,
+    .btn.btn-cancel.btn-large,
+    a.btn.btn-white.btn-large,
+    a.btn.btn-cancel.btn-large,
+    .btn-large.btn-white.btn-large,
+    .btn-large.btn-cancel.btn-large,
+    a.btn-large.btn-white.btn-large,
+    a.btn-large.btn-cancel.btn-large {
+        height: calc(20px - 2px) !important
+    }
+
+    .btn.btn-white:hover,
+    .btn.btn-cancel:hover,
+    a.btn.btn-white:hover,
+    a.btn.btn-cancel:hover,
+    .btn-large.btn-white:hover,
+    .btn-large.btn-cancel:hover,
+    a.btn-large.btn-white:hover,
+    a.btn-large.btn-cancel:hover {
+        background: #f6f6f8
+    }
+
+    p {
+        margin-bottom: 1em
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .fa-play:before {
+        content: "\f04b"
+    }
+
+    .name {
+        display: block;
+        font-size: 14px;
+        line-height: 32px;
+        min-height: 2px;
+        margin-bottom: 30px;
+        padding: 0 40px
+    }
+
+    .name a {
+        font-weight: 600;
+        color: #000;
+        text-decoration: none
+    }
+
+    #test-dashboard-title-card .link-name.name {
+        padding-left: 35px;
+        margin-bottom: 16px
+    }
+
+    #test-dashboard-title-card .link-name.name .text {
+        color: #6a7680;
+        font-weight: 600
+    }
+
+    #test-dashboard-title-card #embed-code-explanation ul {
+        list-style: disc;
+        padding-left: 31px;
+        padding-top: 3px
+    }
+
+    .link-panel {
+        display: flex;
+        position: relative;
+        background: #f6f6f8;
+        border: 1px solid #dce1e5;
+        border-radius: 8px;
+        padding: 8px 8px 8px 24px
+    }
+
+    .link-panel .url-script-area {
+        display: inline-flex;
+        align-items: center;
+        width: 75%
+    }
+
+    .link-panel .button-area {
+        display: flex;
+        justify-content: flex-end;
+        width: 25%
+    }
+
+    .link-panel #embed-code-panel {
+        display: none
+    }
+
+    #embed-code-explanation {
+        margin-top: 24px;
+        display: none
+    }
+
+    #embed-code-explanation ul {
+        list-style: disc;
+        padding-left: 31px;
+        padding-top: 3px
+    }
+
+    .copymeWrap {
+        border: 1px solid transparent;
+        padding: 8px
+    }
+
+    .copyme-btn {
+        margin-left: 5px;
+        color: #7c868f !important;
+        font-size: 12px;
+        text-decoration: none !important
+    }
+
+    div.copymeWrap:hover div.copyme-btn-wrapper {
+        display: inline-block
+    }
+
+    div.copyme-btn-wrapper {
+        display: none;
+        margin-left: 30px;
+        color: #7c868f !important
+    }
+
+    #content {
+        background: none repeat scroll 0 0 #f6f6f8;
+        padding: 30px 0;
+        min-width: 940px
+    }
+
+    #content .innerWrapper,
+    .branding,
+    .menu.main,
+    #footer {
+        margin: 0 auto;
+        max-width: 1000px;
+        min-width: 900px;
+        padding: 0 20px;
+        position: relative;
+        box-sizing: border-box
+    }
+
+
+    .clearfix:before,
+    .clearfix:after,
+    .row:before,
+    .row:after {
+        content: "";
+        display: table
+    }
+
+    .clearfix:after,
+    .row:after {
+        clear: both
+    }
+
+    :focus-visible {
+        outline: 0
+    }
+
+    body {
+        background: none repeat scroll 0 0 #f6f6f8;
+        color: #000;
+        font-family: Inter, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        clear: both;
+        font-weight: 600;
+        line-height: 1.4em;
+        margin-bottom: .3em
+    }
+
+    h1+h2,
+    h2+h3,
+    h3+h4 {
+        margin-top: -.5em
+    }
+
+    a {
+        color: #fb3311;
+        cursor: pointer;
+        text-decoration: none
+    }
+
+    a:hover {
+        text-decoration: underline
+    }
+
+    strong {
+        font-weight: 600
+    }
+
+    em,
+    i {
+        font-style: italic
+    }
+
+    .result-overlay .result-overlay-content,
+    .innerWrapper,
+    #print-content,
+    #single-result-content,
+    .group-result {
+        width: 100%;
+        padding-top: 22px;
+        box-sizing: border-box
+    }
+
+    .card.nav.panel>.card-header {
+        background-color: #e8eaee;
+        color: #6a7680;
+        border-bottom: none
+    }
+
+    .card.nav>.card-header {
+        padding: 0;
+        min-height: 56px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px
+    }
+
+    .card.nav>.card-content {
+        min-height: 32px;
+        padding: 16px 24px;
+    }
+
+    .card.nav>.card-header {
+        padding: 0;
+        min-height: 56px;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px
+    }
+
+    .card.nav.panel>.card-header {
+        background-color: #e8eaee;
+        color: #6a7680;
+        border-bottom: none
+    }
+
+    .card.nav.panel>.card-header li {
+        height: 60px;
+        min-width: 200px;
+        align-items: center;
+        gap: 18px;
+        height: 60px;
+        min-width: 200px;
+        line-height: 22px
+    }
+
+    .card.nav.panel>.card-header li>.nav-item {
+        top: 0;
+        display: inline-flex;
+        position: relative;
+        border-radius: 0;
+        font-weight: 600;
+        height: 100%;
+        width: 100%;
+        font-size: 14px;
+        box-sizing: border-box;
+        align-items: baseline;
+        justify-content: center
+    }
+
+    .card.nav.panel>.card-header li>.nav-item .badge-round {
+        color: #6a7680;
+        background-color: #fff
+    }
+
+    .card.nav.panel>.card-header .nav-item.active,
+    .card.nav.panel>.card-header li.tabon>.nav-item {
+        color: #fb3311;
+        background: #fff;
+        border-top: 2px solid #fb3311;
+        border-bottom: none;
+        line-height: 20px
+    }
+
+    .card.nav.panel>.card-header .nav-item.active:hover,
+    .card.nav.panel>.card-header li.tabon>.nav-item:hover {
+        border-radius: 0
+    }
+
+    .card.nav.panel>.card-header .nav-item.active .badge-round,
+    .card.nav.panel>.card-header li.tabon>.nav-item .badge-round {
+        color: #fb3311;
+        background-color: rgba(251, 54, 24, .05)
+    }
+
+    .card .card-header {
+        color: #6a7680;
+        line-height: 20px;
+        display: flex;
+        border-bottom: solid 1px #dce1e5;
+        min-height: 16px;
+        padding: 24px 32px
+    }
+
+    .card .card-header .nav-item.active,
+    .card .card-header li.tabon>.nav-item {
+        color: #fb3311;
+        background: #fff;
+        border-bottom: 2px solid #fb3311;
+        padding: 18px 24px 16px;
+        display: inline-flex;
+        position: relative
+    }
+
+    .card .card-header .nav-item,
+    .card .card-header li>.nav-item {
+        text-decoration: none;
+        padding: 18px 24px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px
+    }
+
+    .card .card-header a.nav-item {
+        color: inherit
+    }
+
+    a {
+        color: #fb3311;
+        cursor: pointer;
+        text-decoration: none
+    }
+
+    .group-dash-board {
+        margin-bottom: 0;
+    }
+
+    .table.noborder,
+    .table.no-border,
+    .row.no-border {
+        border: none !important
+    }
+
+    .table {
+        border-radius: 8px;
+        clear: both;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+        background: #fff
+    }
+
+    .no-shadow {
+        filter: none;
+        box-shadow: none !important
+    }
+
+    .table.narrow-row .row {
+        height: 28px;
+        align-items: center
+    }
+
+    .table .row {
+        border-bottom: 1px solid #dce1e5;
+        position: relative;
+        clear: both;
+        min-height: 28px;
+        margin: 0;
+        padding: 18px 24px;
+        display: flex;
+        align-items: baseline;
+        flex-direction: row
+    }
+
+    .row {
+        display: flex;
+        align-items: baseline;
+        align-content: flex-end;
+    }
+
+    .clearfix:before,
+    .clearfix:after,
+    .row:before,
+    .row:after {
+        content: "";
+        display: table
+    }
+
+    .cm-md-tabs {
+        padding: 12px 0;
+    }
+
+    .cm-md-tabs a.cm-md-active-tab {
+        padding: 15px 0;
+        font-weight: 700
+    }
+
+    .cm-md-tabs a.cm-md-tab {
+        margin: 0 15px 0 0
+    }
+
+    .cm-md-tabs a {
+        white-space: nowrap;
+        text-decoration: none;
+        color: #444
+    }
+
+    .cm-md-tabs a.cm-md-tab.cm-md-active-tab span.badge {
+        color: #000
+    }
+
+    span.badge {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 6px 7px;
+        gap: 10px;
+        min-width: 20px;
+        height: 20px;
+        background: #edf0f2;
+        border-radius: 100px;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        font-size: 10px;
+        line-height: 22px;
+        font-weight: 400;
+        box-sizing: border-box;
+        color: #000;
+        display: inline-flex;
+        position: relative
+    }
+
+    .test-results-sort-options {
+        margin-left: auto
+    }
+
+    .margright {
+        margin-right: 15px;
+    }
+
+    .f-left {
+        float: left;
+    }
+
+    .test-results-sort-options #results_year {
+        width: 93px;
+    }
+
+    .table select {
+        background-color: #fff;
+    }
+
+    select.year-selector {
+        width: 88px;
+    }
+
+    select {
+        border: 1px solid #dce1e5;
+        border-radius: 4px;
+        color: #000;
+        height: 32px;
+        line-height: initial !important;
+        padding-left: 12px;
+        padding-right: 32px;
+        min-width: 70px;
+        background-color: #fff;
+        display: inline-block;
+        font-family: inherit;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url(../../img4/icons/caret.svg);
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 50%;
+    }
+
+    .clearfix:after,
+    .row:after {
+        clear: both;
+    }
+
+    .clearfix:before,
+    .clearfix:after,
+    .row:before,
+    .row:after {
+        content: "";
+        display: table;
+    }
+
+    .no-test-results-wrapper {
+        height: 362px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .no-test-results-wrapper img {
+        margin-top: 80px;
+        margin-bottom: 32px;
+        width: 99px;
+        height: 125px;
+    }
+
+    .no-test-results-wrapper .name {
+        padding: initial;
+        margin: initial;
+        line-height: 20px;
+    }
+
+    .clearheight {
+        clear: both;
+        height: 15px;
+        width: auto;
+    }
+
+    .breadcrumb3 a.first {
+        background: url("{% static 'assignlinks/img/arrow-right.png' %}") no-repeat right 10px;
+        background-image: -webkit-image-set(url("{% static 'assignlinks/img/arrow-right.png' %}?v=1") 1x,
+            url("{% static 'assignlinks/img/arrow-right@2x.png' %}?v=1") 2x,
+            url("{% static 'assignlinks/img/arrow-right@3x.png' %}?v=1") 3x);
+        background-image: image-set(url("{% static 'assignlinks/img/arrow-right.png' %}?v=1") 1x,
+            url("{% static 'assignlinks/img/arrow-right@2x.png' %}?v=1") 2x,
+            url("{% static 'assignlinks/img/arrow-right@3x.png' %}?v=1") 3x);
+    }
+
+    .breadcrumb3 .first {
+        height: 20px;
+        padding: 10px 30px 0 0;
+        margin-right: 10px;
+        font-weight: 600;
+    }
+
+    .breadcrumb3 a {
+        background: url("{% static 'assignlinks/img/arrow-right.png' %}") no-repeat right 10px;
+        margin-right: 8px;
+        color: inherit;
+        height: 21px;
+        padding: 31px 18px 0 0;
+        font-weight: 400;
+        background-image: -webkit-image-set(url(../../../img3/breadcrumb-arrow.png?v=1) 1x, url(../../../img3/breadcrumb-arrow@2x.png?v=1) 2x, url(../../../img3/breadcrumb-arrow@3x.png?v=1) 3x);
+        background-image: image-set(url(../../../img3/breadcrumb-arrow.png?v=1) 1x, url(../../../img3/breadcrumb-arrow@2x.png?v=1) 2x, url(../../../img3/breadcrumb-arrow@3x.png?v=1) 3x);
+    }
+
+    .clearheight20 {
+        clear: both;
+        height: 20px;
+        width: auto;
+    }
+
+    .test-settings .page {
+        float: left;
+        width: 71%;
+        margin-left: 6%;
+        margin-right: 0%;
+        margin-bottom: 20px;
+    }
+
+    .test-settings .aside {
+        float: left;
+        width: 23%;
+        position: sticky;
+        top: 24px;
+    }
+
+    .editor {
+        line-height: 1.5;
+    }
+
+    .aside {
+        float: right;
+        min-height: 130px;
+        position: relative;
+        width: 33%;
+    }
+
+    .editor {
+        line-height: 1.5;
+    }
+
+    .explain-area {
+        margin-top: 36px;
+    }
+
+    .editor p,
+    .editor ul,
+    .editor ol {
+        margin-bottom: 1em;
+    }
+
+    .editor img {
+        margin: 1em;
+    }
+
+    .explain {
+        font-size: 12px;
+        color: #6a7680;
+        line-height: 20px;
+    }
+
+    #panel-settings {
+        padding: 70px 20px 0px;
+    }
+
+    .settings-footer {
+        width: 100%;
+        display: flex;
+        border-top: 1px solid #dce1e5;
+        align-items: center;
+        flex-wrap: wrap;
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    .settings-footer .button-area {
+        width: 100%;
+    }
+
+    .settings-footer .button-area .save-button-area {
+        float: right;
+    }
+
+    .settings-footer p,
+    .settings-footer a {
+        margin-bottom: initial;
+    }
+
+    .settings-footer .button-area .save-button-area .btn-create {
+        margin-right: 4px;
+    }
+
+    .btn.btn-create,
+    .btn.btn-assign,
+    a.btn.btn-create,
+    a.btn.btn-assign,
+    .btn-large.btn-create,
+    .btn-large.btn-assign,
+    a.btn-large.btn-create,
+    a.btn-large.btn-assign {
+        background: none repeat scroll 0 0 #fb3311;
+        color: #fff !important;
+    }
+
+    .btn,
+    a.btn {
+        box-sizing: content-box;
+        border: none;
+        border-radius: 4px;
+        color: #040202;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px !important;
+        line-height: 1;
+        margin: 0;
+        outline: none;
+        padding: 8px 12px;
+        position: relative;
+        text-align: center;
+        text-decoration: none !important;
+        width: auto;
+        outline: 0 !important;
+        text-decoration: none !important;
+        font-weight: 600;
+        height: 16px;
+        line-height: 16px;
+        font-family: Inter;
+        background: #edf0f2;
+    }
+
+    .btn.btn-white,
+    .btn.btn-cancel,
+    a.btn.btn-white,
+    a.btn.btn-cancel,
+    .btn-large.btn-white,
+    .btn-large.btn-cancel,
+    a.btn-large.btn-white,
+    a.btn-large.btn-cancel {
+        background: none repeat scroll 0 0 #fff;
+        border: 1px solid #dce1e5 !important;
+        height: calc(16px - 1px) !important;
+        color: #000 !important;
+    }
+
+    .btn.btn-create:hover,
+    .btn.btn-assign:hover,
+    a.btn.btn-create:hover,
+    a.btn.btn-assign:hover,
+    .btn-large.btn-create:hover,
+    .btn-large.btn-assign:hover,
+    a.btn-large.btn-create:hover,
+    a.btn-large.btn-assign:hover {
+        background: none repeat scroll 0 0 #e02e0f
+    }
+
+    .assign-settings-container .accordion-toggle {
+        width: 650px;
+        padding: 8px 16px 8px 8px;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .assign-settings-container .accordion-toggle .form-field-title {
+        width: 220px;
+        margin: 0;
+    }
+
+    .settings-box h3 {
+        float: left;
+        font-size: 14px;
+        margin-top: 0;
+        text-align: left;
+        width: 108px;
+    }
+
+    .card .card-header h1,
+    .card .card-header h2,
+    .card .card-header h3,
+    .card .card-header h4,
+    .card .card-header h5,
+    .card .card-header h6,
+    .card .card-header h7,
+    .card .card-header h8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    body .color-black {
+        color: #000 !important;
+    }
+
+    .display-block {
+        display: block !important;
+    }
+
+    .hide.editor.card {
+        display: none;
+        border: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .alert-box.error {
+        border-left: 3px solid #d62f7f;
+        background: var(--red-magenta-fail-magenta-01, #FFF2F2) url(/img4/icons/alert-error.svg) no-repeat 13px 15px;
+    }
+
+    .alert-box {
+        padding: 15px 9px 15px 45px;
+        margin: 20px 0;
+        line-height: 20px;
+        clear: both;
+        border-left: 3px solid #ffd551;
+        background: var(--yellow-warning-light, #FFFBED) url(/img4/icons/alert-normal.svg) no-repeat 13px 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    }
+</style>
+<style>
+    .table {
+        border-radius: 8px;
+        clear: both;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,40,77,.2);
+        background: #fff;
+    }
+    .table.narrow-row .row {
+        height: 28px;
+        align-items: center;
+    }
+    .table .table-utility {
+        background: none repeat scroll 0 0 transparent;
+        padding: 16px 24px;
+        height: auto!important;
+        min-height: 30px;
+        clear: both;
+    }
+
+    .table .row {
+        border-bottom: 1px solid #dce1e5;
+        position: relative;
+        clear: both;
+        min-height: 70px;
+        margin: 0;
+        padding: 18px 24px;
+        display: flex;
+        align-items: baseline;
+        flex-direction: row;
+    }
+
+    .row {
+        display: flex;
+        align-items: baseline;
+    }
+    .font-secondary {
+        color: #6a7680;
+    }
+    .table select {
+        background-color: #fff;
+    }
+    select.year-selector {
+        width: 88px;
+    }
+
+    select {
+        border: 1px solid #dce1e5;
+        border-radius: 4px;
+        color: #000;
+        height: 32px;
+        line-height: initial!important;
+        padding-left: 12px;
+        padding-right: 32px;
+        min-width: 70px;
+        background-color: #fff;
+        display: inline-block;
+        font-family: inherit;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url(../../img4/icons/caret.svg);
+        background-position: right 10px center;
+        background-repeat: no-repeat;
+        background-size: auto 50%;
+    }
+    .clearfix:after, .row:after {
+        clear: both;
+    }
+
+    .clearfix:before, .clearfix:after, .row:before, .row:after {
+        content: "";
+        display: table;
+    }
+    .font-secondary {
+        color: #6a7680;
+    }
+    .col-span-05, .col-span-1, .col-span-15, .col-span-2, .col-span-25, .col-span-3, .col-span-35, .col-span-4, .col-span-45, .col-span-5, .col-span-55, .col-span-6, .col-span-65, .col-span-7, .col-span-75, .col-span-8, .col-span-85, .col-span-9, .col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .col-span-35 {
+        width: 35%!important;
+    }
+    .col-span-2 {
+        width: 25%;
+    }
+    .col-span-1 {
+        width: 20%;
+    }
+    .col-span-15 {
+        width: 15%;
+    }
+    .table .table-utility .column-title {
+        font-weight: 600;
+        color: #6a7680;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+    }
+    .sort-trigger {
+        color: #6a7680;
+        font-size: 12px;
+        text-decoration: none;
+        float: left;
+    }
+    .sort-trigger+.ui-icon-triangle-2-n-s {
+        background-position: -129px -17px!important;
+        float: left;
+        top: 3px;
+    }
+
+    .ui-icon-triangle-2-n-s {
+        background-position: -128px -16px;
+    }
+    .ui-icon, .ui-widget-content .ui-icon {
+        background-image: url(https://www.classmarker.com/js3/css/smoothness/images/ui-icons_222222_256x240.png);
+    }
+    .ui-icon {
+        width: 16px;
+        height: 16px;
+    }
+    .ui-icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -0.25em;
+        position: relative;
+        text-indent: -99999px;
+        overflow: hidden;
+        background-repeat: no-repeat;
+    }
+    .table .hover-row {
+        background-color: #fff;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .table .table-body {
+        margin-bottom: 36px;
+    }
+    ul {
+        line-height: 20px;
+    }
+    ol, ul {
+        list-style: none outside none;
+    }
+    .table .graph {
+        display: flex;
+        align-items: center;
+    }
+    .name-wrapper.link-name-wrapper {
+        position: relative;
+    }
+
+    .name-wrapper {
+        display: flex!important;
+        align-items: center!important;
+        width: 100%;
+    }
+    .table .row .name {
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+    .name-wrapper .name.link-name {
+        font-weight: 600;
+    }
+    .name-wrapper .name {
+        position: relative;
+        width: 32px;
+        height: 30px;
+        margin-right: 6px;
+        padding: 0;
+        display: inline-flex;
+    }
+    .name {
+        display: block;
+        font-size: 14px;
+        line-height: 32px;
+        min-height: 2px;
+        margin-bottom: 30px;
+        padding: 0 40px;
+    }
+    .link-name {
+        background-position: -2px -491px;
+    }
+    .name-wrapper .name+.text {
+        cursor: initial;
+    }
+
+    .name-wrapper .name+.text {
+        cursor: default;
+    }
+    .name-wrapper .name+a, .name-wrapper .name+.text {
+        text-decoration: none;
+        color: inherit;
+        line-height: 16px;
+        max-width: calc(100% - 70px);
+        cursor: pointer;
+        max-height: 50px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .font-strong {
+        font-weight: 600;
+    }
+    .graylink {
+        color: #444;
+    }
+</style>
+<style>
+    .result-col-span-05, .result-col-span-1, .result-col-span-15, .result-col-span-2, .result-col-span-25, .result-col-span-3, .result-col-span-35, .result-col-span-4, .result-col-span-45, .result-col-span-5, .result-col-span-55, .result-col-span-6, .result-col-span-65, .result-col-span-7, .result-col-span-75, .result-col-span-8, .result-col-span-85, .result-col-span-9, .result-col-span-10 {
+        float: left;
+        line-height: 1;
+        margin-right: 0;
+        position: relative;
+        word-wrap: break-word;
+    }
+    .result-col-span-35 {
+        width: 27%!important;
+    }
+    .result-col-span-2 {
+        width: 20%;
+    }
+    .result-col-span-1 {
+        width: 12%;
+    }
+    .result-col-span-15 {
+        width: 7%;
+    }
+
+    .result-col-span-4{
+        width: 22%;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div id="content" class="clearfix">
+    <div class="innerWrapper">
+        <div class="col-span-10">
+            <p class="breadcrumb3"><a href="{{ previous_url }}" class="first"><span>Links</span></a><span>Result</span>
+            </p>
+        </div>
+        <div class="clearheight20"></div>
+        <div class="clearheight20"></div>
+        <div id="test-dashboard-title-card" class="card">
+            <div class="card-content">
+                <div class="test-dashboard-name-area">
+                    <div class="col-span-7">
+                        <span class="test-name-big name-big"></span>
+                        <h2><a class="color-black"
+                                href="{% url 'TestingSystem:questions' test_id=test.id test_description=test.slug %}">{{ test.title }}</a>
+                        </h2>
+                    </div>
+                    <div class="col-span-3">
+                        <div class="test-availible-badge "> Available</div>
+                        <a href="{% url 'UserResponse:preview' test_id=test.id  %}" style="text-decoration:none;">
+                            <button class="btn btn-secondary  right btn-space"
+                                title="Preview taking this Test with these applied Settings.">
+                                <i class="fa fa-play play-icon" aria-hidden="true"></i> Preview</button></a>
+                    </div>
+                </div>
+                <div class="link-name name">
+                    <span class="text"> {{current_model.assign_name}}</span>
+                </div>
+                <div class="embed-link-panel">
+                    <div class="link-panel">
+                        <div class="url-script-area copymeWrap">
+                            <div id="url-panel" class="copyme">
+                                {{ copylink }}
+                                <div class="copyme-btn-wrapper"><i class="fa fa-clone" aria-hidden="true"></i><a
+                                        class="copyme-btn">Copy</a></div>
+                            </div>
+                            <div id="embed-code-panel" class="copyme">
+                                &lt;script
+                                src="{{ copylink }}"
+                                data-quiz="j7964f75e00d06a4" data-width="700" data-height="800" &gt;&lt;/script&gt;<div
+                                    class="copyme-btn-wrapper"><i class="fa fa-clone" aria-hidden="true"></i><a
+                                        class="copyme-btn">Copy</a></div>
+                            </div>
+                        </div>
+                        <div class="button-area">
+
+                            <button id="direct-link-btn" class="btn btn-white btn-space"
+                                onclick="toggleEmbbedLinkTab(this)">Direct
+                                Link
+                            </button>
+                            <button id="embed-test-btn" class="btn btn-transparent"
+                                onclick="toggleEmbbedLinkTab(this)">Embed
+                                Test
+                            </button>
+                        </div>
+                    </div>
+                    <div id="embed-code-explanation">
+                        <p>Use this SCRIPT HTML code to embed this Test directly in your website, just like an
+                            embedded
+                            YouTube video.</p>
+                        Notes
+                        <ul>
+                            <li>You can change the <i>width</i> and <i>height</i> values in the SCRIPT code to suit
+                                your
+                                website. Recommended <i>minimum</i> data-width="700" data-height="800".
+                            </li>
+                            <li>To remove ClassMarker branding, create and assign a Theme to this Link. See the
+                                'Theme'
+                                setting box below.
+                            </li>
+                            <li><strong>Important:</strong> Only embed <strong>One</strong> Test per individual
+                                <strong>Web
+                                    page</strong>.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="card nav panel">
+            <div class="card-header">
+                <li class="tabon">
+                    <a id="tab-results" href="#" class="nav-item"
+                        onclick="toggleGroupLinkDashboardTabs(this, event, 'results' )">
+                        Results </a>
+                </li>
+                <li class="taboff">
+
+                    <a id="tab-settings" href="#" class="nav-item "
+                        onclick="toggleGroupLinkDashboardTabs(this,event , 'settings')">
+                        Settings
+                    </a>
+                </li>
+                <li class="taboff">
+
+                    <a id="tab-statistics" href="#" class="nav-item "
+                        onclick="toggleGroupLinkDashboardTabs(this, event, 'statistics')">
+                        Statistics
+                    </a>
+                </li>
+            </div>
+
+            <div id="card-content" class="group-dash-board card-content no-padding">
+                <div id="panel-results" class="panel-body" style="display: block; padding: 15px;">
+                    
+                    <div class="clearheight"></div>
+                    <div class="clearheight"></div>
+                    <div class="table narrow-row no-border no-shadow">
+                        <div class="table narrow-row">
+                            <div class="table-utility row font-secondary">
+                                <script>
+                                </script>Period&nbsp;&nbsp;<select id="results_year" class="year-selector">
+                                    <option value="2023" selected="selected">2023</option>
+                                </select>
+                            </div>
+                            <div class="table-utility row">
+                                <div class="result-col-span-35">
+                                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{sort_orders.order}}" data-sort-by="name">User
+                                            Name</a> <span class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                                </div>
+                                <div class="result-col-span-2">
+                                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{sort_orders.order}}"
+                                            data-sort-by="percentage">Percentage</a> <span
+                                            class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                                </div>
+                                <div class="result-col-span-1">
+                                    <span class="column-title">Score</span>
+                                </div>
+                                <div class="result-col-span-1">
+                                    <span class="column-title"><a href="" class="sort-trigger" data-sort="{{ sort_orders.order }}" data-sort-by="spent_time">
+                                            Duration</a> <span class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                                </div>
+                                <div class="result-col-span-4">
+                                    <span class="column-title">Completed Date</span>
+                                </div>
+                                <div class="result-col-span-15">
+                                    <span class="column-title">Answers</span>
+                                </div>
+                            </div>
+                            
+                            <ul id="stats-results" class="table-body sort-data-set hover-row">
+
+                                {% for user, result in analyse_dict.items %}
+                                    <li data-name="{{ user }}" data-percentage="{{ result.persentage }}">
+                                        <div class="row">
+                                            <div class="result-col-span-35">
+                                                <div class="name-wrapper link-name-wrapper">
+                                                    <p class="link-name name"></p>
+                                                    <span class="graylink text font-strong">{{ user.name }} {{ user.surname }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="result-col-span-2 graph">
+                                                <span class="value">{{ result.percentage }}</span>
+                            
+                                            </div>
+                                            <div class="result-col-span-1">
+                                                <span class="value">{{ result.score }}</span>
+                                            </div>
+                                            <div class="result-col-span-1">
+                                                <span class="value">{{ result.spent_time }}</span>
+                                            </div>
+                                            <div class="result-col-span-4">
+                                                <span class="value">{{ result.completed_date }}</span>
+                                            </div>
+                                            <div class="result-col-span-15">
+                                                <button id="embed-test-btn" class="btn btn-transparent"
+                                                    onclick="toggleEmbbedLinkTab(this)">Answer
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-statistics" class="panel-body" style="display:none; padding: 15px;">
+                    <div class="clearheight"></div>
+                    <div class="clearheight"></div>
+                    <div class="table narrow-row">
+                        <div class="table-utility row font-secondary">
+                            <script>
+                            </script>Period&nbsp;&nbsp;<select id="results_year" class="year-selector">
+                                <option value="2023" selected="selected">2023</option>
+                            </select>
+                        </div>
+                        <div class="table-utility row">
+                            <div class="col-span-35">
+                                <span class="column-title"><a href="#" class="sort-trigger" data-sort="desc" data-sort-by="name">Link
+                                        Name</a> <span class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                            </div>
+                            <div class="col-span-2">
+                                <span class="column-title"><a href="#" class="sort-trigger" data-sort="asc"
+                                        data-sort-by="percentage_textduration">Avg Percentage</a> <span
+                                        class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                            </div>
+                            <div class="col-span-1">
+                                <span class="column-title">Avg Score</span>
+                            </div>
+                            <div class="col-span-15">
+                                <span class="column-title"><a href="#" class="sort-trigger" data-sort="desc" data-sort-by="textduration">Avg
+                                        Duration</a> <span class="ui-icon ui-icon-triangle-2-n-s"></span></span>
+                            </div>
+                        </div>
+                    
+                        <ul id="stats-results" class="table-body sort-data-set hover-row">
+                            <li data-name="python features" data-percentage="0" data-attempts="0" data-duration="0">
+                                <div class="row">
+                                    <div class="col-span-35">
+                                        <div class="name-wrapper link-name-wrapper">
+                                            <p class="link-name name"></p>
+                                            <span class="graylink text font-strong">{{ assign_name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-span-2 graph">
+                                        <span class="value">{{ statistics_dict.avarege_persentage }}</span>
+                                    </div>
+                                    <div class="col-span-1">
+                                        <span class="value">{{ statistics_dict.avarege_score }}</span>
+                                    </div>
+                                    <div class="col-span-15">
+                                        <span class="value">{{ statistics_dict.mean_duration }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="panel-settings" class="panel-body" style="display: none;">
+                    <div class="test-settings">
+                        <div class="aside editor">
+                            <div class="explain-area">
+                                <p class="explain">
+                                    <a href="/a/assign/tests/?nrg_change_test=1&amp;nrg_id=1389881">
+                                        Change Assigned Test
+                                    </a>
+                                </p>
+                                <p class="explain"><a href="#dotog_delete" class="anchor_scroll_delete">Delete Link</a>
+                                </p>
+                            </div>
+                        </div>
+                        <form action="" method="post"> {% csrf_token %}
+                            <div class="page editor assign-settings-container">
+                                <div id="setting-essentials" class="setting-panel essentials">
+                                    <div>
+                                        <h4><label for="labelname">Reference Name for this Link</label></h4>
+                                        {{ assign_form }}
+                                    </div>
+                                    <div class="settings-box">
+
+                                        <div class="accordion-toggle scroll_TL setting-time-limit closed">
+                                            <img id="time-icon" width="25" height="25"
+                                                src="https://img.icons8.com/ios/50/time--v1.png" alt="time--v1" />
+                                            <h3 id="time-limit" class="form-field-title">Time Limit</h3>
+                                        </div>
+                                        <div class="accordion-fold" style="display: none;">
+                                            <div class="field-group limit">
+                                                {{ time_limit_form }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-box">
+                                        <div class="accordion-toggle scroll_TL setting-restrict closed"><img
+                                                id="look-icon" width="25" height="25"
+                                                src="https://img.icons8.com/ios/50/lock--v1.png" alt="lock--v1" />
+                                            <h3 id="look" class="form-field-title">Restriction</h3>
+                                        </div>
+                                        <div class="accordion-fold" style="display: none;">
+                                            <div class="field-group restrict">
+                                                {{ restrictions_test }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-box">
+                                        <div class="accordion-toggle scroll_Availability setting-availability closed">
+                                            <img id="Availa-icon" width="25" height="25"
+                                                src="https://img.icons8.com/external-ios-line-2px-amoghdesign/30/external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign.png"
+                                                alt="external-appointment-multimedia-line-30px-ios-line-2px-amoghdesign" />
+                                            <h3 id="Availa" class="form-field-title">Availability</h3>
+                                        </div>
+                                        <div class="accordion-fold" style="display: none;">
+                                            <div class="field-group available">
+                                                {% bootstrap_form form %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-box">
+                                        <div class="accordion-toggle scroll_Availability setting-availability closed">
+                                            <img id="test-questin-icon" width="25" height="25"
+                                                src="https://img.icons8.com/pastel-glyph/64/shuffle--v1.png"
+                                                alt="shuffle--v1" />
+                                            <h3 id="test-questin" class="form-field-title">Test Questions</h3>
+                                        </div>
+                                        <div class="accordion-fold" style="display: none;">
+                                            <div class="field-group display">
+                                                {{ display_form.as_p }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-box">
+                                        <div class="accordion-toggle scroll_Availability setting-availability closed">
+                                            <img id="test-comp-icon" width="25" height="25"
+                                                src="https://img.icons8.com/ios/50/pass.png" alt="pass" />
+                                            <h3 id="test-comp" class="form-field-title">Test Completion</h3>
+                                        </div>
+                                        <div class="accordion-fold" style="display: none;">
+                                            <div class="field-group complete">
+                                                {{ test_completion }}
+                                                {{ test_completion.media }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-box">
+                                        <div class="accordion-toggle scroll_Availability setting-availability closed">
+                                            <img id="emil-icon" width="23" height="23"
+                                                src="https://img.icons8.com/ios/50/new-post--v1.png"
+                                                alt="new-post--v1" />
+                                            <h3 id="emil-results" class="form-field-title">Email Results</h3>
+                                        </div>
+                                        <div class="accordion-fold" style="display: none;">
+                                            <div class="field-group email_send">
+                                                {{ sendoffon.as_p }}
+                                                {{ creator_send.as_p }}
+                                                {{ taker_send.as_p }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-footer">
+                                <div class="button-area">
+                                    <p class="save-button-area">
+                                        <button class="btn btn-create editSettingsSubmitCheck">Save</button>
+                                        <a class="btn btn-cancel" href="{{ previous_url }}">Cancel</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="hide editor card" style="display: block;">
+                            <div class="card-header">
+                                <h5 class="color-black">Delete Link</h5>
+                            </div>
+                            <div class="card-content">
+                                <div class="row display-block">
+
+                                    <h5 class="link-name name">{{ assign_name }}</h5>
+                                    <div class="clearheight"></div>
+                                    <p class="explain">If this Link currently has any results, you must first delete
+                                        them.<br>
+                                        Go to <a
+                                            href="/a/results/tests/test/nrgusers/?test_id=2117377&amp;nrg_id=1389881">Results</a>
+                                        then come back to delete this Link.</p>
+
+                                    <p class="explain">If you want to re-use this <strong>Link</strong> you can easily
+                                        <a href="/a/assign/tests/?nrg_change_test=1&amp;nrg_id=1389881">change</a>
+                                        the assigned Test when required.</p>
+
+                                    <div id="msgDiv1389881" class="hide"></div>
+                                    <div class="clearheight"></div>
+                                    <a href="#" class="btn btn-delete hideme" id="tog_deletelink">Delete this Link</a>
+
+                                    <div class="hide" id="dotog_deletelink" style="display: none;">
+                                        <form action="" method="post" class="genericPostForm">{% csrf_token %}
+                                            <input type="hidden" name="detele_link_id" value="{{ current_model.id }}">
+                                            <div class="alert-box error "><strong>Note:</strong> Deleting is
+                                                Permanent.<br><br>Deleting may take a few moments, do not click away
+                                                from this page during deletion.</div>
+                                            <p><input type="submit" class="btn btn-delete showLoading hidemeAdmin"
+                                                    value="Confirm - Permanently Delete this Link"></p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
+<script>
+    const directLinkBtn = document.getElementById('direct-link-btn');
+    const embedTestBtn = document.getElementById('embed-test-btn');
+    const directLinkSection = document.getElementById('url-panel');
+    const embedTestSection = document.getElementById('embed-code-panel');
+    const embedCodeExplanation = document.getElementById('embed-code-explanation');
+
+    directLinkBtn.addEventListener('click', () => {
+        directLinkBtn.classList.add('btn-white');
+        directLinkBtn.classList.remove('btn-transparent');
+        embedTestBtn.classList.remove('btn-white');
+        embedTestBtn.classList.add('btn-transparent');
+        directLinkSection.style.display = 'block';
+        embedTestSection.style.display = 'none';
+        embedCodeExplanation.style.display = 'none';
+    });
+
+    embedTestBtn.addEventListener('click', () => {
+        embedTestBtn.classList.add('btn-white');
+        embedTestBtn.classList.remove('btn-transparent');
+        directLinkBtn.classList.remove('btn-white');
+        directLinkBtn.classList.add('btn-transparent');
+        directLinkSection.style.display = 'none';
+        embedTestSection.style.display = 'block';
+        embedCodeExplanation.style.display = 'block';
+    });
+
+    const copyButtons = document.querySelectorAll(".copyme-btn");
+    const textToCopy = document.querySelectorAll(".copyme");
+
+    copyButtons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy[index].textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            button.textContent = "Copied!";
+        });
+    });
+
+</script>
+
+<script>
+    const resultsTab = document.getElementById("tab-results");
+    const settingsTab = document.getElementById("tab-settings");
+    const statisticsTab = document.getElementById("tab-statistics");
+
+    resultsTab.addEventListener("click", function () {
+        resultsTab.parentElement.classList.add("tabon");
+        settingsTab.parentElement.classList.remove("tabon");
+        statisticsTab.parentElement.classList.remove("tabon");
+    });
+
+    settingsTab.addEventListener("click", function () {
+        resultsTab.parentElement.classList.remove("tabon");
+        settingsTab.parentElement.classList.add("tabon");
+        statisticsTab.parentElement.classList.remove("tabon");
+    });
+
+    statisticsTab.addEventListener("click", function () {
+        resultsTab.parentElement.classList.remove("tabon");
+        settingsTab.parentElement.classList.remove("tabon");
+        statisticsTab.parentElement.classList.add("tabon");
+    });
+
+
+    document.getElementById("tab-results").addEventListener("click", function () {
+        document.getElementById("panel-results").style.display = "block";
+        document.getElementById("panel-settings").style.display = "none";
+        document.getElementById("panel-statistics").style.display = "none";
+    });
+
+    document.getElementById("tab-settings").addEventListener("click", function () {
+        document.getElementById("panel-results").style.display = "none";
+        document.getElementById("panel-statistics").style.display = "none";
+        document.getElementById("panel-settings").style.display = "block";
+    });
+
+    document.getElementById("tab-statistics").addEventListener("click", function () {
+        document.getElementById("panel-results").style.display = "none";
+        document.getElementById("panel-settings").style.display = "none";
+        document.getElementById("panel-statistics").style.display = "block";
+    });
+
+</script>
+<script>
+    const accordionElements = document.querySelectorAll('.settings-box');
+    accordionElements.forEach((accordionElement) => {
+        const accordionToggle = accordionElement.querySelector('.accordion-toggle');
+        const accordionFold = accordionElement.querySelector('.accordion-fold');
+        accordionToggle.addEventListener('click', () => {
+            if (accordionFold.style.display === 'none' || accordionFold.style.display === '') {
+                accordionFold.style.display = 'block';
+                accordionToggle.style.background = 'none repeat scroll 0 0 #e4f1fb'
+                accordionToggle.style.borderRadius = '8px 8px 0 0'
+            } else {
+                accordionFold.style.display = 'none';
+                accordionToggle.style.background = 'none repeat scroll 0 0 white'
+                accordionToggle.style.borderRadius = '0 0 8px 8px'
+            }
+        });
+    });
+</script>
+
+<script>
+    var deleteLinkAnchor = document.querySelector('.anchor_scroll_delete');
+
+    var deleteLinkCard = document.querySelector('.hide.editor.card');
+
+    deleteLinkAnchor.addEventListener('click', function (event) {
+        event.preventDefault();
+        deleteLinkCard.style.display = 'block';
+        deleteLinkCard.style.maxHeight = deleteLinkCard.scrollHeight + 'px';
+        var targetScrollPosition = deleteLinkCard.offsetTop;
+        smoothScrollTo(targetScrollPosition, 1000)
+    });
+    function smoothScrollTo(targetPosition, duration) {
+        var startPosition = window.pageYOffset;
+        var distance = targetPosition - startPosition;
+        var startTime = performance.now();
+        function step(currentTime) {
+            var elapsedTime = currentTime - startTime;
+            var scrollPosition = easeInOutQuad(elapsedTime, startPosition, distance, duration);
+            window.scrollTo(0, scrollPosition);
+            if (elapsedTime < duration) {
+                requestAnimationFrame(step);
+            }
+        }
+        function easeInOutQuad(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+        requestAnimationFrame(step);
+    }
+</script>
+<script>
+    var deleteLinkButton = document.getElementById('tog_deletelink');
+    var confirmDeleteForm = document.getElementById('dotog_deletelink');
+    var deleteLinkCard = document.querySelector('.hide.editor.card');
+
+    deleteLinkButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        deleteLinkCard.style.maxHeight = '470px';
+        deleteLinkButton.style.display = 'none';
+        confirmDeleteForm.style.display = 'block';
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sortTriggers = document.querySelectorAll(".sort-trigger");
+        sortTriggers.forEach(trigger => {
+            trigger.addEventListener("click", function(event) {
+                const currentSort = trigger.getAttribute("data-sort");
+                const newSort = currentSort === "asc" ? "desc" : "asc";
+                trigger.setAttribute("data-sort", newSort);
+                const column = trigger.getAttribute("data-sort-by");
+                const params = new URLSearchParams();
+                params.set(column, newSort);
+                window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+            });
+        });
+    });
+</script>
+
+{% endblock %}

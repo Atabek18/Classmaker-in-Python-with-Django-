@@ -1,0 +1,1721 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+  body {
+    font-size: 14px;
+  }
+
+  body {
+    background: none repeat scroll 0 0 #f6f6f8;
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    line-height: 1;
+  }
+
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+  }
+
+  #content {
+    background: none repeat scroll 0 0 #f6f6f8;
+    padding: 30px 0;
+    min-width: 940px;
+  }
+
+  #content .innerWrapper,
+  .branding,
+  .menu.main,
+  #footer {
+    margin: 0 auto;
+    max-width: 1000px;
+    min-width: 900px;
+    padding: 0 20px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .result-overlay .result-overlay-content,
+  .innerWrapper,
+  #print-content,
+  #single-result-content,
+  .group-result {
+    width: 100%;
+    padding-top: 22px;
+    box-sizing: border-box;
+  }
+
+  .result-overlay .result-overlay-content,
+  .innerWrapper,
+  #print-content,
+  #single-result-content,
+  .group-result {
+    width: 100%;
+    padding-top: 22px;
+    box-sizing: border-box;
+  }
+
+  .cmtableTabs {
+    height: 40px;
+    margin-bottom: 32px;
+  }
+
+  ul {
+    line-height: 20px;
+  }
+
+  ol,
+  ul {
+    list-style: none outside none;
+  }
+
+  .cmtableTabs li:first-of-type {
+    margin-left: initial;
+  }
+
+  .cmtableTabs .tabon {
+    border-bottom: 3px solid #000;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+  }
+
+  @media screen and (min-width: 900px) {
+
+    .hover-row .row:hover,
+    .single-hover-row:hover {
+      background: #f1f1f3;
+      border-radius: 0 !important
+    }
+
+    li:last-of-type .accordion-fold,
+    li:last-of-type .accordion-fold ul,
+    li:last-of-type .accordion-fold .single-hover-row {
+      border-bottom-left-radius: 8px !important;
+      border-bottom-right-radius: 8px !important
+    }
+  }
+
+  .cmtableTabs li {
+    height: 20px;
+    margin-left: 40px;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    display: inline;
+    padding: 8px 0;
+    list-style: none;
+    float: left;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .dropdown:hover ul {
+    display: block
+  }
+
+  .dropdown ul a {
+    width: 100%
+  }
+
+  .dropdown ul li a.print_all_questions {
+    border-bottom: 1px solid #aaa;
+    padding-bottom: .4em
+  }
+
+  .dropdown ul li a.print_all_questions:hover,
+  .dropdown .dropdown ul li a.print_selected_questions:hover {
+    background: 0 0;
+    color: #444;
+    text-decoration: underline
+  }
+
+  .dropdown ul li:last-child a {
+    border: medium
+  }
+
+  .dropdown ul li:hover {
+    background: rgba(251, 51, 17, .05);
+    color: #fb3311 !important;
+    border-radius: 4px
+  }
+
+  .dropdown ul li:hover a {
+    color: #fb3311 !important
+  }
+
+  .dropdown ul li a:hover {
+    color: #fb3311 !important
+  }
+
+  .dropdown ul.dashboard-results {
+    min-width: 72px;
+    left: -15px
+  }
+
+  .cmtableTabs li a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  a {
+    color: #fb3311;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .table {
+    border-radius: 8px;
+    clear: both;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 40, 77, .2);
+    background: #fff;
+  }
+
+  .table.narrow-row .row {
+    height: 70px;
+    align-items: center;
+  }
+
+  .table .table-utility {
+    background: none repeat scroll 0 0 transparent;
+    padding: 16px 24px;
+    height: auto !important;
+    min-height: 30px;
+    clear: both;
+  }
+
+  .table .row {
+    border-bottom: 1px solid #dce1e5;
+    position: relative;
+    clear: both;
+    min-height: 70px;
+    margin: 0;
+    padding: 18px 24px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+  }
+
+
+  #test-search-menu {
+    display: flex;
+  }
+
+  .col-span-6 {
+    width: 60% !important;
+  }
+
+  .col-span-05,
+  .col-span-1,
+  .col-span-15,
+  .col-span-2,
+  .col-span-25,
+  .col-span-3,
+  .col-span-35,
+  .col-span-4,
+  .col-span-45,
+  .col-span-5,
+  .col-span-55,
+  .col-span-6,
+  .col-span-65,
+  .col-span-7,
+  .col-span-75,
+  .col-span-8,
+  .col-span-85,
+  .col-span-9,
+  .col-span-10 {
+    float: left;
+    line-height: 1;
+    margin-right: 0;
+    position: relative;
+    word-wrap: break-word;
+  }
+
+  body .float-left {
+    float: left;
+  }
+
+  .dropdown-x:hover {
+    border: solid 1px #dce1e5;
+    background-color: #f6f6f8;
+    cursor: pointer
+  }
+
+  .search_filter {
+    margin: 0 16px;
+    display: inline-block;
+    width: 234px;
+    height: 32px;
+  }
+
+  .dropdown-x {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: solid 1px #dce1e5;
+    border-radius: 4px;
+  }
+
+  .dropdown {
+    display: inline;
+    position: relative;
+    text-align: left;
+  }
+
+  .dropdown-x>a,
+  .dropdown-x label a {
+    background-position: 2px -1840px;
+    display: block;
+    height: 31px;
+    width: 31px;
+    text-indent: -9999px;
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  .dropdown.dropdown-x .showTooltip,
+  .dropdown.dropdown-x .showTooltipHTML,
+  .dropdown.dropdown-x .showTooltipEast,
+  .dropdown.dropdown-x .showTooltipUnder,
+  .dropdown.dropdown-x .showTooltipUpper {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    bottom: 0;
+  }
+
+  input[type=text].search {
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-repeat: no-repeat;
+    background-image: url(https://www.classmarker.com/img4/icons/icon-search.svg);
+    padding-right: 28px;
+  }
+
+  .search_filter input {
+    width: 164px;
+    padding-right: 35px;
+  }
+
+  input[type=text],
+  input[type=number],
+  input[type=password],
+  textarea {
+    border: 1px solid #dce1e5;
+    border-radius: 4px;
+    padding: 15px 16px;
+    color: #000;
+    line-height: 1.3em;
+    height: 14px;
+    font-size: 14px;
+  }
+
+  input[type=text].search:active,
+  input[type=text].search:focus {
+    background-image: none;
+    padding-right: 36px;
+  }
+
+  #test-search-button-wrapper {
+    align-self: baseline;
+    float: right;
+  }
+
+  .col-span-4 {
+    width: 40% !important;
+  }
+
+  .col-span-05,
+  .col-span-1,
+  .col-span-15,
+  .col-span-2,
+  .col-span-25,
+  .col-span-3,
+  .col-span-35,
+  .col-span-4,
+  .col-span-45,
+  .col-span-5,
+  .col-span-55,
+  .col-span-6,
+  .col-span-65,
+  .col-span-7,
+  .col-span-75,
+  .col-span-8,
+  .col-span-85,
+  .col-span-9,
+  .col-span-10 {
+    float: left;
+    line-height: 1;
+    margin-right: 0;
+    position: relative;
+    word-wrap: break-word;
+  }
+
+  .btn.btn-create,
+  .btn.btn-assign,
+  a.btn.btn-create,
+  a.btn.btn-assign,
+  .btn-large.btn-create,
+  .btn-large.btn-assign,
+  a.btn-large.btn-create,
+  a.btn-large.btn-assign {
+    background: none repeat scroll 0 0 #fb3311;
+    color: #fff !important;
+  }
+
+  body .float-right {
+    float: right;
+  }
+
+  .btn,
+  a.btn {
+    box-sizing: content-box;
+    border: none;
+    border-radius: 4px;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px !important;
+    line-height: 1;
+    margin: 0;
+    outline: none;
+    padding: 8px 12px;
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+    width: auto;
+    outline: 0 !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    height: 16px;
+    line-height: 16px;
+    font-family: Inter;
+    background: #edf0f2;
+    font-family: Inter, sans-serif;
+  }
+
+  .btn-create .caret,
+  .btn-analytics .caret {
+    background-position: 0 -2763px;
+    padding: 0 8px;
+    position: relative;
+  }
+
+  .dropdown {
+    display: inline;
+    position: relative;
+    text-align: left;
+  }
+
+  .test-sort-by {
+    float: right;
+    margin-right: 48px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .test-sort-by .icon.icon-sort {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .icon.icon-sort {
+    background: url(https://www.classmarker.com/img4/icons/icon-sort.svg) no-repeat;
+    height: 20px;
+    width: 20px;
+  }
+
+  .icon {
+    height: 16px;
+    width: 16px;
+    display: inline-flex;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  .test-sort-by a {
+    color: #6a7680;
+  }
+
+  ul.dropdown-menu.filter {
+    top: 30px;
+  }
+
+  .dropdown ul {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+    gap: 9px;
+    background: #fff;
+    width: max-content;
+    box-shadow: 0 4px 12px rgba(0, 35, 67, .35);
+    border-radius: 6px;
+    border: 1px solid #dce1e5;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: none;
+    z-index: 100;
+    left: 0;
+  }
+
+  ul.dropdown-menu {
+    position: absolute;
+    font-size: 14px;
+    border: solid 1px #ccc;
+  }
+
+  ul.dropdown-menu {
+    font-size: 13px;
+  }
+
+  .dropdown ul a {
+    width: 100%;
+  }
+
+  .dropdown ul a,
+  .dropdown .dropdown ul li span.print_options {
+    color: #000 !important;
+    display: block;
+    padding: 5px 12px;
+    text-decoration: none;
+    height: 32px;
+    line-height: 25px;
+    font-family: inherit;
+    font-weight: 400;
+    width: max-content;
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  .table .table-body {
+    margin-bottom: 36px;
+  }
+
+  .table .table-body li.row:last-of-type,
+  .table .table-body li:last-of-type>.row {
+    border-bottom: none;
+  }
+
+  .row.accordion-toggle.closed {
+    background-color: initial;
+  }
+
+  .row.accordion-toggle {
+    background-color: #e4f1fb;
+  }
+
+  .accordion-toggle.closed,
+  .accordion-toggle-overlay.closed {
+    background-position: 102.5% -2632px;
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .accordion-toggle,
+  .accordion-toggle-overlay {
+    cursor: pointer;
+  }
+
+  .name-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    width: 100%;
+  }
+
+  .table .row .name {
+    line-height: 28px;
+    margin-bottom: 0;
+  }
+
+  .name-wrapper .name {
+    position: relative;
+    width: 32px;
+    height: 30px;
+    margin-right: 6px;
+    padding: 0;
+    display: inline-flex;
+  }
+
+  .name {
+    display: block;
+    font-size: 14px;
+    line-height: 32px;
+    min-height: 2px;
+    margin-bottom: 30px;
+    padding: 0 40px;
+  }
+
+  .test-name {
+    background-position: -1px 1px;
+  }
+
+  .name-wrapper .name+.text {
+    cursor: default;
+  }
+
+  .name-wrapper .name+a,
+  .name-wrapper .name+.text {
+    text-decoration: none;
+    color: inherit;
+    line-height: 16px;
+    max-width: calc(100% - 70px);
+    cursor: pointer;
+    max-height: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .font-strong {
+    font-weight: 600;
+  }
+
+  .table.narrow-row .accordion-fold {
+    background: none repeat scroll 0 0 #fff;
+  }
+
+  li:last-of-type .accordion-fold,
+  li:last-of-type .accordion-fold ul,
+  li:last-of-type .accordion-fold .single-hover-row {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
+  .table .accordion-fold {
+    background: none repeat scroll 0 0 #fff;
+  }
+
+  .accordion-fold {
+    clear: both;
+    display: none;
+  }
+
+  .table.narrow-row .row.hint {
+    color: #888;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 16px 0 16px 62px;
+    height: 16px !important;
+    min-height: 16px;
+    line-height: 16px;
+    border-bottom: 1px solid #dce1e5 !important;
+  }
+
+  .table.narrow-row .accordion-fold .row {
+    align-items: baseline;
+    padding-left: 61px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    min-height: 46px;
+  }
+
+  li:last-of-type .accordion-fold,
+  li:last-of-type .accordion-fold ul,
+  li:last-of-type .accordion-fold .single-hover-row {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
+  .table .hover-row {
+    background-color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .table.narrow-row .row.group-list-row {
+    height: 64px !important;
+    min-height: 64px;
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    align-items: center;
+  }
+
+  .name-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    width: 100%;
+  }
+
+  .table .row .name {
+    line-height: 28px;
+    margin-bottom: 0;
+  }
+
+  .name-wrapper .name.group-name {
+    font-weight: 600;
+  }
+
+  .name.group-name {
+    padding-right: 5px !important;
+  }
+
+  .name-wrapper .name {
+    position: relative;
+    width: 32px;
+    height: 30px;
+    margin-right: 6px;
+    padding: 0;
+    display: inline-flex;
+  }
+
+  .name {
+    display: block;
+    font-size: 14px;
+    line-height: 32px;
+    min-height: 2px;
+    margin-bottom: 30px;
+    padding: 0 40px;
+  }
+
+  .group-name {
+    background-position: -3px -249px;
+  }
+
+  .name-wrapper .name+.text {
+    cursor: default;
+  }
+
+  .name-wrapper .name+a,
+  .name-wrapper .name+.text {
+    text-decoration: none;
+    color: inherit;
+    line-height: 16px;
+    max-width: calc(100% - 70px);
+    cursor: pointer;
+    max-height: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .font-strong {
+    font-weight: 600;
+  }
+
+  .table.narrow-row .row.group-list-row .group-status-area {
+    justify-content: end;
+    display: flex;
+  }
+
+  .col-span-3 {
+    width: 30% !important;
+  }
+
+  .col-span-05,
+  .col-span-1,
+  .col-span-15,
+  .col-span-2,
+  .col-span-25,
+  .col-span-3,
+  .col-span-35,
+  .col-span-4,
+  .col-span-45,
+  .col-span-5,
+  .col-span-55,
+  .col-span-6,
+  .col-span-65,
+  .col-span-7,
+  .col-span-75,
+  .col-span-8,
+  .col-span-85,
+  .col-span-9,
+  .col-span-10 {
+    float: left;
+    line-height: 1;
+    margin-right: 0;
+    position: relative;
+    word-wrap: break-word;
+  }
+
+  .col-btns {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .littledark {
+    color: #444;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .table.narrow-row .row.group-list-row .group-status-area .test-status-notice {
+    margin-top: 0;
+  }
+
+  .test-status-notice.active {
+    color: #349968;
+    background: #e6fff2;
+  }
+
+  .test-status-notice {
+    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    gap: 8px;
+    height: 20px;
+    width: 64px;
+    margin-right: 25px;
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+
+  .test-status-notice+.showTooltipHTML,
+  .test-status-notice+.showTooltipUpper {
+    width: 74px;
+    height: 23px;
+    display: block;
+    bottom: 23px;
+    position: absolute;
+    top: 5px;
+    right: 24px;
+  }
+
+  .col-span-1 {
+    width: 10%;
+  }
+
+  .row .col-btns .btn:last-of-type {
+    margin-right: 0;
+  }
+
+  .row .col-btns .btn {
+    margin-right: 8px;
+  }
+
+  .btn.btn-results,
+  .btn.btn-preview,
+  a.btn.btn-results,
+  a.btn.btn-preview,
+  .btn-large.btn-results,
+  .btn-large.btn-preview,
+  a.btn-large.btn-results,
+  a.btn-large.btn-preview {
+    background: none repeat scroll 0 0 #3cb27a;
+    color: #fff !important;
+  }
+
+  .col-btns>a.btn-results,
+  .col-btns>a.btn-noresults {
+    margin-left: 10px;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus,
+  .row.link-list-row .assigned-test-icon-menus {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 130px;
+  }
+
+  .group-list-row .assigned-test-icon-menus {
+    top: -6px !important;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon {
+    width: 32px;
+    height: 32px;
+    background-image: url(https://www.classmarker.com/img4/icons/setting-fade.svg);
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon,
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+  }
+
+  .row.group-list-row.link-tab-opened .open_embed_links,
+  .row.link-list-row.link-tab-opened .open_embed_links {
+    background-image: url(https://www.classmarker.com/img4/icons/link-hover.svg);
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links {
+    background-image: url(https://www.classmarker.com/img4/icons/link-hover.svg);
+    margin-right: 8px;
+    float: initial;
+    border-radius: 0;
+    border: none;
+    cursor: pointer;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon,
+  .row.group-list-row .assigned-test-icon-menus .open_embed_links,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon,
+  .row.link-list-row .assigned-test-icon-menus .open_embed_links {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+  }
+
+  .open_embed_links {
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    border: 1px solid #dce1e5;
+    display: inline-block;
+    float: right;
+    margin-right: 40px;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus .setting-icon+.setting-icon-tool-tip,
+  .row.link-list-row .assigned-test-icon-menus .setting-icon+.setting-icon-tool-tip {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+
+  .table.narrow-row .row.link-list-row .link-name-area,
+  .table.narrow-row .row.link-list-row link-status-area {
+    top: 7px;
+    position: relative;
+  }
+
+  .linksinafold.show-direct-links {
+    padding-top: 30px;
+  }
+
+  .editor {
+    line-height: 1.5;
+  }
+
+  .editor {
+    line-height: 1.5;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  .linksinafold {
+    margin: 5px 0 0 36px;
+    font-size: 13px;
+    padding: 0;
+    clear: both;
+  }
+
+  .clear {
+    clear: both;
+    display: none;
+  }
+
+  .editor p,
+  .editor ul,
+  .editor ol,
+  .editor img {
+    margin-bottom: 1em;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .editor strong {
+    font-weight: 600;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .tooltip {
+    background-position: 0 -3550px;
+    color: #000;
+    cursor: help;
+    display: inline-block;
+    outline: medium;
+    position: relative;
+    text-decoration: none;
+    text-indent: -999em;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+
+  .table.narrow-row .row.link-list-row {
+    height: 64px;
+    min-height: 64px;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+  }
+
+  .table.narrow-row .row.link-list-row .link-name-area,
+  .table.narrow-row .row.link-list-row link-status-area {
+    top: 7px;
+    position: relative;
+  }
+
+  .table.narrow-row .row.link-list-row .link-status-area {
+    position: relative;
+    top: 6px;
+  }
+
+  .table.narrow-row .row.link-list-row .col-btns {
+    top: 8px;
+  }
+
+  .table.narrow-row .row.link-list-row .link-name-area .name-wrapper.link-name-wrapper,
+  .table.narrow-row .row.link-list-row link-status-area .name-wrapper.link-name-wrapper {
+    top: 0;
+  }
+
+  .name-wrapper.link-name-wrapper {
+    position: relative;
+  }
+
+  .link-name {
+    background-position: -2px -491px;
+  }
+
+  .name-wrapper .name.link-name {
+    font-weight: 600;
+  }
+
+  .linksinafold.show-direct-links {
+    padding-top: 30px;
+  }
+
+  .linksinafold {
+    margin: 5px 0 0 36px;
+    font-size: 13px;
+    padding: 0;
+    clear: both;
+  }
+
+  .table.narrow-row .row.link-list-row .link-status-area {
+    position: relative;
+    top: 6px;
+  }
+
+  .test-status-notice+.showTooltipHTML,
+  .test-status-notice+.showTooltipUpper {
+    width: 74px;
+    height: 23px;
+    display: block;
+    bottom: 23px;
+    position: absolute;
+    top: 5px;
+    right: 24px;
+  }
+
+  .row.group-list-row.link-tab-opened .assigned-test-icon-menus,
+  .row.link-list-row.link-tab-opened .assigned-test-icon-menus {
+    display: inline-flex;
+  }
+
+  .row.group-list-row .assigned-test-icon-menus,
+  .row.link-list-row .assigned-test-icon-menus {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 130px;
+  }
+
+  .table.narrow-row .accordion-fold .row:last-of-type {
+    border-bottom: 1px solid #dce1e5;
+  }
+
+  .btn.btn-assign-test,
+  a.btn.btn-assign-test,
+  .btn-large.btn-assign-test,
+  a.btn-large.btn-assign-test {
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: 7px -1719px;
+    border: medium;
+    color: #fb3311;
+    padding-left: 34px;
+    text-shadow: none;
+    font-weight: 400;
+  }
+
+  .menu-sections li,
+  .home-name,
+  .results-name,
+  .certificate-name,
+  .icon-calendar,
+  .icon-calendar-green,
+  .test-name,
+  .test-name-big,
+  .group-name,
+  .group-name-big,
+  .link-name,
+  .stat-name,
+  .stat-name-big,
+  .search-name,
+  .member-name,
+  .member-name-medium,
+  .member-name-big,
+  .question-name,
+  .theme-name,
+  .media-name,
+  .category-name,
+  .lock-name,
+  .certificate-name,
+  .accesslist-name,
+  .ipblock-name,
+  .community-name,
+  .tick,
+  .dropdown-x>a,
+  .tooltip,
+  .dropdown-x label a,
+  .btn-create .caret,
+  .btn-actions .caret,
+  .btn.dropdown-toggle .caret,
+  .btn-assign.alt-a,
+  .btn.btn-toggle-analytics,
+  .table .result-fail,
+  .table .result-pass,
+  .table .result-grading,
+  .write-pre,
+  .write-ol,
+  .write-ul,
+  .write-font-link,
+  .write-video,
+  .user-manual,
+  .write-center,
+  .write-bold,
+  .write-fontM,
+  .write-fontL,
+  .write-fontS,
+  .write-question-preview,
+  .write-sub,
+  .write-sup,
+  .write-italic,
+  .write-underline,
+  .write-line-through,
+  .write-square-root,
+  .write-image,
+  .write-font-color,
+  .video-help,
+  .step-by-step,
+  .envelope-name {
+    background-image: url(https://www.classmarker.com/img4/icons/sprite.png?v=1);
+    background-image: -webkit-image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-image: image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-repeat: no-repeat;
+  }
+
+  .btn.btn-assign-test,
+  a.btn.btn-assign-test,
+  .btn-large.btn-assign-test,
+  a.btn-large.btn-assign-test {
+    background-image: url(https://www.classmarker.com/img4/icons/sprite.png?v=1);
+    background-image: -webkit-image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-image: image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: 7px -1719px;
+    border: medium;
+    color: #fb3311;
+    padding-left: 34px;
+    text-shadow: none;
+    font-weight: 400;
+  }
+
+  .dropdown-x {
+    display: block;
+    width: 29px;
+    height: 30px;
+    border: solid 1px #dce1e5;
+    border-radius: 4px;
+  }
+
+  .dropdown-x>a,
+  .dropdown-x label a {
+    background-position: 2px -1840px;
+    display: block;
+    height: 31px;
+    width: 31px;
+    text-indent: -9999px;
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  .dropdown-x .dropdown-toggle.shrink {
+    background: url(https://www.classmarker.com/img4/icons/icon-shrink.svg) no-repeat;
+    width: 31px;
+    height: 31px;
+    background-position: 6px 6px;
+  }
+
+  .row.accordion-toggle .col-btns {
+    position: relative;
+    top: 0;
+  }
+
+  .col-span-4 {
+    width: 40% !important;
+  }
+
+  a.assign-test,
+  a.assign-to-group {
+    background-position: 0 -4803px;
+  }
+
+  a.edit-test,
+  a.edit-group,
+  a.edit-link,
+  a.assign-test,
+  a.assign-to-group,
+  a.view-analytics {
+    color: #444;
+    background-image: url(https://www.classmarker.com/img4/icons/sprite.png?v=1);
+    background-image: -webkit-image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-image: image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-repeat: no-repeat;
+    padding: 18px 0 18px 20px;
+    margin: 0 10px;
+    font-size: 12px;
+  }
+
+  .row .col-btns .btn:last-of-type {
+    margin-right: 0;
+  }
+
+  .row .col-btns .btn {
+    margin-right: 8px;
+  }
+
+  .btn.btn-analytics,
+  a.btn.btn-analytics,
+  .btn-large.btn-analytics,
+  a.btn-large.btn-analytics {
+    background: none repeat scroll 0 0 #0896e6;
+    color: #fff !important;
+    white-space: nowrap;
+  }
+
+  .dropdown a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  a.view-analytics {
+    background-position: 0 -4861px;
+  }
+
+  .btn.btn-analytics:hover,
+  a.btn.btn-analytics:hover,
+  .btn-large.btn-analytics:hover,
+  a.btn-large.btn-analytics:hover {
+    background-color: #0071d9
+  }
+
+  .btn.btn-create:hover,
+  .btn.btn-assign:hover,
+  a.btn.btn-create:hover,
+  a.btn.btn-assign:hover,
+  .btn-large.btn-create:hover,
+  .btn-large.btn-assign:hover,
+  a.btn-large.btn-create:hover,
+  a.btn-large.btn-assign:hover {
+    background: none repeat scroll 0 0 #e02e0f
+  }
+
+  a:hover {
+    text-decoration: underline
+  }
+
+  .table .row.accordion-toggle:hover,
+  .table .row.accordion-toggle-overlay:hover {
+    background: none repeat scroll 0 0 #e4f1fb
+  }
+
+  .table.narrow-row .accordion-fold .row:last-of-type {
+    border-bottom: 1px solid #dce1e5;
+  }
+
+  .table .accordion-fold .row {
+    height: auto !important;
+    align-items: baseline;
+    padding-left: 61px;
+  }
+
+  .clearfix:after,
+  .row:after {
+    clear: both;
+  }
+
+  .clearfix:before,
+  .clearfix:after,
+  .row:before,
+  .row:after {
+    content: "";
+    display: table;
+  }
+
+  .accordion-toggle.closed>.caret,
+  .accordion-toggle-overlay.closed>.caret {
+    background: url(https://www.classmarker.com/img4/icons/sprite.png?v=1) repeat scroll 0 -2653px transparent;
+    background-image: -webkit-image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+    background-image: image-set(url(https://www.classmarker.com/img4/icons/sprite.png?v=1) 1x, url(https://www.classmarker.com/img4/icons/sprite@2x.png?v=1) 2x, url(https://www.classmarker.com/img4/icons/sprite@3x.png?v=1) 3x);
+  }
+
+  .accordion-toggle>.caret,
+  .accordion-toggle-overlay>.caret {
+    margin-top: -7px;
+    padding: 0 6px;
+    position: absolute;
+    right: 28px;
+    top: 50%;
+  }
+
+  /* .empty-group-link-row {
+    height: initial !important;
+    flex-direction: column !important;
+    align-items: baseline !important;
+  } */
+
+  .display-block {
+    display: block !important;
+  }
+
+  .clearheight {
+    clear: both;
+    height: 15px;
+    width: auto;
+  }
+
+  .namepad {
+    padding: 2px 36px;
+  }
+
+  a.showcont {
+    margin: 0;
+    padding: 0 18px 0 0;
+    clear: both;
+    background: url(https://www.classmarker.com/img4/icons/caret-orange.svg) right no-repeat;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+<div id="content" class="clearfix">
+  <section>
+    <div class="innerWrapper">
+      <div class="table narrow-row">
+        <div class="table-utility row">
+
+          <div class="col-span-6">
+            <div class="float-left hide_if_no_data">
+              <div class="dropdown dropdown-x" style="display: {% if objects %} block {% else %} none {% endif %};">
+                <a class="dropdown-toggle no_anchor" href="#"> Options </a>
+                <span id="link-expand-toggle" class="showTooltipUpper" original-title="Expand All"></span>
+              </div>
+            </div>
+            <span class="hide_if_no_data not-ie67 search_filter"
+              style="display: {% if objects %} block {% else %} none {% endif %};">
+              <input type="text" id="link_search" class="search_filter search" placeholder="Search Link Name"
+                onclick="this.select();" wfd-id="id12">
+            </span>
+
+
+          </div>
+          <div class="col-span-4 float-right">
+            <a class="btn btn-create float-right" href="/a/assign/tests/">
+              <span class="caret">&nbsp;</span> New Link
+            </a>
+
+            <span class="hide_if_no_data not-ie67 dropdown test-sort-by link-sort-by float-right"><i
+                class="icon icon-sort" aria-hidden="true"></i><a class="sort-button"> Sort by: Alphabetical</a>
+              <ul class="dropdown-menu filter">
+                <li><a class="sortAlphabetical" href="?alpabetical=True">Alphabetical</a></li>
+                <li><a class="sortDateAdded" href="?resent=True">Recently Added</a></li>
+              </ul>
+            </span>
+          </div>
+        </div>
+
+        <!-- LINKS LIST: START -->
+        <ul class="table-body">
+          {% if not objects %}
+          <div class="row empty-group-link-row editor" style="display: flex;
+          padding: 0;
+          min-height: 300px;
+          align-items: center;
+          justify-content: center;
+          justify-items: center;
+          border-bottom: none;
+          color: #000;
+          font-family: Inter,sans-serif;">
+            <div class="display-block">
+              <p class="link-name name">You have not created any Links yet.</p>
+              <div class="clearheight"></div>
+              <div class="namepad">
+                <a href="#" id="tog_ghelp" class="showcont">What are Links used for?</a>
+                <div class="hide" id="dotog_ghelp">
+                  <div class="clearheight"></div>
+                  <p>After you create your Tests, you can create unique Links which are used to give access to your
+                    Tests.</p>
+                  <p>No User registration is required, just send the Link out to your Test takers.</p>
+                  <ul>
+                    <li>Control who can take your Tests or make them public, plus many other options.</li>
+                    <li>Links also allow you to embed exams in your website or social media.</li>
+                  </ul>
+                  <p>Learn more about Links in the <a href="/online-testing/manual/?get_content=assign"
+                      class="popup">Help Section</a>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const toghelps = document.getElementById('tog_ghelp');
+              const doghelps = document.getElementById('dotog_ghelp');
+              toghelps.addEventListener('click', function () {
+                doghelps.style.display = (doghelps.style.display === 'none' || doghelps.style.display === '') ? 'block' : 'none';
+              })
+            });
+          </script>
+          {% endif %}
+          {% for object in objects %}
+          <li>
+
+            <div class="row accordion-toggle scrollTop link_container closed">
+              <div class="col-span-6">
+                <div class="name-wrapper link-name-wrapper">
+                  <p class="link-name name"></p>
+                  <span class="graylink text font-strong">{{ object.assign_name }}</span>
+                </div>
+              </div>
+              <div class="col-span-4 col-btns" style="display: none;">
+                <div class="dropdown">
+                  <a class="view-analytics no_anchor" href="#">Statistics <span class="caret">&nbsp;</span></a>
+                  <ul class="dropdown-menu statistics" style="top: 25px;">
+                    <li><a class="" href="/a/results/questions/?test_id=2117377&amp;nrg_id=1398161">By
+                        Question</a></li>
+                  </ul>
+                </div>
+
+              </div>
+              <span class="caret">&nbsp;</span>
+            </div>
+
+            <div class="accordion-fold subrow-container link_tests" style="display: none;">
+              <div class="row hint">Assigned Test:</div>
+              <ul>
+                <li class="row single-hover-row link-list-row">
+                  <div class="col-span-6 link-name-area">
+
+                    <div class="name-wrapper link-name-wrapper">
+                      <p class="test-name name"></p>
+                      <a href="{% url 'TestingSystem:questions' test_id=object.test_MTO.id test_description=object.test_MTO.slug %}"
+                        class="graylink text font-strong">{{ object.test_MTO.title }}</a>
+                    </div>
+
+
+                    <div class="linksinafold show-direct-links editor clear hide">
+                      <p><strong>Options for giving access to this Test:</strong></p>
+                      <p>Test link <span class="showTooltip tooltip"
+                          title="Use this format to send this link to your test takers via email. You can also post this link on your website, add to facebook, twitter etc.">tip</span>
+                        <br><input id="qa-test-url" class="textinput" type="text" size="60"
+                          value="https://www.classmarker.com/online-test/start/?quiz=e7h6550e3c18c5a7"
+                          onclick="javascript:this.focus();this.select();" readonly="readonly" wfd-id="id13">
+                      </p>
+
+
+                      <p>Embed test into your website <span class="showTooltipHTML tooltip"
+                          title="Insert this CODE to embed this test directly in your website.<br></span>Only use 'one' test per 'web page'.">tip</span>
+                        <br>
+                        <input class="textinput" type="text" size="60"
+                          value="<script src=&quot;https://www.classmarker.com/public/js/embed-classmarker-1.0.0.js?quiz=e7h6550e3c18c5a7&quot; data-quiz=&quot;e7h6550e3c18c5a7&quot; data-width=&quot;700&quot; data-height=&quot;800&quot; ></script>"
+                          onclick="javascript:this.focus();this.select();" readonly="readonly" wfd-id="id14">
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-span-3  link-status-area">
+
+
+                    <div class="test-status-notice active"> Active</div>
+
+                    <span class="showTooltipUpper"
+                      title="Available to Start">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+
+                    <div class="assigned-test-icon-menus">
+                      <span class="open_embed_links "><a href="#" class="link-name ex_link"></a>
+                      </span>
+                      <a href="{% url 'Assign:edit-assign' assign_id=object.id test_description=object.test_MTO.slug %}"
+                        class="setting-icon"></a>
+                      <span class="showTooltipUpper setting-icon-tool-tip"
+                        title="Settings">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </div>
+                  </div>
+                  <div class="col-span-1 col-btns littledark">
+                    <a href="#"
+                      class="btn btn-results">Results</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <div class="row col_center hide" id="load_more_row" style="display: none;"><a href="#"
+            class="loadMore btn ">Load More Links</a>
+        </div>
+        <input type="hidden" class="loadMoreOnScroll" value="" wfd-id="id19">
+
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  const toggleList = (event) => {
+    const hiddenList = event.target.nextElementSibling;
+    if (hiddenList.style.display === 'none') {
+      hiddenList.style.display = 'block';
+    } else {
+      hiddenList.style.display = 'none';
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButtons = document.querySelectorAll('.test-name.name');
+
+    toggleButtons.forEach((button) => {
+      button.addEventListener('click', toggleList);
+    });
+  });
+  $(document).ready(function () {
+    $('.cmtableTabs li').click(function () {
+      $('.cmtableTabs li').removeClass('selected');
+      $(this).addClass('selected');
+    });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const openLinksButtons = document.querySelectorAll(".open_embed_links");
+    const linkDivs = document.querySelectorAll(".linksinafold");
+    openLinksButtons.forEach((button, index) => {
+      button.addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent the default link behavior
+        if (linkDivs[index].style.display === "none" || linkDivs[index].style.display === "") {
+          linkDivs[index].style.display = "block";
+        } else {
+          linkDivs[index].style.display = "none";
+        }
+      });
+    });
+  });
+  // document.addEventListener("DOMContentLoaded", function () {
+  //   const toggleDivs = document.querySelectorAll('.row.accordion-toggle.scrollTop.link_container.closed');
+  //   toggleDivs.forEach(toggleDiv => {
+  //     const blockDiv = toggleDiv.nextElementSibling;
+  //     const foldContainer = toggleDiv.nextElementSibling.nextElementSibling;
+  //     toggleDiv.addEventListener('click', function () {
+  //       toggleDiv.classList.toggle('closed');
+  //       blockDiv.style.display = toggleDiv.classList.contains('closed') ? 'none' : 'block';
+  //       foldContainer.style.display = toggleDiv.classList.contains('closed') ? 'none' : 'block';
+  //     });
+  //   });
+  // });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleDivs = document.querySelectorAll('.row.accordion-toggle.scrollTop.link_container.closed');
+    const blockDivs = document.querySelectorAll('.col-span-4.col-btns');
+    const foldContainers = document.querySelectorAll('.accordion-fold.subrow-container.link_tests');
+    toggleDivs.forEach(function (toggleDiv, index) {
+      toggleDiv.addEventListener('click', function () {
+        toggleDiv.classList.toggle('closed');
+        foldContainers[index].classList.toggle('open');
+        blockDivs[index].style.display = toggleDiv.classList.contains('closed') ? 'none' : 'block';
+        foldContainers[index].style.display = toggleDiv.classList.contains('closed') ? 'none' : 'block';
+      });
+    });
+  });
+
+
+</script>
+
+<script>
+  $(document).ready(function () {
+      function debounce(func, wait, immediate) {
+          let timeout;
+          return function () {
+              const context = this;
+              const args = arguments;
+              const later = function () {
+                  timeout = null;
+                  if (!immediate) func.apply(context, args);
+              };
+              const callNow = immediate && !timeout;
+              clearTimeout(timeout);
+              timeout = setTimeout(later, wait);
+              if (callNow) func.apply(context, args);
+          };
+      }
+      function searchTests(query) {
+          const resultsList = $('.table-body');
+
+          query = query.toLowerCase();
+
+          let found = false;
+
+          $('span.graylink.text.font-strong').each(function () {
+              const testName = $(this).text().toLowerCase();
+              const listItem = $(this).closest('li');
+
+              if (testName.includes(query)) {
+                  listItem.show();
+                  found = true;
+              } else {
+                  listItem.hide();
+              }
+          });
+
+          resultsList.toggle(found);
+      }
+
+      const debouncedSearch = debounce(function () {
+          const query = $('#link_search').val();
+          console.log(query);
+          if (query.trim() !== '') {
+              searchTests(query);
+          } else {
+              $('.table-body li').show();
+          }
+      }, 0);
+
+      $('#link_search').on('input', debouncedSearch);
+  });
+
+{% endblock %}

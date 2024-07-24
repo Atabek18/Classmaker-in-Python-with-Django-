@@ -1,0 +1,105 @@
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+
+}
+.container {
+  margin: 0 auto;
+  padding:40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+ }
+
+.description {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px rgba(0, 1, 1, 0.1);
+    margin-top: 1rem;
+  }
+
+.form-label {
+  display: flex;
+  margin-top: 40px;
+  margin-left: 100px;
+}
+
+.form-test {
+  width: 40%;
+  padding: 8px;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0px;
+  margin-left: 100px;
+  box-shadow: 0px 5px 10px rgba(0, 1, 1, 0.1);
+}
+
+
+button {
+  position: relative;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.test-type {
+    display: none;
+}
+
+.test-type.active {
+    display: block;
+}
+.form-test:focus{
+  border: 1px solid #979797;
+  outline: none; 
+  background-color: #ffffff;
+}
+#create-test {
+  position: relative;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+}
+.submit-form{
+  margin: 10px;
+}

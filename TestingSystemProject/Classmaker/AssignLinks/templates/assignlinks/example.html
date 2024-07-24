@@ -1,0 +1,44 @@
+{% extends "testingsystem/Main_Page.html" %}
+
+{% load bootstrap4 %}
+{% load static %}
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
+{% block content %}
+{% bootstrap_css %}
+<h2>Create or Edit Assignment Links</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ assign_link_form.as_p }}
+
+    {% bootstrap_form form %}
+    
+    {{ attempts_form.as_p }}
+    
+    {{ restrictions_form.as_p }}
+    
+    {{ print_copy_paste_translatef_form.as_p }}
+    
+    {{ display_each_question_form.as_p }}
+    
+    {{ instruction_form.as_p }}
+    
+    {{ limit_time_form.as_p }}
+    
+    {{ results_page_form.as_p }}
+    {{ pass_mark_and_feedback_form.as_p }}
+    {{ email_results_intructor_form.as_p }}
+    {{ taker_email_send_form.as_p }}
+    <button type="submit">Save Assignment Link</button>
+</form>
+
+<!-- Display any additional content or messages here -->
+
+{% endblock %}
