@@ -18,7 +18,7 @@ class JWTAuthentication(BaseAuthentication):
         if not auth_header:
             return None, None
         try:
-            token_type, token = auth_header.split()
+            token_type, token = auth_header.split() if len(auth_header.split()) != 1 else None, None
             if token_type.lower() != self.TOKEN_TYPE.lower():
                 raise AuthenticationFailed("Invalid token type")
 
@@ -28,8 +28,7 @@ class JWTAuthentication(BaseAuthentication):
             user_id = decoded_payload.get("user_id")
             if user_id:
                 try:
-                    user = UserRegisterModel.objects.get(id=user_id)
-                    return user, True
+                    return UserRegisterModel.objects.get(id=user_id), True
                 except UserRegisterModel.DoesNotExist:
                     raise AuthenticationFailed("User not found")
             else:
@@ -44,7 +43,7 @@ class JWTAuthentication(BaseAuthentication):
         return self.TOKEN_TYPE
 
     def generate_token(self, payload):
-        expiration_time = datetime.utcnow() + timedelta(minutes=15)
+        expiration_time = datetime.now() + timedelta(minutes=15)
         payload["exp"] = expiration_time
         token = jwt.encode(payload, settings.SECRET_KEY, algorithm=self.ALGORITHM)
         return token

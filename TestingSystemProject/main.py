@@ -331,7 +331,111 @@ def get_packages_sizes():
     return package_sizes
 
 # Main function to display package sizes
-if __name__ == "__main__":
-    package_sizes = get_packages_sizes()
-    for package, size in sorted(package_sizes, key=lambda x: x[1], reverse=True):
-        print(f"{package}: {size:.2f} MB")
+# if __name__ == "__main__":
+#     package_sizes = get_packages_sizes()
+#     for package, size in sorted(package_sizes, key=lambda x: x[1], reverse=True):
+#         print(f"{package}: {size:.2f} MB")
+
+
+input = [-6, -5, 1, 2, 3, 4]
+output = [1, 4, 9, 16, 25, 36]
+length = len(input)
+res = []
+def sort_and_power(input: list[int]) -> list[int]:
+    for index, (left_num, right_num) in enumerate(zip(input, input[1:])):
+        if left_num < 0 and right_num >= 0:
+            left = index 
+            right = index + 1
+
+    while left >= 0 and right < length:
+        if abs(input[left]) < input[right]:
+            res.append(input[left] ** 2)
+            left -= 1
+        else:
+            res.append(input[right] ** 2)
+            right += 1
+
+    while left >= 0:
+        res.append(input[left]**2)
+        left -= 1
+    
+    while right < length:
+        res.append(input[right] ** 2)
+        right += 1
+    
+    
+        
+input = [6, 2, 3, 7, 0, 1]
+def  solution(input: list[int], k: int) -> list[int]:
+    main_length = len(input) - k + 1
+    res = {k:[]}
+    for i in range(main_length):
+        res[k].append(max(input[:i+k]))
+    return res[k]
+
+
+class Stack:
+    def __init__(self) -> None:
+        self.items = []
+
+    def is_empty(self):
+        if self.items == []:
+            return True
+    def push(self, item):
+        self.items.append(item)
+
+import queue
+from queue import Empty
+from collections import deque
+import threading
+q = queue.Queue()
+
+
+# Enqueue elements
+q.put('a', block=False)
+q.put('b', block=False)
+q.put('c', block=False)
+
+print("Queue size:", q.qsize())
+
+# Dequeue elements
+print("Dequeued element:",  q.get())
+print("Queue size after dequeue:", q.qsize())
+
+
+class CustomQueue:
+    
+    def __init__(self) -> None:
+        self.queue = deque()
+        self.mutex = threading.Lock()
+
+    def __repr__(self) -> str:
+        return str(self.queue)
+
+    def is_empty(self) -> bool:
+        with self.mutex:
+            return not self.qsize()
+        
+    def enqueue(self, item: any) -> None:
+        if item is not None:
+            self.queue.append(item)
+        else:
+            raise ValueError("Item cannot be None")
+    
+    def dequeue(self) -> any:
+        if not self.is_empty():
+            return self.queue.popleft()
+        else:
+            raise Empty
+        
+    def qsize(self) -> int:
+        return len(self.queue)
+        
+q_custom = CustomQueue()
+
+q_custom.enqueue(1)
+q_custom.enqueue(2)
+q_custom.enqueue(3)
+print(q_custom.dequeue())
+print(q_custom.dequeue())
+print(q_custom.is_empty())

@@ -75,15 +75,21 @@ const Start = ({}) => {
   const [startResponseData, setStartResponseData] = useState(null);
   const handleStartButtonClick = async () => {
     try {
+      let header = null;
       const storedToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwtToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-
-      const response = await axios.post(  
+      if (storedToken !== '' & storedToken !== null & storedToken !== undefined) {
+          header = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${storedToken}`,
+          };
+      }
+      const response = await axios.post(
         'http://127.0.0.1:8000/api/start/',
         {},
         {
-          headers: {
+          headers: header != null ? header : {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${storedToken}`,
+            'Authorization': `Bearer ${storedToken}`
           },
         }
       );
