@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from AssignLinks.models import AssignLinkModel
 from .view_helper import API_HELPER_JSON, RandomizeTest
-from .serializers import UserRegisterModelSerializer
+from .serializers import UserRegisterModel
 from UserResponse.models import (
     CurrentPageModel,
 )

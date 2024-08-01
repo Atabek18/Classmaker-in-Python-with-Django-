@@ -51,7 +51,6 @@
 # #     return query_items
 
 
-
 # # from datetime import datetime
 
 
@@ -180,7 +179,6 @@
 # download_video(url, output_path)
 
 
-
 # import json
 
 # class SkillManager:
@@ -250,7 +248,7 @@
 # # Example usage
 # skill_manager = SkillManager()
 # skill_manager.load_skill("playfootball.json")  # Load from original location
-# skill_manager.save_skill("football", approve=True)  # Save with approval to Skills folder 
+# skill_manager.save_skill("football", approve=True)  # Save with approval to Skills folder
 
 # import datetime
 
@@ -287,9 +285,13 @@
 # # dynamic_time_manager.reload_page()
 
 import os
-import pkg_resources
 import importlib.util
 import subprocess
+import queue
+from queue import Empty
+from collections import deque
+import threading
+
 
 def get_installed_packages():
     """Get a list of all installed packages."""
@@ -297,6 +299,7 @@ def get_installed_packages():
     lines = result.stdout.strip().split('\n')[2:]  # Skip header lines
     packages = [line.split()[0] for line in lines]
     return packages
+
 
 def get_package_path(package_name):
     """Get the installation path of a package."""
@@ -309,6 +312,7 @@ def get_package_path(package_name):
     except ModuleNotFoundError:
         return None
 
+
 def get_size(path):
     """Calculate the size of a directory."""
     total_size = 0
@@ -317,6 +321,7 @@ def get_size(path):
             fp = os.path.join(dirpath, f)
             total_size += os.path.getsize(fp)
     return total_size
+
 
 def get_packages_sizes():
     """Get sizes of all installed packages."""
@@ -330,6 +335,7 @@ def get_packages_sizes():
             package_sizes.append((package, size_in_mb))
     return package_sizes
 
+
 # Main function to display package sizes
 # if __name__ == "__main__":
 #     package_sizes = get_packages_sizes()
@@ -341,10 +347,12 @@ input = [-6, -5, 1, 2, 3, 4]
 output = [1, 4, 9, 16, 25, 36]
 length = len(input)
 res = []
+
+
 def sort_and_power(input: list[int]) -> list[int]:
     for index, (left_num, right_num) in enumerate(zip(input, input[1:])):
-        if left_num < 0 and right_num >= 0:
-            left = index 
+        if left_num < 0 <= right_num:
+            left = index
             right = index + 1
 
     while left >= 0 and right < length:
@@ -356,21 +364,22 @@ def sort_and_power(input: list[int]) -> list[int]:
             right += 1
 
     while left >= 0:
-        res.append(input[left]**2)
+        res.append(input[left] ** 2)
         left -= 1
-    
+
     while right < length:
         res.append(input[right] ** 2)
         right += 1
-    
-    
-        
+
+
 input = [6, 2, 3, 7, 0, 1]
-def  solution(input: list[int], k: int) -> list[int]:
+
+
+def solution(input: list[int], k: int) -> list[int]:
     main_length = len(input) - k + 1
-    res = {k:[]}
+    res = {k: []}
     for i in range(main_length):
-        res[k].append(max(input[:i+k]))
+        res[k].append(max(input[:i + k]))
     return res[k]
 
 
@@ -381,15 +390,11 @@ class Stack:
     def is_empty(self):
         if self.items == []:
             return True
+
     def push(self, item):
         self.items.append(item)
 
-import queue
-from queue import Empty
-from collections import deque
-import threading
 q = queue.Queue()
-
 
 # Enqueue elements
 q.put('a', block=False)
@@ -399,12 +404,12 @@ q.put('c', block=False)
 print("Queue size:", q.qsize())
 
 # Dequeue elements
-print("Dequeued element:",  q.get())
+print("Dequeued element:", q.get())
 print("Queue size after dequeue:", q.qsize())
 
 
 class CustomQueue:
-    
+
     def __init__(self) -> None:
         self.queue = deque()
         self.mutex = threading.Lock()
@@ -415,22 +420,23 @@ class CustomQueue:
     def is_empty(self) -> bool:
         with self.mutex:
             return not self.qsize()
-        
+
     def enqueue(self, item: any) -> None:
         if item is not None:
             self.queue.append(item)
         else:
             raise ValueError("Item cannot be None")
-    
+
     def dequeue(self) -> any:
         if not self.is_empty():
             return self.queue.popleft()
         else:
             raise Empty
-        
+
     def qsize(self) -> int:
         return len(self.queue)
-        
+
+
 q_custom = CustomQueue()
 
 q_custom.enqueue(1)
