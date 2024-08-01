@@ -250,7 +250,7 @@
 # # Example usage
 # skill_manager = SkillManager()
 # skill_manager.load_skill("playfootball.json")  # Load from original location
-# skill_manager.save_skill("football", approve=True)  # Save with approval to Skills folder 
+# skill_manager.save_skill("football", approve=True)  # Save with approval to Skills folder
 
 # import datetime
 
@@ -344,7 +344,7 @@ res = []
 def sort_and_power(input: list[int]) -> list[int]:
     for index, (left_num, right_num) in enumerate(zip(input, input[1:])):
         if left_num < 0 and right_num >= 0:
-            left = index 
+            left = index
             right = index + 1
 
     while left >= 0 and right < length:
@@ -358,13 +358,13 @@ def sort_and_power(input: list[int]) -> list[int]:
     while left >= 0:
         res.append(input[left]**2)
         left -= 1
-    
+
     while right < length:
         res.append(input[right] ** 2)
         right += 1
-    
-    
-        
+
+
+
 input = [6, 2, 3, 7, 0, 1]
 def  solution(input: list[int], k: int) -> list[int]:
     main_length = len(input) - k + 1
@@ -404,7 +404,7 @@ print("Queue size after dequeue:", q.qsize())
 
 
 class CustomQueue:
-    
+
     def __init__(self) -> None:
         self.queue = deque()
         self.mutex = threading.Lock()
@@ -415,22 +415,22 @@ class CustomQueue:
     def is_empty(self) -> bool:
         with self.mutex:
             return not self.qsize()
-        
+
     def enqueue(self, item: any) -> None:
         if item is not None:
             self.queue.append(item)
         else:
             raise ValueError("Item cannot be None")
-    
+
     def dequeue(self) -> any:
         if not self.is_empty():
             return self.queue.popleft()
         else:
             raise Empty
-        
+
     def qsize(self) -> int:
         return len(self.queue)
-        
+
 q_custom = CustomQueue()
 
 q_custom.enqueue(1)
